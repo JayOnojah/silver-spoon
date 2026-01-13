@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
+import HomeHero from "@/components/_core/landing-pages/home/hero";
 
 const Page = () => {
   return (
-    <div className="min-h-screen min-w-screen flex items-center justify-center">
-      <Button>Hello World!</Button>
+    <div className="">
+      <HomeHero />
     </div>
   );
 };
