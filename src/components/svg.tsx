@@ -248,3 +248,116 @@ export const UsersIcon = () => {
         </svg>
     )
 }
+
+export const FlashIcon = () => {
+    return (
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <path
+                d="M13.7143 0.857117V9.42855H19.7143L10.2857 23.1428V14.5714H4.28571L13.7143 0.857117Z"
+                stroke="#F74F25"
+                strokeWidth="1.37143"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+
+    )
+}
+
+export const BasketIcon = () => {
+    return (
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <g
+                clipPath="url(#clip0_545_117681)"
+            >
+                <path
+                    d="M22.9028 11.3485C22.9321 11.1092 22.9106 10.8665 22.8397 10.6361C22.7688 10.4057 22.6501 10.1928 22.4914 10.0114C22.3308 9.82852 22.133 9.68197 21.9113 9.58147C21.6896 9.48097 21.4491 9.42884 21.2057 9.42853H2.79426C2.55085 9.42884 2.31031 9.48097 2.08862 9.58147C1.86693 9.68197 1.66919 9.82852 1.50854 10.0114C1.3498 10.1928 1.23111 10.4057 1.16022 10.6361C1.08933 10.8665 1.06782 11.1092 1.09711 11.3485L2.38283 21.6342C2.43336 22.0524 2.63605 22.4373 2.95223 22.7155C3.26841 22.9937 3.67595 23.1459 4.09711 23.1428H19.9371C20.3583 23.1459 20.7658 22.9937 21.082 22.7155C21.3982 22.4373 21.6009 22.0524 21.6514 21.6342L22.9028 11.3485Z"
+                    stroke="#F74F25"
+                    strokeWidth="1.37143"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+                <path
+                    d="M4.28571 9.42854V8.5714C4.28571 6.52545 5.09846 4.56329 6.54517 3.11658C7.99188 1.66987 9.95404 0.857117 12 0.857117C14.0459 0.857117 16.0081 1.66987 17.4548 3.11658C18.9015 4.56329 19.7143 6.52545 19.7143 8.5714V9.42854"
+                    stroke="#F74F25"
+                    strokeWidth="1.37143"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+                <path
+                    d="M8.57141 14.5714V18"
+                    stroke="#F74F25"
+                    strokeWidth="1.37143"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+                <path
+                    d="M15.4285 14.5714V18"
+                    stroke="#F74F25"
+                    strokeWidth="1.37143"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+            </g>
+            <defs>
+                <clipPath id="clip0_545_117681">
+                    <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+
+    )
+}
+
+export const GlobeIcon = () => {
+    return (
+        <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <g
+                clipPath="url(#clip0_545_117678)"
+            >
+                <path
+                    d="M12 23.1428C18.154 23.1428 23.1428 18.154 23.1428 12C23.1428 5.84594 18.154 0.857117 12 0.857117C5.84594 0.857117 0.857117 5.84594 0.857117 12C0.857117 18.154 5.84594 23.1428 12 23.1428Z" stroke="#F74F25" strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+                <path
+                    d="M0.857117 12H23.1428"
+                    stroke="#F74F25"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+                <path
+                    d="M16.2857 12C16.0751 16.0748 14.5743 19.9771 11.9999 23.1428C9.42564 19.9771 7.92475 16.0748 7.71423 12C7.92475 7.92513 9.42564 4.02281 11.9999 0.857117C14.5743 4.02281 16.0751 7.92513 16.2857 12V12Z" stroke="#F74F25"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+            </g>
+            <defs>
+                <clipPath id="clip0_545_117678">
+                    <rect width="24" height="24" fill="white" />
+                </clipPath>
+            </defs>
+        </svg>
+
+    )
+}
