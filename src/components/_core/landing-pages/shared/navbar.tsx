@@ -152,8 +152,7 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`transition-colors duration-300 ${scrolled ? "bg-white shadow-sm" : "bg-[#F9F0EE]"
-          } fixed w-full top-0 z-30`}
+        className={`transition-colors duration-300 ${scrolled ? 'backdrop-blur-3xl shadow-2xs' : 'bg-[#F9F0EE]'}  w-full top-0 z-30 fixed`}
       >
         <nav className="w-[90%] max-w-350 mx-auto bg-transparent py-4 lg:py-5 flex justify-between items-center relative">
           {/* Logo */}
@@ -164,7 +163,7 @@ export const Navbar = () => {
           </div>
 
           {/* Desktop Menu */}
-          <div className="hidden md:flex items-center relative p-1.5 lg:p-2 rounded-xl bg-[#121926] font-semibold">
+          <div className={`hidden md:flex items-center relative p-1.5 lg:p-2 rounded-xl bg-[#121926] font-semibold`}>
             {/* Active indicator */}
             <div
               ref={activeIndicatorRef}
@@ -213,12 +212,12 @@ export const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <button
-              ref={buttonRef}
-              className="md:hidden text-black z-100 hover:scale-105 transition-all duration-300"
-              onClick={handleMobileButton}
-            >
-              <MenuIcon className="w-6 h-6" />
-            </button>
+            ref={buttonRef}
+            className="md:hidden text-black z-100 hover:scale-105 transition-all duration-300"
+            onClick={handleMobileButton}
+          >
+            <MenuIcon className="w-6 h-6" />
+          </button>
         </nav>
       </div>
 
