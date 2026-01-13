@@ -184,7 +184,7 @@ export const Navbar = () => {
                     navItemRefs.current[index] = el;
                   }}
                   onMouseEnter={() => setActiveIndex(index)}
-                  className={`relative z-10 transition-all duration-200 px-3 lg:px-4 py-2 lg:py-2.5 text-xs lg:text-sm font-medium flex items-center gap-2 ${isActive ? "text-white" : "text-[#9AA4B2] hover:text-white/90"
+                  className={`relative z-10 transition-all duration-200 px-3 lg:px-4 py-2 lg:py-2.5 text-xs lg:text-sm flex items-center gap-2 ${isActive ? "text-white font-bold" : "text-[#9AA4B2] font-normal hover:text-white/90"
                     }`}
                 >
                   {isActive && <Icon />}
