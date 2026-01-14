@@ -123,7 +123,7 @@ export default function Footer() {
 
             <Button
               type="submit"
-              className="h-12 rounded-md bg-[#F74F25] px-7 text-base font-semibold hover:bg-[#de4c27]"
+              className="h-12 rounded-md bg-[#F74F25] px-7 text-base font-semibold hover:bg-[#e64c25]"
             >
               Subscribe <ArrowRight className="ml-3 h-5 w-5" />
             </Button>
