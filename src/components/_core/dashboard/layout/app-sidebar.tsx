@@ -158,7 +158,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
     <Sidebar
       collapsible="offcanvas"
       {...props}
-      className="text-white relative"
+      className="text-white fixed left-0 top-0 h-screen"
     >
       <SidebarHeader className="border-b border-[#374151] py-1">
         <div className="flex items-center justify-between">
