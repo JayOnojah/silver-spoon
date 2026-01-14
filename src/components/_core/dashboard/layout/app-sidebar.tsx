@@ -2,25 +2,13 @@
 
 import * as React from "react";
 import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
+  IconChevronDown,
+  IconHome,
+  IconChevronLeft,
+  IconSquare,
 } from "@tabler/icons-react";
 
 import { NavMain } from "./nav-main";
-import { NavUser } from "./nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -29,167 +17,202 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarTrigger,
 } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
       url: "/dashboard",
-      icon: IconDashboard,
+      icon: IconSquare,
     },
     {
-      title: "Customer",
-      url: "customers",
-      icon: IconListDetails,
+      title: "Customers",
+      url: "/customers",
+      icon: IconSquare,
     },
     {
       title: "Orders",
-      url: "orders",
-      icon: IconChartBar,
+      url: "/orders",
+      icon: IconSquare,
     },
     {
       title: "Inventory",
-      url: "inventory",
-      icon: IconFolder,
+      url: "/inventory",
+      icon: IconSquare,
     },
     {
       title: "Wallet",
-      url: "wallet",
-      icon: IconUsers,
+      url: "/wallet",
+      icon: IconSquare,
     },
     {
       title: "Design Operations",
       url: "#",
-      icon: IconUsers,
+      icon: IconSquare,
       children: [
         {
           title: "Catalogue",
-          url: "catalogue",
+          url: "/catalogue",
         },
         {
           title: "Moodboards",
-          url: "mood-dashboard",
+          url: "/mood-dashboard",
         },
         {
           title: "Notes",
-          url: "notes",
+          url: "/notes",
         },
       ],
     },
     {
       title: "Store Operations",
       url: "#",
-      icon: IconUsers,
+      icon: IconSquare,
       children: [
         {
           title: "Store Operations",
-          url: "store-operations",
+          url: "/store-operations",
         },
         {
           title: "Appointment",
-          url: "appointment",
+          url: "/appointment",
         },
         {
           title: "Shipping",
-          url: "shipping",
+          url: "/shipping",
         },
       ],
     },
     {
       title: "Analytics",
       url: "#",
-      icon: IconUsers,
+      icon: IconSquare,
       children: [
         {
           title: "Business Analytics",
-          url: "business-analytics",
+          url: "/business-analytics",
+          isActive: true,
         },
         {
           title: "Marketing Analytics",
-          url: "marketing-analytics",
+          url: "/marketing-analytics",
         },
       ],
     },
     {
       title: "Marketing",
       url: "#",
-      icon: IconUsers,
+      icon: IconSquare,
       children: [
         {
           title: "Website",
-          url: "we",
+          url: "/website",
         },
         {
           title: "Newsletter",
-          url: "newsletter",
+          url: "/newsletter",
         },
         {
           title: "Blog",
-          url: "blog",
+          url: "/blog",
         },
       ],
     },
     {
       title: "Finance",
       url: "#",
-      icon: IconUsers,
+      icon: IconSquare,
       children: [
         {
           title: "Finance Report",
-          url: "finance-report",
+          url: "/finance-report",
         },
         {
           title: "Expenditure",
-          url: "expenditure",
+          url: "/expenditure",
         },
         {
           title: "Invoicing",
-          url: "invoicing",
+          url: "/invoicing",
         },
         {
           title: "Financing",
-          url: "financing",
+          url: "/financing",
         },
       ],
     },
     {
       title: "Settings",
-      url: "settings",
-      icon: IconUsers,
+      url: "/settings",
+      icon: IconSquare,
     },
   ],
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
-            >
-              <a href="#">
-                <IconInnerShadowTop className="size-5!" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+    <Sidebar
+      collapsible="offcanvas"
+      {...props}
+      className="text-white relative"
+    >
+      <SidebarHeader className="border-b border-[#374151] py-1">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-primary text-lg font-semibold uppercase">
+              LOGO
+            </span>
+          </div>
+          <SidebarTrigger className="bg-primary rounded-full text-white hover:bg-primary/90 border-0 absolute -right-3.5">
+            <IconChevronLeft className="size-4" />
+          </SidebarTrigger>
+        </div>
+        <div className="mt-1">
+          <Button
+            variant="ghost"
+            className="w-full justify-between bg-[#111827] hover:bg-[#111827] text-white hover:text-white border border-[#374151] h-auto py-2.5 px-3"
+          >
+            <div className="flex items-center gap-2">
+              <IconHome className="size-4" />
+              <span className="text-sm">John Stiches</span>
+            </div>
+            <IconChevronDown className="size-4" />
+          </Button>
+        </div>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="py-2">
         <NavMain items={data.navMain} />
       </SidebarContent>
-      {/* <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter> */}
+      <SidebarFooter className="border-t border-[#374151]">
+        <div className="space-y-4">
+          <div className="text-center text-sm text-[#9CA3AF]">Academy</div>
+          <div className="relative rounded-lg overflow-hidden bg-[#111827]">
+            <div className="aspect-video bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+              <div className="text-center">
+                <div className="size-12 mx-auto mb-2 rounded-full bg-primary flex items-center justify-center">
+                  <svg
+                    className="size-6 text-white ml-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                  </svg>
+                </div>
+                <span className="text-white text-sm font-medium">
+                  Watch Guides
+                </span>
+              </div>
+            </div>
+          </div>
+          <p className="text-xs text-[#9CA3AF] text-center">
+            Learn how to get the best out of your tools
+          </p>
+        </div>
+      </SidebarFooter>
     </Sidebar>
   );
 }
