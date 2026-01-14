@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import * as React from "react"
+import * as React from "react";
 import {
   IconCamera,
   IconChartBar,
@@ -17,11 +17,10 @@ import {
   IconSearch,
   IconSettings,
   IconUsers,
-} from "@tabler/icons-react"
+} from "@tabler/icons-react";
 
-import { NavMain } from "./nav-main"
-import { NavSecondary } from "./nav-secondary"
-import { NavUser } from "./nav-user"
+import { NavMain } from "./nav-main";
+import { NavUser } from "./nav-user";
 import {
   Sidebar,
   SidebarContent,
@@ -30,8 +29,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { NavDocuments } from "./nav-documents"
+} from "@/components/ui/sidebar";
 
 const data = {
   user: {
@@ -42,113 +40,131 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/dashboard",
       icon: IconDashboard,
     },
     {
-      title: "Lifecycle",
-      url: "#",
+      title: "Customer",
+      url: "customers",
       icon: IconListDetails,
+    },
+    {
+      title: "Orders",
+      url: "orders",
+      icon: IconChartBar,
+    },
+    {
+      title: "Inventory",
+      url: "inventory",
+      icon: IconFolder,
+    },
+    {
+      title: "Wallet",
+      url: "wallet",
+      icon: IconUsers,
+    },
+    {
+      title: "Design Operations",
+      url: "#",
+      icon: IconUsers,
+      children: [
+        {
+          title: "Catalogue",
+          url: "catalogue",
+        },
+        {
+          title: "Moodboards",
+          url: "mood-dashboard",
+        },
+        {
+          title: "Notes",
+          url: "notes",
+        },
+      ],
+    },
+    {
+      title: "Store Operations",
+      url: "#",
+      icon: IconUsers,
+      children: [
+        {
+          title: "Store Operations",
+          url: "store-operations",
+        },
+        {
+          title: "Appointment",
+          url: "appointment",
+        },
+        {
+          title: "Shipping",
+          url: "shipping",
+        },
+      ],
     },
     {
       title: "Analytics",
       url: "#",
-      icon: IconChartBar,
+      icon: IconUsers,
+      children: [
+        {
+          title: "Business Analytics",
+          url: "business-analytics",
+        },
+        {
+          title: "Marketing Analytics",
+          url: "marketing-analytics",
+        },
+      ],
     },
     {
-      title: "Projects",
+      title: "Marketing",
       url: "#",
-      icon: IconFolder,
+      icon: IconUsers,
+      children: [
+        {
+          title: "Website",
+          url: "we",
+        },
+        {
+          title: "Newsletter",
+          url: "newsletter",
+        },
+        {
+          title: "Blog",
+          url: "blog",
+        },
+      ],
     },
     {
-      title: "Team",
+      title: "Finance",
       url: "#",
+      icon: IconUsers,
+      children: [
+        {
+          title: "Finance Report",
+          url: "finance-report",
+        },
+        {
+          title: "Expenditure",
+          url: "expenditure",
+        },
+        {
+          title: "Invoicing",
+          url: "invoicing",
+        },
+        {
+          title: "Financing",
+          url: "financing",
+        },
+      ],
+    },
+    {
+      title: "Settings",
+      url: "settings",
       icon: IconUsers,
     },
   ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Proposal",
-      icon: IconFileDescription,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Prompts",
-      icon: IconFileAi,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  navSecondary: [
-    {
-      title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
-    },
-  ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -170,12 +186,10 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
+      {/* <SidebarFooter>
         <NavUser user={data.user} />
-      </SidebarFooter>
+      </SidebarFooter> */}
     </Sidebar>
-  )
+  );
 }
