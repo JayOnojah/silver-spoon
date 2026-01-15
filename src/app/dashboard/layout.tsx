@@ -21,7 +21,7 @@ const DashboardLayout = ({
       <AppSidebar variant="inset" />
       <SidebarInset className="m-0! rounded-none! shadow-none!" style={{ backgroundColor: "transparent" }}>
         <SiteHeader />
-        <div style={{ backgroundColor: "#FFF1EC", minHeight: "100vh" }}>{children}</div>
+        <div style={{ backgroundColor: "#FFF1EC", minHeight: "100vh", paddingTop: "80px" }}>{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );

@@ -14,13 +14,8 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-  SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
 
 const data = {
   navMain: [
@@ -167,11 +162,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               LOGO
             </span>
           </div>
-          <SidebarTrigger className="bg-primary rounded-full text-white hover:bg-primary/90 border-0 absolute -right-3.5">
+          {/* <SidebarTrigger className="bg-primary rounded-full text-white hover:bg-primary/90 border-0 absolute -right-3.5">
             <IconChevronLeft className="size-4" />
-          </SidebarTrigger>
+          </SidebarTrigger> */}
         </div>
-        <div className="mt-1">
+        <div className="mt-1 mb-3">
           <Button
             variant="ghost"
             className="w-full justify-between bg-[#111827] hover:bg-[#111827] text-white hover:text-white border border-[#374151] h-auto py-2.5 px-3"
@@ -191,7 +186,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="space-y-4">
           <div className="text-center text-sm text-[#9CA3AF]">Academy</div>
           <div className="relative rounded-lg overflow-hidden bg-[#111827]">
-            <div className="aspect-video bg-gradient-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+            <div className="aspect-video bg-linear-to-br from-gray-600 to-gray-800 flex items-center justify-center">
               <div className="text-center">
                 <div className="size-12 mx-auto mb-2 rounded-full bg-primary flex items-center justify-center">
                   <svg
