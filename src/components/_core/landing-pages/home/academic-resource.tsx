@@ -27,7 +27,6 @@ export const AcademicResource = () => {
         show: { opacity: 1, x: 0 },
     };
 
-
     useEffect(() => {
         if (videoRef.current) {
             const playButton = videoRef.current.querySelector('.play-button');
