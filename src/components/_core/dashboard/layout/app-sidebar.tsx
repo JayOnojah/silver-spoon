@@ -1,11 +1,7 @@
 "use client";
 
 import * as React from "react";
-import {
-  IconChevronDown,
-  IconHome,
-  IconSquare,
-} from "@tabler/icons-react";
+import { IconChevronDown, IconHome, IconSquare } from "@tabler/icons-react";
 
 import { NavMain } from "./nav-main";
 import {
@@ -15,7 +11,18 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
-import { AnalyticsIcon, CustomerIcon, DashboardIcon, DesignOpsIcon, InventoryIcon, MarketingIcon, OrdersIcon, SettingsIcon, StoreOpsIcon, WalletIcon } from "./svg";
+import {
+  AnalyticsIcon,
+  CustomerIcon,
+  DashboardIcon,
+  DesignOpsIcon,
+  InventoryIcon,
+  MarketingIcon,
+  OrdersIcon,
+  SettingsIcon,
+  StoreOpsIcon,
+  WalletIcon,
+} from "./svg";
 
 const data = {
   navMain: [
@@ -51,15 +58,15 @@ const data = {
       children: [
         {
           title: "Catalogue",
-          url: "/dashboard/design-operation/catalogue",
+          url: "/dashboard/design-operations/catalogue",
         },
         {
           title: "Moodboards",
-          url: "/dashboard/design-operation/mood-dashboard",
+          url: "/dashboard/design-operations/mood-boards",
         },
         {
           title: "Notes",
-          url: "/dashboard/design-operation/notes",
+          url: "/dashboard/design-operations/notes",
         },
       ],
     },
@@ -69,12 +76,16 @@ const data = {
       icon: StoreOpsIcon,
       children: [
         {
-          title: "Store Operations",
-          url: "/dashboard/store-operations",
+          title: "Staffs",
+          url: "/dashboard/store-operations/staffs",
+        },
+        {
+          title: "Vendors & Materials",
+          url: "/dashboard/store-operations/vendors-and-materials",
         },
         {
           title: "Appointment",
-          url: "/dashboard/store-operations/appointment",
+          url: "/dashboard/store-operations/appointments",
         },
         {
           title: "Shipping",
@@ -124,7 +135,7 @@ const data = {
       children: [
         {
           title: "Financing",
-          url: "/dashboard/financing",
+          url: "/dashboard/finance/financing",
         },
         {
           title: "Finance Report",
@@ -162,9 +173,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               LOGO
             </span>
           </div>
-          {/* <SidebarTrigger className="bg-primary rounded-full text-white hover:bg-primary/90 border-0 absolute -right-3.5">
-            <IconChevronLeft className="size-4" />
-          </SidebarTrigger> */}
         </div>
         <div className="mt-1 mb-3">
           <Button
