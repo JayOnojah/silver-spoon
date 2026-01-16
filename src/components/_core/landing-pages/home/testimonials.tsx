@@ -2,7 +2,8 @@
 import { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { motion } from 'framer-motion';
-import { Play, Quote } from 'lucide-react';
+import { Quote } from 'lucide-react';
+import { Play } from '@/components/svg';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 import Image from 'next/image';
@@ -86,7 +87,7 @@ export const Testimonials = () => {
                                         whileTap={{ scale: 0.95 }}
                                         transition={{ type: 'spring', stiffness: 300 }}
                                     >
-                                        <Play className="w-8 h-8 text-white ml-1" fill="white" />
+                                        <Play />
                                     </motion.div>
                                 </motion.div>
                             </div>

@@ -38,7 +38,7 @@ export const ScaleBusiness = () => {
     ];
 
     return (
-        <div className="w-full bg-gray-50 py-20 px-4 md:px-8">
+        <div className="w-full py-20 px-4 md:px-8">
             <div className="max-w-7xl mx-auto">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <motion.div
@@ -48,7 +48,7 @@ export const ScaleBusiness = () => {
                         transition={{ duration: 0.6 }}
                     >
                         <Badge className='text-[#F74F25] bg-[#FEEDE9] mb-6'>Technology That Empowers</Badge>
-                        <h2 className="text-4xl md:text-5xl font-black text-[#121926] mb-6">
+                        <h2 className="text-3xl md:text-[34px] lg:max-w-130 font-black text-[#121926] mb-6">
                             Scale Your Business with{' '}
                             <span className="text-[#F74F25]">Premium Tools</span>
                         </h2>
