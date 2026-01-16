@@ -6,6 +6,8 @@ import Footer from "@/components/_core/landing-pages/shared/footer";
 import { FeatureList } from "@/components/_core/landing-pages/shared/features-list";
 import { Testimonials } from "@/components/_core/landing-pages/home/testimonials";
 import { ScaleBusiness } from "@/components/_core/landing-pages/home/scale-business";
+import { AcademicResource } from "@/components/_core/landing-pages/home/academic-resource";
+import { Pricing } from "@/components/_core/landing-pages/home/pricing";
 
 const Page = () => {
   return (
@@ -17,6 +19,8 @@ const Page = () => {
       <FeatureList />
       <Testimonials />
       <ScaleBusiness />
+      <AcademicResource />
+      <Pricing />
       <Footer />
     </div>
   );
