@@ -15,38 +15,39 @@ import {
   SidebarHeader,
 } from "@/components/ui/sidebar";
 import { Button } from "@/components/ui/button";
+import { AnalyticsIcon, CustomerIcon, DashboardIcon, DesignOpsIcon, InventoryIcon, MarketingIcon, OrdersIcon, SettingsIcon, StoreOpsIcon, WalletIcon } from "./svg";
 
 const data = {
   navMain: [
     {
       title: "Dashboard",
       url: "/dashboard",
-      icon: IconSquare,
+      icon: DashboardIcon,
     },
     {
       title: "Customers",
       url: "/dashboard/customers",
-      icon: IconSquare,
+      icon: CustomerIcon,
     },
     {
       title: "Orders",
       url: "/dashboard/orders",
-      icon: IconSquare,
+      icon: OrdersIcon,
     },
     {
       title: "Inventory",
       url: "/dashboard/inventory",
-      icon: IconSquare,
+      icon: InventoryIcon,
     },
     {
       title: "Wallet",
       url: "/dashboard/wallet",
-      icon: IconSquare,
+      icon: WalletIcon,
     },
     {
       title: "Design Operations",
       url: "#",
-      icon: IconSquare,
+      icon: DesignOpsIcon,
       children: [
         {
           title: "Catalogue",
@@ -65,7 +66,7 @@ const data = {
     {
       title: "Store Operations",
       url: "#",
-      icon: IconSquare,
+      icon: StoreOpsIcon,
       children: [
         {
           title: "Store Operations",
@@ -84,7 +85,7 @@ const data = {
     {
       title: "Analytics",
       url: "#",
-      icon: IconSquare,
+      icon: AnalyticsIcon,
       children: [
         {
           title: "Business Analytics",
@@ -100,7 +101,7 @@ const data = {
     {
       title: "Marketing",
       url: "#",
-      icon: IconSquare,
+      icon: MarketingIcon,
       children: [
         {
           title: "Website",
@@ -142,7 +143,7 @@ const data = {
     {
       title: "Settings",
       url: "/dashboard/settings",
-      icon: IconSquare,
+      icon: SettingsIcon,
     },
   ],
 };

@@ -41,12 +41,12 @@ export function NavMain({ items }: { items: NavItem[] }) {
             const isExpanded = expandedItem === item.title;
 
             return (
-              <SidebarMenuItem key={item.title}>
+              <SidebarMenuItem key={item.title} className="gap-4">
                 {hasChildren ? (
                   <>
                     <SidebarMenuButton
                       onClick={() => toggleItem(item.title)}
-                      className="w-full justify-between text-white/80 hover:text-white hover:bg-white/10"
+                      className="w-full justify-between text-[#9AA4B2] hover:text-white rounded hover:bg-white/10"
                     >
                       <div className="flex items-center gap-2">
                         {item.icon && <item.icon className="size-4" />}
@@ -92,7 +92,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                 ) : (
                   <SidebarMenuButton
                     asChild
-                    className="text-white/80 hover:text-white hover:bg-white/10"
+                    className="text-white/80 hover:text-white hover:bg-white/10 rounded"
                   >
                     <a href={item.url}>
                       {item.icon && <item.icon className="size-4" />}
