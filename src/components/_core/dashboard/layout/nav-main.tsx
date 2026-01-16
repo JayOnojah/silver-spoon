@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { IconChevronDown, IconChevronUp, type Icon } from "@tabler/icons-react"
+import * as React from "react";
+import { IconChevronDown, IconChevronUp, type Icon } from "@tabler/icons-react";
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -11,38 +11,34 @@ import {
   SidebarMenuSub,
   SidebarMenuSubButton,
   SidebarMenuSubItem,
-} from "@/components/ui/sidebar"
-import { cn } from "@/lib/utils"
+} from "@/components/ui/sidebar";
+import { cn } from "@/lib/utils";
 
 type NavItem = {
-  title: string
-  url: string
-  icon?: Icon
-  children?: NavItem[]
-  isActive?: boolean
-}
+  title: string;
+  url: string;
+  icon?: Icon;
+  children?: NavItem[];
+  isActive?: boolean;
+};
 
-export function NavMain({
-  items,
-}: {
-  items: NavItem[]
-}) {
-  const [expandedItem, setExpandedItem] = React.useState<string | null>("Analytics")
+export function NavMain({ items }: { items: NavItem[] }) {
+  const [expandedItem, setExpandedItem] = React.useState<string | null>("");
 
   const toggleItem = (title: string) => {
     setExpandedItem((prev) => {
       // If clicking the same item, close it. Otherwise, open the new one.
-      return prev === title ? null : title
-    })
-  }
+      return prev === title ? null : title;
+    });
+  };
 
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-1">
         <SidebarMenu>
           {items.map((item) => {
-            const hasChildren = item.children && item.children.length > 0
-            const isExpanded = expandedItem === item.title
+            const hasChildren = item.children && item.children.length > 0;
+            const isExpanded = expandedItem === item.title;
 
             return (
               <SidebarMenuItem key={item.title}>
@@ -54,10 +50,14 @@ export function NavMain({
                     >
                       <div className="flex items-center gap-2">
                         {item.icon && <item.icon className="size-4" />}
-                        <span className={cn(
-                          "text-sm",
-                          isExpanded && "font-semibold text-white"
-                        )}>{item.title}</span>
+                        <span
+                          className={cn(
+                            "text-sm",
+                            isExpanded && "font-semibold text-white"
+                          )}
+                        >
+                          {item.title}
+                        </span>
                       </div>
                       {isExpanded ? (
                         <IconChevronUp className="size-4" />
@@ -78,10 +78,10 @@ export function NavMain({
                               )}
                             >
                               <a href={child.url}>
+                                <span>{child.title}</span>
                                 {child.isActive && (
                                   <span className="absolute left-2 top-1/2 -translate-y-1/2 size-1.5 rounded-full bg-primary" />
                                 )}
-                                <span>{child.title}</span>
                               </a>
                             </SidebarMenuSubButton>
                           </SidebarMenuSubItem>
@@ -90,7 +90,10 @@ export function NavMain({
                     )}
                   </>
                 ) : (
-                  <SidebarMenuButton asChild className="text-white/80 hover:text-white hover:bg-white/10">
+                  <SidebarMenuButton
+                    asChild
+                    className="text-white/80 hover:text-white hover:bg-white/10"
+                  >
                     <a href={item.url}>
                       {item.icon && <item.icon className="size-4" />}
                       <span className="text-sm">{item.title}</span>
@@ -98,10 +101,10 @@ export function NavMain({
                   </SidebarMenuButton>
                 )}
               </SidebarMenuItem>
-            )
+            );
           })}
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>
-  )
+  );
 }

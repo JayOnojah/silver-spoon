@@ -42,7 +42,7 @@ export function SiteHeader() {
 
           <div className="flex items-center gap-3">
             <Avatar className="h-10 w-10">
-              <AvatarFallback className="bg-[#10B981] text-white font-medium">
+              <AvatarFallback className="bg-primary text-white font-medium">
                 JD
               </AvatarFallback>
             </Avatar>

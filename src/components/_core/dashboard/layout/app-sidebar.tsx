@@ -4,7 +4,6 @@ import * as React from "react";
 import {
   IconChevronDown,
   IconHome,
-  IconChevronLeft,
   IconSquare,
 } from "@tabler/icons-react";
 
@@ -26,22 +25,22 @@ const data = {
     },
     {
       title: "Customers",
-      url: "/customers",
+      url: "/dashboard/customers",
       icon: IconSquare,
     },
     {
       title: "Orders",
-      url: "/orders",
+      url: "/dashboard/orders",
       icon: IconSquare,
     },
     {
       title: "Inventory",
-      url: "/inventory",
+      url: "/dashboard/inventory",
       icon: IconSquare,
     },
     {
       title: "Wallet",
-      url: "/wallet",
+      url: "/dashboard/wallet",
       icon: IconSquare,
     },
     {
@@ -51,15 +50,15 @@ const data = {
       children: [
         {
           title: "Catalogue",
-          url: "/catalogue",
+          url: "/dashboard/design-operation/catalogue",
         },
         {
           title: "Moodboards",
-          url: "/mood-dashboard",
+          url: "/dashboard/design-operation/mood-dashboard",
         },
         {
           title: "Notes",
-          url: "/notes",
+          url: "/dashboard/design-operation/notes",
         },
       ],
     },
@@ -70,15 +69,15 @@ const data = {
       children: [
         {
           title: "Store Operations",
-          url: "/store-operations",
+          url: "/dashboard/store-operations",
         },
         {
           title: "Appointment",
-          url: "/appointment",
+          url: "/dashboard/store-operations/appointment",
         },
         {
           title: "Shipping",
-          url: "/shipping",
+          url: "/dashboard/store-operations/shipping",
         },
       ],
     },
@@ -89,12 +88,12 @@ const data = {
       children: [
         {
           title: "Business Analytics",
-          url: "/business-analytics",
+          url: "/dashboard/analytics/business-analytics",
           isActive: true,
         },
         {
           title: "Marketing Analytics",
-          url: "/marketing-analytics",
+          url: "/dashboard/analytics/marketing-analytics",
         },
       ],
     },
@@ -105,15 +104,15 @@ const data = {
       children: [
         {
           title: "Website",
-          url: "/website",
+          url: "/dashboard/marketing/website",
         },
         {
           title: "Newsletter",
-          url: "/newsletter",
+          url: "/dashboard/marketing/newsletter",
         },
         {
           title: "Blog",
-          url: "/blog",
+          url: "/dashboard/marketing/blog",
         },
       ],
     },
@@ -123,26 +122,26 @@ const data = {
       icon: IconSquare,
       children: [
         {
+          title: "Financing",
+          url: "/dashboard/financing",
+        },
+        {
           title: "Finance Report",
-          url: "/finance-report",
+          url: "/dashboard/finance/finance-report",
         },
         {
           title: "Expenditure",
-          url: "/expenditure",
+          url: "/dashboard/finance/expenditure",
         },
         {
           title: "Invoicing",
-          url: "/invoicing",
-        },
-        {
-          title: "Financing",
-          url: "/financing",
+          url: "/dashboard/finance/invoicing",
         },
       ],
     },
     {
       title: "Settings",
-      url: "/settings",
+      url: "/dashboard/settings",
       icon: IconSquare,
     },
   ],
