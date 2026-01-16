@@ -92,7 +92,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                 ) : (
                   <SidebarMenuButton
                     asChild
-                    className="text-white/80 hover:text-white hover:bg-white/10 rounded"
+                    className="text-[#9AA4B2] hover:text-white hover:bg-white/10 rounded"
                   >
                     <a href={item.url}>
                       {item.icon && <item.icon className="size-4" />}
