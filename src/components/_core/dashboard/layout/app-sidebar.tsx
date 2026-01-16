@@ -16,6 +16,7 @@ import {
   CustomerIcon,
   DashboardIcon,
   DesignOpsIcon,
+  FinanceIcon,
   InventoryIcon,
   MarketingIcon,
   OrdersIcon,
@@ -131,7 +132,7 @@ const data = {
     {
       title: "Finance",
       url: "#",
-      icon: IconSquare,
+      icon: FinanceIcon,
       children: [
         {
           title: "Financing",

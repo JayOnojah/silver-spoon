@@ -5,6 +5,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { IconChevronLeft, IconNotification } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { NotificationIcon } from "./svg";
 
 export function SiteHeader() {
   const { toggleSidebar, state } = useSidebar();
@@ -37,7 +38,7 @@ export function SiteHeader() {
             size="icon"
             className="h-9 w-9 rounded-full border border-[#CDD5DF] hover:bg-transparent"
           >
-            <IconNotification className="h-5 w-5 text-foreground" />
+            <NotificationIcon />
           </Button>
 
           <div className="flex items-center gap-3">
