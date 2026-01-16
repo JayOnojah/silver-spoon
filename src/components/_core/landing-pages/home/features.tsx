@@ -16,6 +16,7 @@ import {
     File,
     UserMultiple
 } from '@/components/svg';
+import { CardBox } from '../shared/card-box'
 
 interface FullWidthCardProps {
     badge: string;
@@ -208,21 +209,13 @@ export default function Features() {
                     className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-10"
                 >
                     {operationsCard.map((operation) => (
-                        <motion.div
+                       <CardBox
                             key={operation.title}
-                            variants={{
-                                hidden: { opacity: 0, y: 30 },
-                                visible: { opacity: 1, y: 0 },
-                            }}
-                            transition={{ duration: 0.5 }}
-                            className="bg-white p-6 rounded-3xl"
-                        >
-                            <div className="flex justify-center">{operation.icons}</div>
-                            <h1 className="text-[#121926] text-[18px] pt-6 pb-4 font-bold text-center">
-                                {operation.title}
-                            </h1>
-                            <p className="text-[#9AA4B2] text-center">{operation.label}</p>
-                        </motion.div>
+                            cardStyle={`bg-white`}
+                            cardIcon={operation.icons}
+                            cardTitle={operation.title}
+                            cardLabel={operation.label}
+                        />
                     ))}
                 </motion.div>
 
