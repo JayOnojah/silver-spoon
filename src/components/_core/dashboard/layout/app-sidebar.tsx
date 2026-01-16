@@ -1,181 +1,222 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import {
-  IconCamera,
-  IconChartBar,
-  IconDashboard,
-  IconDatabase,
-  IconFileAi,
-  IconFileDescription,
-  IconFileWord,
-  IconFolder,
-  IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
-  IconReport,
-  IconSearch,
-  IconSettings,
-  IconUsers,
-} from "@tabler/icons-react"
+import * as React from "react";
+import { IconChevronDown, IconHome, IconSquare } from "@tabler/icons-react";
 
-import { NavMain } from "./nav-main"
-import { NavSecondary } from "./nav-secondary"
-import { NavUser } from "./nav-user"
+import { NavMain } from "./nav-main";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "@/components/ui/sidebar"
-import { NavDocuments } from "./nav-documents"
+} from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
+import {
+  AnalyticsIcon,
+  CustomerIcon,
+  DashboardIcon,
+  DesignOpsIcon,
+  FinanceIcon,
+  InventoryIcon,
+  MarketingIcon,
+  OrdersIcon,
+  SettingsIcon,
+  StoreOpsIcon,
+  WalletIcon,
+} from "./svg";
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
-      icon: IconDashboard,
+      url: "/dashboard",
+      icon: DashboardIcon,
     },
     {
-      title: "Lifecycle",
+      title: "Customers",
+      url: "/dashboard/customers",
+      icon: CustomerIcon,
+    },
+    {
+      title: "Orders",
+      url: "/dashboard/orders",
+      icon: OrdersIcon,
+    },
+    {
+      title: "Inventory",
+      url: "/dashboard/inventory",
+      icon: InventoryIcon,
+    },
+    {
+      title: "Wallet",
+      url: "/dashboard/wallet",
+      icon: WalletIcon,
+    },
+    {
+      title: "Design Operations",
       url: "#",
-      icon: IconListDetails,
+      icon: DesignOpsIcon,
+      children: [
+        {
+          title: "Catalogue",
+          url: "/dashboard/design-operations/catalogue",
+        },
+        {
+          title: "Moodboards",
+          url: "/dashboard/design-operations/mood-boards",
+        },
+        {
+          title: "Notes",
+          url: "/dashboard/design-operations/notes",
+        },
+      ],
+    },
+    {
+      title: "Store Operations",
+      url: "#",
+      icon: StoreOpsIcon,
+      children: [
+        {
+          title: "Staffs",
+          url: "/dashboard/store-operations/staffs",
+        },
+        {
+          title: "Vendors & Materials",
+          url: "/dashboard/store-operations/vendors-and-materials",
+        },
+        {
+          title: "Appointment",
+          url: "/dashboard/store-operations/appointments",
+        },
+        {
+          title: "Shipping",
+          url: "/dashboard/store-operations/shipping",
+        },
+      ],
     },
     {
       title: "Analytics",
       url: "#",
-      icon: IconChartBar,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
-    },
-  ],
-  navClouds: [
-    {
-      title: "Capture",
-      icon: IconCamera,
-      isActive: true,
-      url: "#",
-      items: [
+      icon: AnalyticsIcon,
+      children: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Business Analytics",
+          url: "/dashboard/analytics/business-analytics",
+          isActive: true,
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Marketing Analytics",
+          url: "/dashboard/analytics/marketing-analytics",
         },
       ],
     },
     {
-      title: "Proposal",
-      icon: IconFileDescription,
+      title: "Marketing",
       url: "#",
-      items: [
+      icon: MarketingIcon,
+      children: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Website",
+          url: "/dashboard/marketing/website",
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Newsletter",
+          url: "/dashboard/marketing/newsletter",
+        },
+        {
+          title: "Blog",
+          url: "/dashboard/marketing/blog",
         },
       ],
     },
     {
-      title: "Prompts",
-      icon: IconFileAi,
+      title: "Finance",
       url: "#",
-      items: [
+      icon: FinanceIcon,
+      children: [
         {
-          title: "Active Proposals",
-          url: "#",
+          title: "Financing",
+          url: "/dashboard/finance/financing",
         },
         {
-          title: "Archived",
-          url: "#",
+          title: "Finance Report",
+          url: "/dashboard/finance/finance-report",
+        },
+        {
+          title: "Expenditure",
+          url: "/dashboard/finance/expenditure",
+        },
+        {
+          title: "Invoicing",
+          url: "/dashboard/finance/invoicing",
         },
       ],
     },
-  ],
-  navSecondary: [
     {
       title: "Settings",
-      url: "#",
-      icon: IconSettings,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: IconHelp,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: IconSearch,
+      url: "/dashboard/settings",
+      icon: SettingsIcon,
     },
   ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: IconDatabase,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: IconReport,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: IconFileWord,
-    },
-  ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:p-1.5!"
-            >
-              <a href="#">
-                <IconInnerShadowTop className="size-5!" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+    <Sidebar
+      collapsible="offcanvas"
+      {...props}
+      className="text-white fixed left-0 top-0 h-screen"
+    >
+      <SidebarHeader className="border-b border-[#374151] py-1">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-3">
+            <span className="text-primary text-lg font-semibold uppercase">
+              LOGO
+            </span>
+          </div>
+        </div>
+        <div className="mt-1 mb-3">
+          <Button
+            variant="ghost"
+            className="w-full justify-between bg-[#111827] hover:bg-[#111827] text-white hover:text-white border border-[#374151] h-auto py-2.5 px-3"
+          >
+            <div className="flex items-center gap-2">
+              <IconHome className="size-4" />
+              <span className="text-sm">John Stiches</span>
+            </div>
+            <IconChevronDown className="size-4" />
+          </Button>
+        </div>
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="py-2">
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
-        <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
+      <SidebarFooter className="border-t border-[#374151]">
+        <div className="space-y-4">
+          <div className="text-center text-sm text-[#9CA3AF]">Academy</div>
+          <div className="relative rounded-lg overflow-hidden bg-[#111827]">
+            <div className="aspect-video bg-linear-to-br from-gray-600 to-gray-800 flex items-center justify-center">
+              <div className="text-center">
+                <div className="size-12 mx-auto mb-2 rounded-full bg-primary flex items-center justify-center">
+                  <svg
+                    className="size-6 text-white ml-1"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
+                  </svg>
+                </div>
+                <span className="text-white text-sm font-medium">
+                  Watch Guides
+                </span>
+              </div>
+            </div>
+          </div>
+          <p className="text-xs text-[#9CA3AF] text-center">
+            Learn how to get the best out of your tools
+          </p>
+        </div>
       </SidebarFooter>
     </Sidebar>
-  )
+  );
 }

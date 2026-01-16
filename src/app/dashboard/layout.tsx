@@ -12,15 +12,16 @@ const DashboardLayout = ({
     <SidebarProvider
       style={
         {
-          "--sidebar-width": "calc(var(--spacing) * 72)",
-          "--header-height": "calc(var(--spacing) * 12)",
+          "--sidebar-width": "260px",
+          "--header-height": "80px",
         } as React.CSSProperties
       }
+      className="bg-[#FFF1EC]"
     >
       <AppSidebar variant="inset" />
-      <SidebarInset>
+      <SidebarInset className="m-0! rounded-none! shadow-none!" style={{ backgroundColor: "transparent" }}>
         <SiteHeader />
-        <div>{children}</div>
+        <div className="p-5" style={{ backgroundColor: "#FFF1EC", minHeight: "100vh", paddingTop: "104px" }}>{children}</div>
       </SidebarInset>
     </SidebarProvider>
   );
