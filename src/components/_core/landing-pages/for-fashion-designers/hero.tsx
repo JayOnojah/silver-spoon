@@ -1,23 +1,15 @@
 "use client";
 
-import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Scissors, PlayIcon, Star, ArrowRight } from "lucide-react";
 
-type ForFashionDesignersHeroProps = {
-  imageSrc?: string;
-  imageAlt?: string;
-};
+export const ForFashionDesignersHero = ({}) => {
 
-export const ForFashionDesignersHero: React.FC<ForFashionDesignersHeroProps> = ({
-  imageSrc = "/images/pngs/fashion.png",
-  imageAlt = "Fashion designer in studio",
-}) => {
   return (
-    <section className="bg-white">
-      <div className="mx-auto w-full max-w-7xl px-5 py-12 md:px-8 md:py-20">
+    <section className="bg-white w-full">
+      <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-30">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
           {/* LEFT */}
           <div className="space-y-6 md:space-y-7">
@@ -44,15 +36,20 @@ export const ForFashionDesignersHero: React.FC<ForFashionDesignersHeroProps> = (
             {/* CTAs */}
             <div className="flex flex-col gap-6 md:flex-row sm:items-center">
 
-            <Button className="bg-[#F74F25] hover:bg-[#F74F25]/90 md:w-52 text-white h-12 font-bold">
-            <Link href="#"> 
-            Get Started For Free <ArrowRight className="ml-2" /> 
+          <Button 
+            className="bg-[#F74F25] hover:bg-[#F74F25]/90 md:w-52 text-white h-12 font-bold">
+            
+            <Link href="#" className="inline-flex items-center justify-center gap-2 whitespace-nowrap"> 
+            Get Started For Free 
+            <ArrowRight className="ml-2 h-4 w-4" /> 
             </Link>
           </Button>
 
-          <Button variant="outline" className="text-[#121926] h-12 md:w-42 font-bold bg-transparent border-[#121926] hover:bg-[#121926]/3">
-            <Link href="#">
-            <PlayIcon className="mr-2" /> 
+          <Button 
+          variant="outline" 
+          className="text-[#121926] h-12 md:w-42 font-bold bg-transparent border-[#121926] hover:bg-[#121926]/3">
+            <Link href="#" className="inline-flex items-center justify-center gap-2 whitespace-nowrap">
+            <PlayIcon className="mr-2 h-4 w-4" /> 
             Watch Demo 
             </Link>
           </Button>
@@ -65,8 +62,8 @@ export const ForFashionDesignersHero: React.FC<ForFashionDesignersHeroProps> = (
             <div className="relative overflow-hidden rounded-[28px] bg-[#f4f4f5] ">
               <div className="relative aspect-4/3 w-full md:aspect-[1.08/1]">
                 <Image
-                  src={imageSrc}
-                  alt={imageAlt}
+                  src={"/images/pngs/fashion.png"}
+                  alt={"Fashion designer in studio" }
                   fill
                   priority
                   className="object-cover"
