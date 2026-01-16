@@ -189,7 +189,8 @@ export const DesignOpsIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <g clip-path="url(#clip0_998_25184)">
+    <g transform="scale(0.85) translate(1.76, 1.76)">
+      <g clip-path="url(#clip0_998_25184)">
       <path
         d="M10.5084 20.6743C7.88551 23.3143 3.42836 24.1886 0.856934 21.5486C4.28551 18 0.856934 16.2857 3.42836 13.7143C3.87988 13.2113 4.42922 12.8057 5.0428 12.5222C5.65639 12.2388 6.32133 12.0834 6.997 12.0656C7.67266 12.0478 8.34486 12.168 8.9725 12.4188C9.60015 12.6696 10.1701 13.0458 10.6474 13.5243C11.1248 14.0028 11.4995 14.5736 11.7488 15.2019C11.9981 15.8302 12.1166 16.5026 12.0972 17.1783C12.0777 17.8539 11.9207 18.5184 11.6358 19.1313C11.3508 19.7442 10.9439 20.2926 10.4398 20.7429L10.5084 20.6743Z"
         stroke="#9AA4B2"
@@ -204,6 +205,7 @@ export const DesignOpsIcon = () => (
         stroke-linecap="round"
         stroke-linejoin="round"
       />
+      </g>
     </g>
     <defs>
       <clipPath id="clip0_998_25184">
@@ -220,7 +222,8 @@ export const StoreOpsIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path
+    <g transform="scale(0.85) translate(1.76, 1.76)">
+      <path
       d="M21.4284 7.71429H2.57122C1.62445 7.71429 0.856934 8.4818 0.856934 9.42857V21.4286C0.856934 22.3753 1.62445 23.1429 2.57122 23.1429H21.4284C22.3751 23.1429 23.1426 22.3753 23.1426 21.4286V9.42857C23.1426 8.4818 22.3751 7.71429 21.4284 7.71429Z"
       stroke="#9AA4B2"
       stroke-width="1.2"
@@ -247,7 +250,8 @@ export const StoreOpsIcon = () => (
       stroke-width="1.2"
       stroke-linecap="round"
       stroke-linejoin="round"
-    />
+      />
+    </g>
   </svg>
 );
 export const AnalyticsIcon = () => (
@@ -258,7 +262,8 @@ export const AnalyticsIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path
+    <g transform="scale(0.85) translate(1.76, 1.76)">
+      <path
       d="M16.2857 6H23.1429V12.8571"
       stroke="#9AA4B2"
       stroke-width="1.2"
@@ -271,7 +276,8 @@ export const AnalyticsIcon = () => (
       stroke-width="1.2"
       stroke-linecap="round"
       stroke-linejoin="round"
-    />
+      />
+    </g>
   </svg>
 );
 export const MarketingIcon = () => (
@@ -313,7 +319,8 @@ export const FinanceIcon = () => (
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
-    <path
+    <g transform="scale(0.85) translate(1.65, 1.76)">
+      <path
       d="M10.8857 16.9715V18.7029"
       stroke="#0D0D0D"
       stroke-width="1.2"
@@ -340,7 +347,8 @@ export const FinanceIcon = () => (
       stroke-width="1.2"
       stroke-linecap="round"
       stroke-linejoin="round"
-    />
+      />
+    </g>
   </svg>
 );
 export const SettingsIcon = () => (
