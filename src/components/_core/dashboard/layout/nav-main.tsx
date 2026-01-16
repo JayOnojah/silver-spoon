@@ -25,7 +25,22 @@ type NavItem = {
 
 export function NavMain({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
-  const [expandedItem, setExpandedItem] = React.useState<string | null>("");
+  const [expandedItem, setExpandedItem] = React.useState<string | null>(null);
+
+  // Automatically expand parent items that have active children
+  React.useEffect(() => {
+    const activeParent = items.find((item) => {
+      if (!item.children || item.children.length === 0) return false;
+      return item.children.some((child) => {
+        if (child.url === "#") return false;
+        return pathname === child.url || pathname?.startsWith(child.url + "/");
+      });
+    });
+    
+    if (activeParent) {
+      setExpandedItem(activeParent.title);
+    }
+  }, [pathname, items]);
 
   const toggleItem = (title: string) => {
     setExpandedItem((prev) => {
