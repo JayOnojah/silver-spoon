@@ -8,6 +8,8 @@ import { Testimonials } from "@/components/_core/landing-pages/home/testimonials
 import { ScaleBusiness } from "@/components/_core/landing-pages/home/scale-business";
 import { AcademicResource } from "@/components/_core/landing-pages/home/academic-resource";
 import { Pricing } from "@/components/_core/landing-pages/home/pricing";
+import { Faq } from "../components/_core/landing-pages/shared/faq";
+import { Journey } from "../components/_core/landing-pages/home/journey";
 
 const Page = () => {
   return (
@@ -21,6 +23,8 @@ const Page = () => {
       <ScaleBusiness />
       <AcademicResource />
       <Pricing />
+      <Faq />
+      <Journey />
       <Footer />
     </div>
   );

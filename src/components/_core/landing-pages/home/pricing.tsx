@@ -98,7 +98,7 @@ export const Pricing = () => {
     ];
 
     return (
-        <div className="w-full py-20 px-4 md:px-8">
+        <div className="w-full py-20 px-4 md:px-8 bg-white">
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     className="text-center mb-12"
@@ -144,7 +144,7 @@ export const Pricing = () => {
                     </div>
                 </motion.div>
 
-                <div className="grid md:grid-cols-3 gap-6 mb-8">
+                <div className="grid md:grid-cols-3 gap-6 mb-8 bg-white">
                     {pricingPlans.map((plan, index) => (
                         <motion.div
                             key={plan.name}
