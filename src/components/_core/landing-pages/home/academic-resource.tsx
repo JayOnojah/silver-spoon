@@ -51,7 +51,7 @@ export const AcademicResource = () => {
     ];
 
     return (
-        <div className="w-full bg-[#F9F0EE] md:py-30 py-20 px-4 md:px-8">
+        <div className="w-full bg-[#F9F0EE] md:py-30 py-15 px-4 md:px-8 overflow-x-hidden">
             <div className="max-w-7xl mx-auto">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <motion.div
