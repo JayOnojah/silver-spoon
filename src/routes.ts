@@ -3,7 +3,16 @@
  * These routes do not require authentication
  * @types {string[]}
  */
-export const publicRoutes = ["/", "/website"];
+export const publicRoutes = [
+  "/",
+  "/fashion-designers",
+  "/cobblers",
+  "/pricing",
+  "/features",
+  "/academy",
+  "/about-us",
+  "/blog",
+];
 
 /**
  * Static public prefixes (exact or starting with)
