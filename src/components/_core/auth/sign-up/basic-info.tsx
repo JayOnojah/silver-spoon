@@ -85,46 +85,48 @@ const BasicInfo = () => {
       </p>
 
       {/* Form */}
-      <form className="space-y-6">
+      <form className="space-y-4">
         {/* First Name */}
-        <div className="space-y-2">
-          <label
-            htmlFor="firstName"
-            className="text-sm font-medium text-foreground"
-          >
-            First Name <span className="text-destructive">*</span>
-          </label>
-          <div className="relative">
-            <IconUser className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
-            <Input
-              id="firstName"
-              type="text"
-              placeholder="John"
-              className="pl-10 h-12 rounded-2xl"
-              value={formData.firstName}
-              onChange={(e) => handleInputChange("firstName", e.target.value)}
-            />
+        <div className="flex flex-col xl:flex-row gap-4 ">
+          <div className="space-y-2 flex-1">
+            <label
+              htmlFor="firstName"
+              className="text-sm font-medium text-[#4B5565]"
+            >
+              First Name <span className="text-destructive">*</span>
+            </label>
+            <div className="relative mt-1">
+              <IconUser className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
+              <Input
+                id="firstName"
+                type="text"
+                placeholder="John"
+                className="pl-10 h-12 rounded-2xl"
+                value={formData.firstName}
+                onChange={(e) => handleInputChange("firstName", e.target.value)}
+              />
+            </div>
           </div>
-        </div>
 
-        {/* Last Name */}
-        <div className="space-y-2">
-          <label
-            htmlFor="lastName"
-            className="text-sm font-medium text-foreground"
-          >
-            Last Name <span className="text-destructive">*</span>
-          </label>
-          <div className="relative">
-            <IconUser className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
-            <Input
-              id="lastName"
-              type="text"
-              placeholder="Doe"
-              className="pl-10 h-12 rounded-2xl"
-              value={formData.lastName}
-              onChange={(e) => handleInputChange("lastName", e.target.value)}
-            />
+          {/* Last Name */}
+          <div className="space-y-2 flex-1">
+            <label
+              htmlFor="lastName"
+              className="text-sm font-medium text-[#4B5565]"
+            >
+              Last Name <span className="text-destructive">*</span>
+            </label>
+            <div className="relative mt-1">
+              <IconUser className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
+              <Input
+                id="lastName"
+                type="text"
+                placeholder="Doe"
+                className="pl-10 h-12 rounded-2xl"
+                value={formData.lastName}
+                onChange={(e) => handleInputChange("lastName", e.target.value)}
+              />
+            </div>
           </div>
         </div>
 
@@ -132,11 +134,11 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="email"
-            className="text-sm font-medium text-foreground"
+            className="text-sm font-medium text-[#4B5565]"
           >
             Your Email <span className="text-destructive">*</span>
           </label>
-          <div className="relative">
+          <div className="relative mt-1">
             <IconMail className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
             <Input
               id="email"
@@ -160,11 +162,11 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="businessName"
-            className="text-sm font-medium text-foreground"
+            className="text-sm font-medium text-[#4B5565]"
           >
             Business Name <span className="text-destructive">*</span>
           </label>
-          <div className="relative">
+          <div className="relative mt-1">
             <IconBriefcase className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
             <Input
               id="businessName"
@@ -183,7 +185,7 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="country"
-            className="text-sm font-medium text-foreground"
+            className="text-sm font-medium text-[#4B5565]"
           >
             Country <span className="text-destructive">*</span>
           </label>
@@ -191,7 +193,7 @@ const BasicInfo = () => {
             value={formData.country}
             onValueChange={(value) => handleInputChange("country", value)}
           >
-            <SelectTrigger className="w-full h-12 py-6 rounded-2xl [&>svg]:right-3 [&>svg]:absolute">
+            <SelectTrigger className="w-full h-12 py-6 rounded-2xl [&>svg]:right-3 [&>svg]:absolute mt-1">
               <SelectValue placeholder="Select country" />
             </SelectTrigger>
             <SelectContent>
@@ -209,16 +211,16 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="phoneNumber"
-            className="text-sm font-medium text-foreground"
+            className="text-sm font-medium text-[#4B5565]"
           >
             Phone Number <span className="text-destructive">*</span>
           </label>
-          <div className="flex gap-2">
+          <div className="flex gap-2 mt-1">
             <Select
               value={formData.countryCode}
               onValueChange={(value) => handleInputChange("countryCode", value)}
             >
-              <SelectTrigger className="w-24 h-12 py-[23px] rounded-2xl [&>svg]:right-2">
+              <SelectTrigger className="w-24 h-12 py-5.75 rounded-2xl [&>svg]:right-2">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -245,11 +247,11 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="password"
-            className="text-sm font-medium text-foreground"
+            className="text-sm font-medium text-[#4B5565]"
           >
             Your Password <span className="text-destructive">*</span>
           </label>
-          <div className="relative">
+          <div className="relative mt-1">
             <IconLock className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
             <Input
               id="password"
@@ -281,7 +283,7 @@ const BasicInfo = () => {
           />
           <label
             htmlFor="terms"
-            className="text-sm text-foreground leading-relaxed cursor-pointer"
+            className="text-sm text-[#4B5565] leading-relaxed cursor-pointer"
           >
             I agree to the{" "}
             <Link

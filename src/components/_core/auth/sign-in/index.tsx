@@ -40,7 +40,7 @@ const SignInForm = () => {
         <div className="space-y-2">
           <label
             htmlFor="email"
-            className="text-sm font-medium text-foreground"
+            className="text-sm font-medium text-[#4B5565]"
           >
             Your email *
           </label>
@@ -62,7 +62,7 @@ const SignInForm = () => {
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
-              className="text-sm font-medium text-foreground"
+              className="text-sm font-medium text-[#4B5565]"
             >
               Your password *
             </label>
