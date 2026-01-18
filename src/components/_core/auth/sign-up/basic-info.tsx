@@ -23,45 +23,138 @@ import { cn } from "@/lib/utils";
 
 const BasicInfo = () => {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [formData, setFormData] = useState({
-    firstName: "John",
-    lastName: "Doe",
-    email: "Johndoe@Gmailcom",
-    businessName: "John Stiches",
-    country: "Nigeria",
+    firstName: "",
+    lastName: "",
+    email: "",
+    businessName: "",
+    country: "",
     countryCode: "+234",
-    phoneNumber: "8035341009",
+    phoneNumber: "",
     password: "",
-    agreeToTerms: true,
+    confirmPassword: "",
+    agreeToTerms: false,
   });
-  const [emailError, setEmailError] = useState(
-    "Please enter a valid email address to continue",
-  );
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
 
+    // Clear error when user starts typing
+    if (errors[field]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
+    }
+
     // Validate email on change
-    if (field === "email") {
+    if (field === "email" && typeof value === "string") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (value && typeof value === "string" && !emailRegex.test(value)) {
-        setEmailError("Please enter a valid email address to continue");
-      } else {
-        setEmailError("");
+      if (value && !emailRegex.test(value)) {
+        setErrors((prev) => ({
+          ...prev,
+          email: "Please enter a valid email address to continue",
+        }));
+      }
+    }
+
+    // Validate password match on confirm password change
+    if (field === "confirmPassword" && typeof value === "string") {
+      if (value && value !== formData.password) {
+        setErrors((prev) => ({
+          ...prev,
+          confirmPassword: "Passwords do not match",
+        }));
+      }
+    }
+
+    // Validate password match on password change
+    if (field === "password" && typeof value === "string") {
+      if (formData.confirmPassword && value !== formData.confirmPassword) {
+        setErrors((prev) => ({
+          ...prev,
+          confirmPassword: "Passwords do not match",
+        }));
+      } else if (formData.confirmPassword && value === formData.confirmPassword) {
+        setErrors((prev) => {
+          const newErrors = { ...prev };
+          delete newErrors.confirmPassword;
+          return newErrors;
+        });
       }
     }
   };
 
-  const isFormValid =
-    formData.firstName.trim() &&
-    formData.lastName.trim() &&
-    formData.email.trim() &&
-    !emailError &&
-    formData.businessName.trim() &&
-    formData.country &&
-    formData.phoneNumber.trim() &&
-    formData.password.trim() &&
-    formData.agreeToTerms;
+  const validateField = (field: string, value: string | boolean): string => {
+    if (field === "firstName" && (!value || (typeof value === "string" && !value.trim()))) {
+      return "First name is required";
+    }
+    if (field === "lastName" && (!value || (typeof value === "string" && !value.trim()))) {
+      return "Last name is required";
+    }
+    if (field === "email") {
+      if (!value || (typeof value === "string" && !value.trim())) {
+        return "Email is required";
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (typeof value === "string" && !emailRegex.test(value)) {
+        return "Please enter a valid email address to continue";
+      }
+    }
+    if (field === "businessName" && (!value || (typeof value === "string" && !value.trim()))) {
+      return "Business name is required";
+    }
+    if (field === "country" && (!value || (typeof value === "string" && !value.trim()))) {
+      return "Country is required";
+    }
+    if (field === "phoneNumber" && (!value || (typeof value === "string" && !value.trim()))) {
+      return "Phone number is required";
+    }
+    if (field === "password" && (!value || (typeof value === "string" && !value.trim()))) {
+      return "Password is required";
+    }
+    if (field === "confirmPassword") {
+      if (!value || (typeof value === "string" && !value.trim())) {
+        return "Please confirm your password";
+      }
+      if (typeof value === "string" && value !== formData.password) {
+        return "Passwords do not match";
+      }
+    }
+    if (field === "agreeToTerms" && !value) {
+      return "You must agree to the terms and conditions";
+    }
+    return "";
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    
+    const newErrors: Record<string, string> = {};
+    const newTouched: Record<string, boolean> = {};
+
+    // Validate all fields
+    Object.keys(formData).forEach((field) => {
+      const error = validateField(field, formData[field as keyof typeof formData]);
+      if (error) {
+        newErrors[field] = error;
+        newTouched[field] = true;
+      }
+    });
+
+    setErrors(newErrors);
+    setTouched(newTouched);
+
+    // If no errors, proceed with form submission
+    if (Object.keys(newErrors).length === 0) {
+      // Handle form submission here
+      console.log("Form submitted:", formData);
+    }
+  };
 
   return (
     <div className="max-w-163.5 mx-auto px-6 mt-10">
@@ -85,7 +178,7 @@ const BasicInfo = () => {
       </p>
 
       {/* Form */}
-      <form className="space-y-4">
+      <form className="space-y-4" onSubmit={handleSubmit}>
         {/* First Name */}
         <div className="flex flex-col xl:flex-row gap-4 ">
           <div className="space-y-2 flex-1">
@@ -101,11 +194,18 @@ const BasicInfo = () => {
                 id="firstName"
                 type="text"
                 placeholder="John"
-                className="pl-10 h-12 rounded-2xl"
+                className={cn(
+                  "pl-10 h-12 rounded-2xl",
+                  errors.firstName && "border-destructive"
+                )}
                 value={formData.firstName}
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
+                onBlur={() => setTouched((prev) => ({ ...prev, firstName: true }))}
               />
             </div>
+            {errors.firstName && touched.firstName && (
+              <p className="text-sm text-destructive">{errors.firstName}</p>
+            )}
           </div>
 
           {/* Last Name */}
@@ -122,11 +222,18 @@ const BasicInfo = () => {
                 id="lastName"
                 type="text"
                 placeholder="Doe"
-                className="pl-10 h-12 rounded-2xl"
+                className={cn(
+                  "pl-10 h-12 rounded-2xl",
+                  errors.lastName && "border-destructive"
+                )}
                 value={formData.lastName}
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
+                onBlur={() => setTouched((prev) => ({ ...prev, lastName: true }))}
               />
             </div>
+            {errors.lastName && touched.lastName && (
+              <p className="text-sm text-destructive">{errors.lastName}</p>
+            )}
           </div>
         </div>
 
@@ -146,15 +253,16 @@ const BasicInfo = () => {
               placeholder="Johndoe@Gmailcom"
               className={cn(
                 "pl-10 h-12 rounded-2xl",
-                emailError && "border-destructive",
+                errors.email && "border-destructive",
               )}
               value={formData.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
-              aria-invalid={!!emailError}
+              onBlur={() => setTouched((prev) => ({ ...prev, email: true }))}
+              aria-invalid={!!errors.email}
             />
           </div>
-          {emailError && (
-            <p className="text-sm text-destructive">{emailError}</p>
+          {errors.email && touched.email && (
+            <p className="text-sm text-destructive">{errors.email}</p>
           )}
         </div>
 
@@ -172,13 +280,20 @@ const BasicInfo = () => {
               id="businessName"
               type="text"
               placeholder="John Stiches"
-              className="pl-10 h-12 rounded-2xl"
+              className={cn(
+                "pl-10 h-12 rounded-2xl",
+                errors.businessName && "border-destructive"
+              )}
               value={formData.businessName}
               onChange={(e) =>
                 handleInputChange("businessName", e.target.value)
               }
+              onBlur={() => setTouched((prev) => ({ ...prev, businessName: true }))}
             />
           </div>
+          {errors.businessName && touched.businessName && (
+            <p className="text-sm text-destructive">{errors.businessName}</p>
+          )}
         </div>
 
         {/* Country */}
@@ -191,9 +306,15 @@ const BasicInfo = () => {
           </label>
           <Select
             value={formData.country}
-            onValueChange={(value) => handleInputChange("country", value)}
+            onValueChange={(value) => {
+              handleInputChange("country", value);
+              setTouched((prev) => ({ ...prev, country: true }));
+            }}
           >
-            <SelectTrigger className="w-full h-12 py-6 rounded-2xl [&>svg]:right-3 [&>svg]:absolute mt-1">
+            <SelectTrigger className={cn(
+              "w-full h-12 py-6 rounded-2xl [&>svg]:right-3 [&>svg]:absolute mt-1",
+              errors.country && "border-destructive"
+            )}>
               <SelectValue placeholder="Select country" />
             </SelectTrigger>
             <SelectContent>
@@ -205,6 +326,9 @@ const BasicInfo = () => {
               <SelectItem value="United Kingdom">United Kingdom</SelectItem>
             </SelectContent>
           </Select>
+          {errors.country && touched.country && (
+            <p className="text-sm text-destructive">{errors.country}</p>
+          )}
         </div>
 
         {/* Phone Number */}
@@ -236,11 +360,18 @@ const BasicInfo = () => {
               id="phoneNumber"
               type="tel"
               placeholder="8035341009"
-              className="flex-1 h-12 rounded-2xl"
+              className={cn(
+                "flex-1 h-12 rounded-2xl",
+                errors.phoneNumber && "border-destructive"
+              )}
               value={formData.phoneNumber}
               onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
+              onBlur={() => setTouched((prev) => ({ ...prev, phoneNumber: true }))}
             />
           </div>
+          {errors.phoneNumber && touched.phoneNumber && (
+            <p className="text-sm text-destructive">{errors.phoneNumber}</p>
+          )}
         </div>
 
         {/* Password */}
@@ -257,9 +388,13 @@ const BasicInfo = () => {
               id="password"
               type={showPassword ? "text" : "password"}
               placeholder="••••••••••"
-              className="pl-10 pr-20 h-12 rounded-2xl"
+              className={cn(
+                "pl-10 pr-20 h-12 rounded-2xl",
+                errors.password && "border-destructive"
+              )}
               value={formData.password}
               onChange={(e) => handleInputChange("password", e.target.value)}
+              onBlur={() => setTouched((prev) => ({ ...prev, password: true }))}
             />
             <button
               type="button"
@@ -269,44 +404,90 @@ const BasicInfo = () => {
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
+          {errors.password && touched.password && (
+            <p className="text-sm text-destructive">{errors.password}</p>
+          )}
+        </div>
+
+        {/* Confirm Password */}
+        <div className="space-y-2">
+          <label
+            htmlFor="confirmPassword"
+            className="text-sm font-medium text-[#4B5565]"
+          >
+            Confirm Password <span className="text-destructive">*</span>
+          </label>
+          <div className="relative mt-1">
+            <IconLock className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
+            <Input
+              id="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="••••••••••"
+              className={cn(
+                "pl-10 pr-20 h-12 rounded-2xl",
+                errors.confirmPassword && "border-destructive"
+              )}
+              value={formData.confirmPassword}
+              onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
+              onBlur={() => setTouched((prev) => ({ ...prev, confirmPassword: true }))}
+            />
+            <button
+              type="button"
+              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#9AA4B2] hover:text-foreground"
+            >
+              {showConfirmPassword ? "Hide" : "Show"}
+            </button>
+          </div>
+          {errors.confirmPassword && touched.confirmPassword && (
+            <p className="text-sm text-destructive">{errors.confirmPassword}</p>
+          )}
         </div>
 
         {/* Terms and Conditions */}
-        <div className="flex items-start gap-3">
-          <Checkbox
-            id="terms"
-            checked={formData.agreeToTerms}
-            onCheckedChange={(checked) =>
-              handleInputChange("agreeToTerms", checked as boolean)
-            }
-            className="mt-1"
-          />
-          <label
-            htmlFor="terms"
-            className="text-sm text-[#4B5565] leading-relaxed cursor-pointer"
-          >
-            I agree to the{" "}
-            <Link
-              href="/terms"
-              className="text-primary hover:underline font-medium"
+        <div className="space-y-2">
+          <div className="flex items-start gap-3">
+            <Checkbox
+              id="terms"
+              checked={formData.agreeToTerms}
+              onCheckedChange={(checked) => {
+                handleInputChange("agreeToTerms", checked as boolean);
+                setTouched((prev) => ({ ...prev, agreeToTerms: true }));
+              }}
+              className={cn(
+                "mt-1",
+                errors.agreeToTerms && "border-destructive"
+              )}
+            />
+            <label
+              htmlFor="terms"
+              className="text-sm text-[#4B5565] leading-relaxed cursor-pointer"
             >
-              Terms of Service
-            </Link>{" "}
-            and{" "}
-            <Link
-              href="/privacy"
-              className="text-primary hover:underline font-medium"
-            >
-              Privacy Policy
-            </Link>
-          </label>
+              I agree to the{" "}
+              <Link
+                href="/terms"
+                className="text-primary hover:underline font-medium"
+              >
+                Terms of Service
+              </Link>{" "}
+              and{" "}
+              <Link
+                href="/privacy"
+                className="text-primary hover:underline font-medium"
+              >
+                Privacy Policy
+              </Link>
+            </label>
+          </div>
+          {errors.agreeToTerms && touched.agreeToTerms && (
+            <p className="text-sm text-destructive">{errors.agreeToTerms}</p>
+          )}
         </div>
 
         {/* Create Account Button */}
         <Button
           type="submit"
           className="w-full h-12 text-base font-medium rounded-2xl"
-          disabled={!isFormValid}
         >
           Create Account
         </Button>
