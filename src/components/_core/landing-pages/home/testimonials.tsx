@@ -40,7 +40,7 @@ export const Testimonials = () => {
 
     return (
         <div className="w-full bg-[#1a1f2e] py-20 px-4 md:px-8 overflow-x-hidden">
-            <div className="max-w-7xl mx-auto">
+            <div className="lg:w-[94%] mx-auto">
                 <motion.div
                     className="text-center mb-16"
                     initial={{ opacity: 0, y: 30 }}

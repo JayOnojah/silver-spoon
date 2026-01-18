@@ -98,8 +98,8 @@ export const Pricing = () => {
     ];
 
     return (
-        <div className="w-full py-20 px-4 md:px-8 bg-white">
-            <div className="max-w-7xl mx-auto">
+        <div className="w-full py-20 px-4 md:px-8 bg-white" id='pricing'>
+            <div className="lg:w-[94%] mx-auto">
                 <motion.div
                     className="text-center mb-12"
                     initial={{ opacity: 0, y: 20 }}

@@ -6,8 +6,8 @@ import Image from "next/image"
 
 export const Journey = () => {
     return (
-        <div className="w-full px-4 md:px-8 md:py-20 py-15 bg-white">
-            <div className="max-w-7xl mx-auto bg-[#682110] md:py-24 py-10 px-6 md:rounded-[48px] rounded-[24px] relative">
+        <div className="w-full px-4 md:px-8 md:py-20 py-15 bg-white overflow-x-hidden">
+            <div className="lg:w-[94%] mx-auto bg-[#682110] md:py-24 py-10 px-6 md:rounded-[48px] rounded-[24px] relative">
                 <div className="flex justify-center">
                     <Badge className="bg-white text-[#F74F25]">Start Your Journey Today</Badge>
                 </div>

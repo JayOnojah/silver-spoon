@@ -91,13 +91,13 @@ export const FashionDesigners = () => {
     ]
 
     return (
-        <div className="w-full px-4 md:px-8 md:py-20 py-15 bg-white">
+        <div className="w-full px-4 md:px-8 md:py-20 py-15 bg-white overflow-x-hidden">
             <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6 }}
-                className="max-w-7xl mx-auto"
+                className="lg:w-[94%] mx-auto"
             >
                 <div ref={titleRef}>
                     <h1 className="text-[#121926] font-black md:text-[34px] text-2xl text-center md:leading-10">
