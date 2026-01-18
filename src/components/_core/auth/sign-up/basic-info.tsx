@@ -64,7 +64,7 @@ const BasicInfo = () => {
     formData.agreeToTerms;
 
   return (
-    <div className="max-w-163.5 mx-auto px-6">
+    <div className="max-w-163.5 mx-auto px-6 mt-10">
       {/* Back Link */}
       <Link
         href="/auth/sign-up"
@@ -191,7 +191,7 @@ const BasicInfo = () => {
             value={formData.country}
             onValueChange={(value) => handleInputChange("country", value)}
           >
-            <SelectTrigger className="w-full h-12 rounded-2xl [&>svg]:right-3 [&>svg]:absolute">
+            <SelectTrigger className="w-full h-12 py-6 rounded-2xl [&>svg]:right-3 [&>svg]:absolute">
               <SelectValue placeholder="Select country" />
             </SelectTrigger>
             <SelectContent>
@@ -218,7 +218,7 @@ const BasicInfo = () => {
               value={formData.countryCode}
               onValueChange={(value) => handleInputChange("countryCode", value)}
             >
-              <SelectTrigger className="w-24 h-12 rounded-2xl [&>svg]:right-2">
+              <SelectTrigger className="w-24 h-12 py-[23px] rounded-2xl [&>svg]:right-2">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -314,7 +314,7 @@ const BasicInfo = () => {
       <p className="text-center text-sm text-[#9AA4B2] mt-6">
         Already have an account?{" "}
         <Link
-          href="/auth/sign-in"
+          href="/sign-in"
           className="text-primary hover:underline font-medium"
         >
           Login

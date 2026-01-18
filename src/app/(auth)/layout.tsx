@@ -3,9 +3,9 @@ import React from "react";
 
 const AuthLayout = ({ children }: { children: Readonly<React.ReactNode> }) => {
   return (
-    <div className="flex gap-10 p-5 h-dvh">
+    <div className="flex gap-5 smp-5 h-full xl:overflow-hidden">
       <div
-        className="flex-1 hidden px-4 rounded-xl h-[calc(100dvh-38px)] bg-cover bg-center bg-no-repeat aspect-auto justify-start xl:flex flex-col items-center"
+        className="flex-1 hidden px-4 rounded-xl h-full bg-cover bg-center bg-no-repeat aspect-auto justify-start xl:flex flex-col items-center overflow-hidden"
         style={{
           backgroundImage: "url('/images/pngs/auth-bg.png')",
         }}
@@ -19,7 +19,7 @@ const AuthLayout = ({ children }: { children: Readonly<React.ReactNode> }) => {
           className="h-full w-full object-contain scale-x-105"
         />
       </div>
-      <div className="flex-1 h-full">{children}</div>
+      <div className="flex-1 h-full overflow-y-auto xl:min-h-0">{children}</div>
     </div>
   );
 };
