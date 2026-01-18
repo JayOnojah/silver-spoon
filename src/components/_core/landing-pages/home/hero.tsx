@@ -41,8 +41,8 @@ export const HomeHero = () => {
 
   return (
     <>
-      <div className="bg-[#F9F0EE] w-full pt-30 px-4 md:px-8">
-        <div className="max-w-7xl mx-auto">
+      <div className="bg-[#F9F0EE] w-full pt-30 px-4 md:px-8 overflow-x-hidden">
+        <div className="lg:w-[94%] mx-auto">
           <div className="flex justify-center">
             <Badge className="bg-[#FDC8BB] text-[#F74F25]">
               The #1 Platform for Creators 🚀
@@ -76,20 +76,18 @@ export const HomeHero = () => {
               <span className="text-[18px] text-[#121926]">Free website</span>
             </div>
           </div>
+          <div ref={imageRef} className="w-full pt-5 md:pt-0">
+            <Image
+              src='/images/pngs/home-frame.png'
+              alt="home-frame"
+              width={1280}
+              height={744}
+              className="w-full"
+            />
+          </div>
+        </div>
+      </div>
 
-        </div>
-      </div>
-      <div className="bg-[#F9F0EE]">
-        <div ref={imageRef} className="w-full ">
-          <Image
-            src='/images/pngs/home-frame.png'
-            alt="home-frame"
-            width={1280}
-            height={744}
-            className="w-full"
-          />
-        </div>
-      </div>
     </>
   )
 }

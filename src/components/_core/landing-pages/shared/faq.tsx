@@ -45,7 +45,7 @@ const faqs = [
 export const Faq = () => {
     return (
         <div className="md:py-20 px-4 md:px-8 bg-white">
-            <div className="max-w-7xl mx-auto">
+            <div className="lg:w-[94%] mx-auto">
                 <div className="flex justify-center">
                     <Badge className="mb-4 text-[#F74F25] bg-[#FEEDE9]">
                         Got Questions?

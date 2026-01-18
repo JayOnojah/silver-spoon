@@ -184,8 +184,8 @@ export default function Features() {
     ]
 
     return (
-        <div className="min-h-screen bg-[#F9F0EE]">
-            <div className='w-[90%] mx-auto md:py-30 py-10'>
+        <div className="min-h-screen bg-[#F9F0EE] px-4 md:px-8 overflow-x-hidden" id='features'>
+            <div className='lg:w-[94%] mx-auto md:py-30 py-10'>
                 <div className='flex justify-center'>
                     <Badge className='bg-[#FDC8BB] text-[#F74F25] text-xs'>Feature</Badge>
                 </div>

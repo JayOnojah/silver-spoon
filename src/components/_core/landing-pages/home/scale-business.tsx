@@ -38,8 +38,8 @@ export const ScaleBusiness = () => {
     ];
 
     return (
-        <div className="w-full py-20 px-4 md:px-8 bg-white">
-            <div className="max-w-7xl mx-auto">
+        <div className="w-full py-20 px-4 md:px-8 bg-white overflow-x-hidden">
+            <div className="lg:w-[94%] mx-auto">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
