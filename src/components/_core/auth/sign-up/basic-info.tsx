@@ -20,10 +20,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import VerifyOtpDialog from "./verify-otp-dialog";
 
 const BasicInfo = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -79,7 +81,10 @@ const BasicInfo = () => {
           ...prev,
           confirmPassword: "Passwords do not match",
         }));
-      } else if (formData.confirmPassword && value === formData.confirmPassword) {
+      } else if (
+        formData.confirmPassword &&
+        value === formData.confirmPassword
+      ) {
         setErrors((prev) => {
           const newErrors = { ...prev };
           delete newErrors.confirmPassword;
@@ -90,10 +95,16 @@ const BasicInfo = () => {
   };
 
   const validateField = (field: string, value: string | boolean): string => {
-    if (field === "firstName" && (!value || (typeof value === "string" && !value.trim()))) {
+    if (
+      field === "firstName" &&
+      (!value || (typeof value === "string" && !value.trim()))
+    ) {
       return "First name is required";
     }
-    if (field === "lastName" && (!value || (typeof value === "string" && !value.trim()))) {
+    if (
+      field === "lastName" &&
+      (!value || (typeof value === "string" && !value.trim()))
+    ) {
       return "Last name is required";
     }
     if (field === "email") {
@@ -105,16 +116,28 @@ const BasicInfo = () => {
         return "Please enter a valid email address to continue";
       }
     }
-    if (field === "businessName" && (!value || (typeof value === "string" && !value.trim()))) {
+    if (
+      field === "businessName" &&
+      (!value || (typeof value === "string" && !value.trim()))
+    ) {
       return "Business name is required";
     }
-    if (field === "country" && (!value || (typeof value === "string" && !value.trim()))) {
+    if (
+      field === "country" &&
+      (!value || (typeof value === "string" && !value.trim()))
+    ) {
       return "Country is required";
     }
-    if (field === "phoneNumber" && (!value || (typeof value === "string" && !value.trim()))) {
+    if (
+      field === "phoneNumber" &&
+      (!value || (typeof value === "string" && !value.trim()))
+    ) {
       return "Phone number is required";
     }
-    if (field === "password" && (!value || (typeof value === "string" && !value.trim()))) {
+    if (
+      field === "password" &&
+      (!value || (typeof value === "string" && !value.trim()))
+    ) {
       return "Password is required";
     }
     if (field === "confirmPassword") {
@@ -133,13 +156,16 @@ const BasicInfo = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    
+
     const newErrors: Record<string, string> = {};
     const newTouched: Record<string, boolean> = {};
 
     // Validate all fields
     Object.keys(formData).forEach((field) => {
-      const error = validateField(field, formData[field as keyof typeof formData]);
+      const error = validateField(
+        field,
+        formData[field as keyof typeof formData],
+      );
       if (error) {
         newErrors[field] = error;
         newTouched[field] = true;
@@ -153,11 +179,33 @@ const BasicInfo = () => {
     if (Object.keys(newErrors).length === 0) {
       // Handle form submission here
       console.log("Form submitted:", formData);
+      // Open verification dialog
+      setIsOpen(true);
     }
+  };
+
+  const handleVerify = (code: string) => {
+    // Handle OTP verification
+    console.log("Verifying code:", code);
+    // Add your verification logic here
+  };
+
+  const handleResend = () => {
+    // Handle resend OTP
+    console.log("Resending OTP to:", formData.email);
+    // Add your resend logic here
   };
 
   return (
     <div className="max-w-163.5 mx-auto px-6 mt-10">
+      <VerifyOtpDialog
+        open={isOpen}
+        onOpenChange={setIsOpen}
+        email={formData.email || "your@email.com"}
+        onBack={() => setIsOpen(false)}
+        onVerify={handleVerify}
+        onResend={handleResend}
+      />
       {/* Back Link */}
       <Link
         href="/auth/sign-up"
@@ -196,11 +244,13 @@ const BasicInfo = () => {
                 placeholder="John"
                 className={cn(
                   "pl-10 h-12 rounded-2xl",
-                  errors.firstName && "border-destructive"
+                  errors.firstName && "border-destructive",
                 )}
                 value={formData.firstName}
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
-                onBlur={() => setTouched((prev) => ({ ...prev, firstName: true }))}
+                onBlur={() =>
+                  setTouched((prev) => ({ ...prev, firstName: true }))
+                }
               />
             </div>
             {errors.firstName && touched.firstName && (
@@ -224,11 +274,13 @@ const BasicInfo = () => {
                 placeholder="Doe"
                 className={cn(
                   "pl-10 h-12 rounded-2xl",
-                  errors.lastName && "border-destructive"
+                  errors.lastName && "border-destructive",
                 )}
                 value={formData.lastName}
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
-                onBlur={() => setTouched((prev) => ({ ...prev, lastName: true }))}
+                onBlur={() =>
+                  setTouched((prev) => ({ ...prev, lastName: true }))
+                }
               />
             </div>
             {errors.lastName && touched.lastName && (
@@ -239,10 +291,7 @@ const BasicInfo = () => {
 
         {/* Email */}
         <div className="space-y-2">
-          <label
-            htmlFor="email"
-            className="text-sm font-medium text-[#4B5565]"
-          >
+          <label htmlFor="email" className="text-sm font-medium text-[#4B5565]">
             Your Email <span className="text-destructive">*</span>
           </label>
           <div className="relative mt-1">
@@ -282,13 +331,15 @@ const BasicInfo = () => {
               placeholder="John Stiches"
               className={cn(
                 "pl-10 h-12 rounded-2xl",
-                errors.businessName && "border-destructive"
+                errors.businessName && "border-destructive",
               )}
               value={formData.businessName}
               onChange={(e) =>
                 handleInputChange("businessName", e.target.value)
               }
-              onBlur={() => setTouched((prev) => ({ ...prev, businessName: true }))}
+              onBlur={() =>
+                setTouched((prev) => ({ ...prev, businessName: true }))
+              }
             />
           </div>
           {errors.businessName && touched.businessName && (
@@ -311,10 +362,12 @@ const BasicInfo = () => {
               setTouched((prev) => ({ ...prev, country: true }));
             }}
           >
-            <SelectTrigger className={cn(
-              "w-full h-12 py-6 rounded-2xl [&>svg]:right-3 [&>svg]:absolute mt-1",
-              errors.country && "border-destructive"
-            )}>
+            <SelectTrigger
+              className={cn(
+                "relative w-full h-12 py-6 rounded-2xl [&>svg]:right-3 [&>svg]:absolute mt-1",
+                errors.country && "border-destructive",
+              )}
+            >
               <SelectValue placeholder="Select country" />
             </SelectTrigger>
             <SelectContent>
@@ -344,7 +397,7 @@ const BasicInfo = () => {
               value={formData.countryCode}
               onValueChange={(value) => handleInputChange("countryCode", value)}
             >
-              <SelectTrigger className="w-24 h-12 py-5.75 rounded-2xl [&>svg]:right-2">
+              <SelectTrigger className="relative w-24 h-12 py-5.75 rounded-2xl [&>svg]:right-2 [&>svg]:absolute">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -362,11 +415,13 @@ const BasicInfo = () => {
               placeholder="8035341009"
               className={cn(
                 "flex-1 h-12 rounded-2xl",
-                errors.phoneNumber && "border-destructive"
+                errors.phoneNumber && "border-destructive",
               )}
               value={formData.phoneNumber}
               onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
-              onBlur={() => setTouched((prev) => ({ ...prev, phoneNumber: true }))}
+              onBlur={() =>
+                setTouched((prev) => ({ ...prev, phoneNumber: true }))
+              }
             />
           </div>
           {errors.phoneNumber && touched.phoneNumber && (
@@ -390,7 +445,7 @@ const BasicInfo = () => {
               placeholder="••••••••••"
               className={cn(
                 "pl-10 pr-20 h-12 rounded-2xl",
-                errors.password && "border-destructive"
+                errors.password && "border-destructive",
               )}
               value={formData.password}
               onChange={(e) => handleInputChange("password", e.target.value)}
@@ -425,11 +480,15 @@ const BasicInfo = () => {
               placeholder="••••••••••"
               className={cn(
                 "pl-10 pr-20 h-12 rounded-2xl",
-                errors.confirmPassword && "border-destructive"
+                errors.confirmPassword && "border-destructive",
               )}
               value={formData.confirmPassword}
-              onChange={(e) => handleInputChange("confirmPassword", e.target.value)}
-              onBlur={() => setTouched((prev) => ({ ...prev, confirmPassword: true }))}
+              onChange={(e) =>
+                handleInputChange("confirmPassword", e.target.value)
+              }
+              onBlur={() =>
+                setTouched((prev) => ({ ...prev, confirmPassword: true }))
+              }
             />
             <button
               type="button"
@@ -456,7 +515,7 @@ const BasicInfo = () => {
               }}
               className={cn(
                 "mt-1",
-                errors.agreeToTerms && "border-destructive"
+                errors.agreeToTerms && "border-destructive",
               )}
             />
             <label
@@ -494,7 +553,7 @@ const BasicInfo = () => {
       </form>
 
       {/* Login Link */}
-      <p className="text-center text-sm text-[#9AA4B2] mt-6">
+      <p className="text-center text-sm text-[#9AA4B2] mt-6 pb-5">
         Already have an account?{" "}
         <Link
           href="/sign-in"
