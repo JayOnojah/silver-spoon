@@ -21,11 +21,13 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 import VerifyOtpDialog from "./verify-otp-dialog";
+import SuccessDialog from "./success-dialog";
 
 const BasicInfo = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isSuccessOpen, setIsSuccessOpen] = useState(true);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -188,6 +190,14 @@ const BasicInfo = () => {
     // Handle OTP verification
     console.log("Verifying code:", code);
     // Add your verification logic here
+    // After successful verification, close OTP dialog and open success dialog
+    setIsOpen(false);
+    setIsSuccessOpen(true);
+  };
+
+  const handleGoToDashboard = () => {
+    // Navigate to dashboard
+    window.location.href = "/dashboard";
   };
 
   const handleResend = () => {
@@ -205,6 +215,11 @@ const BasicInfo = () => {
         onBack={() => setIsOpen(false)}
         onVerify={handleVerify}
         onResend={handleResend}
+      />
+      <SuccessDialog
+        open={isSuccessOpen}
+        onOpenChange={setIsSuccessOpen}
+        onGoToDashboard={handleGoToDashboard}
       />
       {/* Back Link */}
       <Link

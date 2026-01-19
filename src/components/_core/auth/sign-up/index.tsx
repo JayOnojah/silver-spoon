@@ -8,7 +8,7 @@ const SignUpForm = () => {
     "acc-type",
   );
   return (
-    <div className="h-full">
+    <div className="h-full px-5">
       {active === "acc-type" && <AccountType setActive={setActive} />}
       {active === "basic-info" && <BasicInfo />}
     </div>
