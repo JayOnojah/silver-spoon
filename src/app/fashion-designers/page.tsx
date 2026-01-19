@@ -4,7 +4,13 @@ import Footer from "@/components/_core/landing-pages/shared/footer"
 import FashionBusiness from "@/components/_core/landing-pages/for-fashion-designers/fashion-business" 
 import { Operations } from "@/components/_core/landing-pages/for-fashion-designers/operations"
 import { ManageOrders } from "@/components/_core/landing-pages/for-fashion-designers/manage-orders"
-import { Marketing } from "@/src/components/_core/landing-pages/for-fashion-designers/marketing"
+import { Marketing } from "@/src/components/_core/landing-pages/for-fashion-designers/marketing" 
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+    title: "Silver Spoon for Fashion Designers: Run Your Business With Ease.",
+    description: "Take measurements, orders, create invoices, online store, receive payments, create digital catalogue and more all in one fashion business app.",
+}
 
 export default function Page() {
     return (
