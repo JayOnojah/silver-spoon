@@ -160,6 +160,65 @@ export const CoinStackIcon = () => {
             />
         </svg>
     )
+} 
+
+export const CoinStack = () => {
+    return (
+        <svg
+            width="64"
+            height="64"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+        
+        >
+            <path
+                d="M12.8573 10.7143C16.4077 10.7143 19.2859 9.4351 19.2859 7.85714C19.2859 6.27919 16.4077 5 12.8573 5C9.30688 5 6.42871 6.27919 6.42871 7.85714C6.42871 9.4351 9.30688 10.7143 12.8573 10.7143Z"
+                stroke="#F74F25"
+                strokeWidth=".5"
+                strokeLinecap="round"
+                strokeLinejoin="round" 
+                fill="#FDC8BB"
+            />
+            <path
+                d="M6.42871 7.85715V16.4286C6.42871 18 9.28585 19.2857 12.8573 19.2857C16.4287 19.2857 19.2859 18 19.2859 16.4286V7.85715"
+                stroke="#F74F25"
+                strokeWidth=".5"
+                strokeLinecap="round"
+                strokeLinejoin="round" 
+                fill="#FEEDE9"
+            />
+            <path
+                d="M19.2859 12.1429C19.2859 13.7143 16.4287 15 12.8573 15C9.28585 15 6.42871 13.7143 6.42871 12.1429"
+                stroke="#F74F25"
+                strokeWidth=".5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="##FEEDE9"
+            />
+            <path
+                d="M12.7144 2.14286C11.0451 1.11268 9.10197 0.614455 7.14293 0.714289C3.58578 0.714289 0.714355 2 0.714355 3.57143C0.714355 4.41429 1.54293 5.17143 2.85721 5.71429"
+                stroke="#F74F25"
+                strokeWidth=".5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M2.85721 14.2857C1.54293 13.7429 0.714355 12.9857 0.714355 12.1429V3.57144"
+                stroke="#F74F25"
+                strokeWidth=".5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+            <path
+                d="M2.85721 10C1.54293 9.45715 0.714355 8.7 0.714355 7.85715"
+                stroke="#F74F25"
+                strokeWidth=".5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    )
 }
 
 export const StarIcon = () => {
@@ -359,6 +418,107 @@ export const GlobeIcon = () => {
             </defs>
         </svg>
 
+    )
+} 
+
+export const GlobeIconBig = () => {
+    return (
+        <svg
+            width="54"
+            height="54"
+            viewBox="0 0 24 24"
+            fill="#FDC8BB"
+            xmlns="http://www.w3.org/2000/svg"
+        >
+            <g
+                clipPath="url(#clip0_545_117678)"
+            >
+                <path
+                    d="M12 23.1428C18.154 23.1428 23.1428 18.154 23.1428 12C23.1428 5.84594 18.154 0.857117 12 0.857117C5.84594 0.857117 0.857117 5.84594 0.857117 12C0.857117 18.154 5.84594 23.1428 12 23.1428Z" stroke="#F74F25" strokeWidth=".7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+                <path
+                    d="M0.857117 12H23.1428"
+                    stroke="#F74F25"
+                    strokeWidth="0.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+                <path
+                    d="M16.2857 12C16.0751 16.0748 14.5743 19.9771 11.9999 23.1428C9.42564 19.9771 7.92475 16.0748 7.71423 12C7.92475 7.92513 9.42564 4.02281 11.9999 0.857117C14.5743 4.02281 16.0751 7.92513 16.2857 12V12Z" stroke="#F74F25"
+                    strokeWidth="0.7"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+            </g>
+        </svg>
+
+    )
+}
+
+export const Heart = () => {
+    return (
+       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" 
+       stroke-width="0.7" 
+       stroke-linecap="round" 
+       stroke-linejoin="round">
+        <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/>
+        </svg>
+    )
+} 
+
+export const Volume2 = () => {
+    return (
+       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+       <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/>
+       <path d="M16 9a5 5 0 0 1 0 6"/>
+       <path d="M19.364 18.364a9 9 0 0 0 0-12.728"/>
+       </svg>
+    )
+}
+
+
+export const Receipt = () => {
+    return (
+       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width=".5" stroke-linecap="round" stroke-linejoin="round" >
+        <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
+        <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
+        <path d="M12 17.5v-11"/>
+        </svg>
+    )
+}
+
+export const Tag = () => {
+    return (
+       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="none"/></svg>
+    )
+}
+
+export const Truck = () => {
+    return (
+       <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
+        <path d="M15 18H9"/>
+        <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+    )
+}
+
+export const CalendarDays = () => {
+    return (
+       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width=".5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M8 2v4"/>
+        <path d="M16 2v4"/>
+        <rect width="18" height="18" x="3" y="4" rx="2"/>
+        <path d="M3 10h18"/>
+        <path d="M8 14h.01"/>
+        <path d="M12 14h.01"/>
+        <path d="M16 14h.01"/>
+        <path d="M8 18h.01"/>
+        <path d="M12 18h.01"/>
+        <path d="M16 18h.01"/>
+        </svg>
     )
 }
 
