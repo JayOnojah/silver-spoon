@@ -304,7 +304,7 @@ export const Navbar = () => {
 
           <div className="hidden lg:flex items-center gap-3 lg:gap-4">
             <Link
-              href="#"
+              href="/sign-in"
               className={`font-medium cursor-pointer hover:scale-x-105 text-sm lg:text-base transition-colors ${isDarkBackground ? 'text-white' : 'text-[#121926]'
                 }`}
             >
@@ -312,7 +312,7 @@ export const Navbar = () => {
             </Link>
 
             <Link
-              href="#"
+              href="/sign-up"
               className="py-2 lg:py-3 font-medium text-white text-sm lg:text-base px-4 lg:px-6 bg-[#FF5722] rounded-lg hover:bg-[#E64A19] transition-all hover:shadow-xs"
             >
               Signup
