@@ -1,5 +1,10 @@
 import type { Metadata } from "next"
 import { Navbar } from "@/src/components/_core/landing-pages/shared/navbar"
+import { CraftsmenHero } from "@/src/components/_core/landing-pages/cobblers/hero"
+import { Professionals } from "@/src/components/_core/landing-pages/cobblers/professionals"
+import { WorkshopOperations } from "@/src/components/_core/landing-pages/cobblers/workshop-operations"
+import { RepairJobs } from "@/src/components/_core/landing-pages/cobblers/repair-jobs"
+import { Marketing } from "@/src/components/_core/landing-pages/cobblers/marketing"
 
 export const metadata: Metadata = {
     title: "Silver Spoon for Cobblers: Tools To Run Your Footwear Business",
@@ -10,6 +15,11 @@ export default function Cobblers() {
     return (
         <>
             <Navbar />
+            <CraftsmenHero />
+            <Professionals />
+            <WorkshopOperations />
+            <RepairJobs />
+            <Marketing />
         </>
     )
 }
