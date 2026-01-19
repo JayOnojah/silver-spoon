@@ -13,8 +13,12 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Silver Spoon",
-  description: "The all you need for Fashion Designers and Coblers.",
+  title: {
+    default: "Silver Spoon",
+    template: "%s | Silver Spoon",
+  },
+  description:
+    "Silver Spoon is an all-in-one business tool for fashion designers and cobblers.",
 };
 
 export default function RootLayout({
