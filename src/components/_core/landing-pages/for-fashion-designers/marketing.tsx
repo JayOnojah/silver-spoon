@@ -4,15 +4,15 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Heart, Volume2 , Tag} from "lucide-react"; 
+import { ArrowRight } from "lucide-react"; 
 import { CardBox } from '../shared/card-box' 
-import { GlobeIcon} from '@/components/svg';     
+import { GlobeIconBig, Heart, Volume2, Tag} from '@/components/svg';     
 
 export const Marketing = ({}) => {
 
 const operationsCard = [
         {
-            icons: <GlobeIcon />,
+            icons: <GlobeIconBig />,
             title: 'Website & Online Store',
             label: 'Launch your professional fashion website in minutes.',
         },

@@ -6,31 +6,31 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react"; 
 import { CardBox } from '../shared/card-box' 
-import { CartBasket, CoinStack, Truck, CalendarDays
+import { CoinStack, BarGraph, Invoice, Receipt
 } from '@/components/svg';
 
-export const ManageOrders = ({}) => {
+export const Finance = ({}) => {
 
 const operationsCard = [
         {
-            icons: <CartBasket />,
-            title: 'Ceating & Managing Orders',
-            label: 'Streamlined order creation with all details in one place.',
-        },
-        {
-            icons: <Truck />,
-            title: 'Shipping & Delivery',
-            label: 'Track shipments and manage delivery schedules effortlessly.',
-        },
-        {
             icons: <CoinStack />,
-            title: 'Receiving Payment',
-            label: 'Multiple payment options with automatic invoicing.',
+            title: 'Finances',
+            label: 'Track income, expenses, and cash flow in real-time.',
         },
         {
-            icons: <CalendarDays />,
-            title: 'Scheduling',
-            label: 'Manage fittings, deadlines, and production timelines.',
+            icons: <Receipt />,
+            title: 'Material Costs',
+            label: 'Track material costs and profit margins per job.',
+        },
+        {
+            icons: <Invoice />,
+            title: 'Invoices',
+            label: 'Professional invoicing with automatic reminders.',
+        },
+        {
+            icons: <BarGraph />,
+            title: 'Analytics ',
+            label: 'Deep insights into your business performance.',
         },
     ]
 
@@ -44,7 +44,7 @@ const operationsCard = [
             <div className="relative overflow-hidden rounded-[28px] bg-[#f4f4f5] ">
               <div className="h-70 relative aspect-4/3 w-full md:aspect-[1.08/1] md:h-96">
                 <Image
-                  src={"/images/pngs/frame.png"}
+                  src={"/images/pngs/testing.png"}
                   alt={"Fashion designers" }
                   fill
                   priority
@@ -58,12 +58,12 @@ const operationsCard = [
           <div className="space-y-6 md:space-y-7">
             {/* heading */}
             <h1 className="text-2xl font-black tracking-tight text-white md:text-[34px]">
-              Create & Manage Orders 
+              Finance and Insights 
             </h1>
 
             {/* body */}
             <p className="max-w-xl text-lg leading-relaxed text-[#9AA4B2] md:text-xl">
-             Handle every order with precision from initial inquiry to final delivery. Track payments, shipping, and customer communications seamlessly.
+             Get a clear picture of your business finances and make data-driven decisions with comprehensive analytics and reporting.
             </p>
 
             {/* CTAs */}

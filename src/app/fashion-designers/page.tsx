@@ -1,10 +1,13 @@
-import { Navbar } from "@/components/_core/landing-pages/shared/navbar" 
-import { ForFashionDesignersHero } from "@/components/_core/landing-pages/for-fashion-designers/hero"   
-import Footer from "@/components/_core/landing-pages/shared/footer" 
-import FashionBusiness from "@/components/_core/landing-pages/for-fashion-designers/fashion-business" 
-import { Operations } from "@/components/_core/landing-pages/for-fashion-designers/operations"
-import { ManageOrders } from "@/components/_core/landing-pages/for-fashion-designers/manage-orders"
-import { Marketing } from "@/src/components/_core/landing-pages/for-fashion-designers/marketing" 
+import { Navbar } from "@/components/_core/landing-pages/shared/navbar"; 
+import { ForFashionDesignersHero } from "@/components/_core/landing-pages/for-fashion-designers/hero";   
+import Footer from "@/components/_core/landing-pages/shared/footer"; 
+import FashionBusiness from "@/components/_core/landing-pages/for-fashion-designers/fashion-business"; 
+import { FeatureList } from "@/components/_core/landing-pages/shared/features-list";
+import { Operations } from "@/components/_core/landing-pages/for-fashion-designers/operations";
+import { ManageOrders } from "@/components/_core/landing-pages/for-fashion-designers/manage-orders";
+import { Marketing } from "@/src/components/_core/landing-pages/for-fashion-designers/marketing"; 
+import { Finance } from "@/components/_core/landing-pages/for-fashion-designers/finance"; 
+import { Faq } from "@/src/components/_core/landing-pages/shared/faq";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -20,7 +23,10 @@ export default function Page() {
             <FashionBusiness /> 
             <Operations /> 
             <ManageOrders />
-            <Marketing />
+            <Marketing /> 
+            <Finance /> 
+            <FeatureList bgColor="bg-[#F9F0EE]"/> 
+            <Faq />
             <Footer />
         </div>
     )
