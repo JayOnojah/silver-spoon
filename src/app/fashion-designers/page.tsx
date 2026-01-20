@@ -7,7 +7,6 @@ import { Operations } from "@/components/_core/landing-pages/for-fashion-designe
 import { ManageOrders } from "@/components/_core/landing-pages/for-fashion-designers/manage-orders";
 import { Marketing } from "@/src/components/_core/landing-pages/for-fashion-designers/marketing"; 
 import { Finance } from "@/components/_core/landing-pages/for-fashion-designers/finance"; 
-import { Faq } from "@/src/components/_core/landing-pages/shared/faq";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -26,7 +25,6 @@ export default function Page() {
             <Marketing /> 
             <Finance /> 
             <FeatureList bgColor="bg-[#F9F0EE]"/> 
-            <Faq />
             <Footer />
         </div>
     )

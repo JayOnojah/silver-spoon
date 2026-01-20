@@ -9,38 +9,38 @@ import gsap from "gsap"
 import { ScrollTrigger } from "gsap/dist/ScrollTrigger"
 import { CardBox } from "../shared/card-box"
 
-import {
-    Server,
-    Volume2,
-    Heart,
-    Tag
+import { 
+    CoinStack,
+    BagDollar,
+    Invoice,
+    BarGraph
 } from "@/src/components/svg"
 
 gsap.registerPlugin(ScrollTrigger)
 
-export const Marketing = () => {
+export const InsightFinance = () => {
     const sectionRef = useRef(null)
 
     const operationsCard = [
         {
-            icon: <Server />,
-            title: 'Website & Online Store',
-            label: 'Launch your professional fashion website in minutes.'
+            icon: <CoinStack />,
+            title: 'Finances',
+            label: 'Track income, expenses, and cash flow in real-time.'
         },
         {
-            icon: <Volume2 />,
-            title: 'Marketing Integration',
-            label: 'Connect with social media and email marketing tools.'
+            icon: <BagDollar />,
+            title: 'Material Costs',
+            label: 'Track material costs and profit margins per job.'
         },
         {
-            icon: <Heart />,
-            title: 'Customer Relations',
-            label: 'Build lasting relationships with personalized communication.'
+            icon: <Invoice />,
+            title: 'Invoices',
+            label: 'Professional invoicing with automatic reminders.'
         },
         {
-            icon: <Tag />,
-            title: 'Promotions',
-            label: 'Create and manage discounts, coupons, and special offers.'
+            icon: <BarGraph />,
+            title: 'Analytics',
+            label: 'Deep insights into your business performance.'
         },
     ]
 
@@ -78,10 +78,19 @@ export const Marketing = () => {
         <>
             <div
                 ref={sectionRef}
-                className="w-full bg-[#F74F25] px-4 md:px-8 md:py-20 py-10 overflow-x-hidden"
+                className="w-full bg-[#121926] px-4 md:px-8 md:py-20 py-10 overflow-x-hidden"
             >
                 <div className="lg:w-[94%] mx-auto flex flex-col lg:flex-row justify-between items-center gap-10">
-                    <div className="space-y-4 text-block">
+                    <div className="image-block w-full">
+                        <Image
+                            className="w-full rounded-[24px]"
+                            src="/images/pngs/cobbler-shoe-seller.png"
+                            alt="cobbler-stitch"
+                            width={577}
+                            height={380}
+                        />
+                    </div>
+                    <div className="text-block">
                         <motion.h1
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
@@ -89,39 +98,30 @@ export const Marketing = () => {
                             transition={{ duration: 0.6 }}
                             className="text-[34px] text-white font-black max-w-130 leading-11"
                         >
-                            Marketing and Growth
+                          Finance and Insights
                         </motion.h1>
                         <motion.p
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             transition={{ delay: 0.2, duration: 0.6 }}
-                            className="text-[#FEEDE9] text-[18px] py-4"
+                            className="text-[#9AA4B2] text-[18px] py-6"
                         >
-                            Build your brand presence online and grow your customer base with integrated marketing tools and customer relationship management.
+                           Get a clear picture of your business finances and make data-driven decisions with comprehensive analytics and reporting.
                         </motion.p>
                         <motion.div whileTap={{ scale: 0.95 }} className="w-full flex-1">
-                            <Button className="group bg-white w-full hover:bg-[#F74F25] hover:text-white md:w-54 text-[#F74F25] h-12 font-bold flex items-center justify-center transition-colors hover:border duration-300">
+                            <Button className="group bg-[#F74F25] w-full hover:bg-[#F74F25]/90 md:w-54 text-white h-12 font-bold flex items-center justify-center">
                                 Get Started For Free
                                 <ArrowRight className="ml-2 transition-transform duration-300 group-hover:translate-x-1" />
                             </Button>
                         </motion.div>
-                    </div>
-                    <div className="image-block w-full">
-                        <Image
-                            className="w-full rounded-[24px]"
-                            src="/images/pngs/cobbler-shoe-stitcher.png"
-                            alt="cobbler-stitch"
-                            width={577}
-                            height={380}
-                        />
                     </div>
                 </div>
             </div>
             <div className="w-full bg-white px-4 md:px-8 py-14">
                 <div className="lg:w-[94%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {operationsCard.map((operation, idx) => (
-                        <CardBox
+                        <CardBox 
                             key={idx}
                             cardIcon={operation.icon}
                             cardTitle={operation.title}

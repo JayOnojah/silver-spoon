@@ -5,6 +5,10 @@ import { Professionals } from "@/src/components/_core/landing-pages/cobblers/pro
 import { WorkshopOperations } from "@/src/components/_core/landing-pages/cobblers/workshop-operations"
 import { RepairJobs } from "@/src/components/_core/landing-pages/cobblers/repair-jobs"
 import { Marketing } from "@/src/components/_core/landing-pages/cobblers/marketing"
+import { InsightFinance } from "@/src/components/_core/landing-pages/cobblers/insight-finance"
+import { FeatureList } from "@/src/components/_core/landing-pages/shared/features-list"
+import { FAQ } from "@/src/components/_core/landing-pages/cobblers/faq"
+import Footer from "@/src/components/_core/landing-pages/shared/footer"
 
 export const metadata: Metadata = {
     title: "Silver Spoon for Cobblers: Tools To Run Your Footwear Business",
@@ -20,6 +24,10 @@ export default function Cobblers() {
             <WorkshopOperations />
             <RepairJobs />
             <Marketing />
+            <InsightFinance />
+            <FeatureList bgColor="bg-[#F9F0EE]"/>
+            <FAQ />
+            <Footer />
         </>
     )
 }
