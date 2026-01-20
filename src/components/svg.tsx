@@ -401,9 +401,9 @@ export const GlobeIconBig = () => {
 export const Heart = () => {
     return (
        <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" 
-       stroke-width="0.7" 
-       stroke-linecap="round" 
-       stroke-linejoin="round">
+       strokeWidth="0.7" 
+       strokeLinecap="round" 
+       strokeLinejoin="round">
         <path d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5"/>
         </svg>
     )
@@ -411,7 +411,7 @@ export const Heart = () => {
 
 export const Volume2 = () => {
     return (
-       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round">
        <path d="M11 4.702a.705.705 0 0 0-1.203-.498L6.413 7.587A1.4 1.4 0 0 1 5.416 8H3a1 1 0 0 0-1 1v6a1 1 0 0 0 1 1h2.416a1.4 1.4 0 0 1 .997.413l3.383 3.384A.705.705 0 0 0 11 19.298z"/>
        <path d="M16 9a5 5 0 0 1 0 6"/>
        <path d="M19.364 18.364a9 9 0 0 0 0-12.728"/>
@@ -422,7 +422,7 @@ export const Volume2 = () => {
 
 export const Receipt = () => {
     return (
-       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width=".5" stroke-linecap="round" stroke-linejoin="round" >
+       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" strokeWidth=".5" strokeLinecap="round" strokeLinejoin="round" >
         <path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/>
         <path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/>
         <path d="M12 17.5v-11"/>
@@ -432,14 +432,14 @@ export const Receipt = () => {
 
 export const Tag = () => {
     return (
-       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width="0.7" stroke-linecap="round" stroke-linejoin="round">
+       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" strokeWidth="0.7" strokeLinecap="round" strokeLinejoin="round">
         <path d="M12.586 2.586A2 2 0 0 0 11.172 2H4a2 2 0 0 0-2 2v7.172a2 2 0 0 0 .586 1.414l8.704 8.704a2.426 2.426 0 0 0 3.42 0l6.58-6.58a2.426 2.426 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5" fill="none"/></svg>
     )
 }
 
 export const Truck = () => {
     return (
-       <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width="0.5" stroke-linecap="round" stroke-linejoin="round">
+       <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" strokeWidth="0.5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/>
         <path d="M15 18H9"/>
         <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
@@ -448,7 +448,7 @@ export const Truck = () => {
 
 export const CalendarDays = () => {
     return (
-       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" stroke-width=".5" stroke-linecap="round" stroke-linejoin="round">
+       <svg xmlns="http://www.w3.org/2000/svg" width="54" height="54" viewBox="0 0 24 24" fill="#FDC8BB" stroke="#F74F25" strokeWidth=".5" strokeLinecap="round" strokeLinejoin="round">
         <path d="M8 2v4"/>
         <path d="M16 2v4"/>
         <rect width="18" height="18" x="3" y="4" rx="2"/>
