@@ -305,7 +305,7 @@ export const Navbar = () => {
           <div className="hidden lg:flex items-center gap-3 lg:gap-4">
             <Link
               href="/sign-in"
-              className={`font-medium cursor-pointer hover:scale-x-105 text-sm lg:text-base transition-colors ${isDarkBackground ? 'text-white' : 'text-[#121926]'
+              className={`font-bold cursor-pointer hover:scale-x-105 text-sm lg:text-base transition-colors ${isDarkBackground ? 'text-white' : 'text-[#121926]'
                 }`}
             >
               Login
@@ -313,7 +313,7 @@ export const Navbar = () => {
 
             <Link
               href="/sign-up"
-              className="py-2 lg:py-3 font-medium text-white text-sm lg:text-base px-4 lg:px-6 bg-[#FF5722] rounded-lg hover:bg-[#E64A19] transition-all hover:shadow-xs"
+              className="py-2 lg:py-3 font-bold text-white text-sm lg:text-base px-4 lg:px-6 bg-[#FF5722] rounded-lg hover:bg-[#E64A19] transition-all hover:shadow-xs"
             >
               Signup
             </Link>
@@ -388,14 +388,14 @@ export const Navbar = () => {
           <div className="flex flex-col w-full gap-3 pb-4">
             <Link
               href="#"
-              className="text-center w-full bg-[#FF5722] text-white py-3.5 rounded-lg font-semibold shadow-lg hover:bg-[#E64A19] transition-all"
+              className="text-center w-full bg-[#FF5722] font-bold text-white py-3.5 rounded-lg shadow-lg hover:bg-[#E64A19] transition-all"
               onClick={handleCloseMobileMenu}
             >
               Signup
             </Link>
             <Link
               href="#"
-              className="font-semibold text-black text-center py-2 hover:text-[#FF5722] transition-colors"
+              className="font-bold text-black text-center py-2 hover:text-[#FF5722] transition-colors"
               onClick={handleCloseMobileMenu}
             >
               Login

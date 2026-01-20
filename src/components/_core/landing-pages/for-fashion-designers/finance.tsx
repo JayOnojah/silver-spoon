@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react"; 
 import { CardBox } from '../shared/card-box' 
-import { CoinStack, BarGraph, Invoice, Receipt
+import { CoinStack, BarGraph, Invoice, BagDollar
 } from '@/components/svg';
 
 export const Finance = ({}) => {
@@ -18,7 +18,7 @@ const operationsCard = [
             label: 'Track income, expenses, and cash flow in real-time.',
         },
         {
-            icons: <Receipt />,
+            icons: <BagDollar />,
             title: 'Material Costs',
             label: 'Track material costs and profit margins per job.',
         },

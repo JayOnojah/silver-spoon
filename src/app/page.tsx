@@ -8,7 +8,7 @@ import { Testimonials } from "@/components/_core/landing-pages/home/testimonials
 import { ScaleBusiness } from "@/components/_core/landing-pages/home/scale-business";
 import { AcademicResource } from "@/components/_core/landing-pages/home/academic-resource";
 import { Pricing } from "@/components/_core/landing-pages/home/pricing";
-import { Faq } from "../components/_core/landing-pages/shared/faq";
+import { FAQ } from "../components/_core/landing-pages/home/faq";
 import { Journey } from "../components/_core/landing-pages/home/journey";
 import type { Metadata } from "next";
 
@@ -31,7 +31,7 @@ const Page = () => {
       <ScaleBusiness />
       <AcademicResource />
       <Pricing />
-      <Faq />
+      <FAQ />
       <Journey />
       <Footer />
     </div>

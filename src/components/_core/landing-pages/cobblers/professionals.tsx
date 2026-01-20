@@ -73,7 +73,7 @@ export const Professionals = () => {
     }, [])
 
     return (
-        <div className="w-full md:py-20 py-10 px-4 md:px-8" ref={sectionRef}>
+        <div className="w-full md:py-20 py-10 px-4 md:px-8 overflow-x-hidden" ref={sectionRef}>
             <div className="lg:w-[94%] mx-auto">
                 <motion.h1
                     initial={{ y: -30, opacity: 0 }}

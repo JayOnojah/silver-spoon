@@ -29,8 +29,8 @@ export const CraftsmenHero = () => {
     }, []);
 
     return (
-        <div className="bg-[#F9F0EE] md:pt-35 pb-20 pt-25 flex items-center justify-center md:px-8 px-4">
-            <div className="w-[94%] grid lg:grid-cols-2 gap-12 items-center">
+        <div className="bg-[#F9F0EE] md:pt-35 pb-20 pt-25 flex items-center justify-center md:px-8 px-4 overflow-x-hidden">
+            <div className="lg:w-[94%] grid lg:grid-cols-2 gap-12 items-center">
                 <div className="space-y-8">
                     <motion.div
                         initial={{ opacity: 0, y: -10 }}
@@ -107,7 +107,7 @@ export const CraftsmenHero = () => {
                         />
                     </div>
 
-                    <div ref={badgeRef} className="absolute w-75 -bottom-10 left-25 transform -translate-x-1/2 bg-white rounded-2xl shadow-xl px-6 py-4 flex items-center gap-3">
+                    <div ref={badgeRef} className="absolute -bottom-10 -left-2.5 right-4 bg-white rounded-xl shadow-xl px-6 py-4 flex items-center gap-3 md:left-[-40] md:right-auto md:min-w-70 w-70">
                         <div className="bg-[#F9F0EE] w-10 h-10 flex justify-center items-center rounded-full">
                             <Star />
                         </div>

@@ -77,7 +77,7 @@ export const WorkshopOperations = () => {
         <>
             <div
                 ref={sectionRef}
-                className="w-full bg-[#F9F0EE] px-4 md:px-8 md:py-20 py-10"
+                className="w-full bg-[#F9F0EE] px-4 md:px-8 md:py-20 py-10 overflow-x-hidden"
             >
                 <div className="lg:w-[94%] mx-auto flex flex-col lg:flex-row justify-between items-center gap-10">
                     <div className="space-y-4 text-block">
@@ -117,7 +117,7 @@ export const WorkshopOperations = () => {
                     </div>
                 </div>
             </div>
-            <div className="w-full bg-white px-4 md:px-8 py-10">
+            <div className="w-full bg-white px-4 md:px-8 py-14">
                 <div className="lg:w-[94%] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                     {operationsCard.map((operation, idx) => (
                         <CardBox 

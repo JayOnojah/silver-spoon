@@ -123,7 +123,7 @@ export const FeatureList = ({bgColor}: FeaturedListProps) => {
     }, []);
 
     return (
-        <div className={`w-full py-16 overflow-hidden ${bgColor}`}>
+        <div className={`w-full md:py-24 py-16 overflow-hidden ${bgColor}`}>
             <div className="w-full mx-auto">
                 <div className="overflow-hidden mb-12">
                     <div ref={firstRowRef} className="flex">
@@ -133,7 +133,7 @@ export const FeatureList = ({bgColor}: FeaturedListProps) => {
                     </div>
                 </div>
 
-                <div className="px-8 max-w-5xl mx-auto mb-14">
+                <div className="md:px-8 px-4 md:max-w-5xl mx-auto mb-14">
                     <h1 className="text-2xl md:text-5xl text-[#121926] font-black leading-tight text-center mb-6">
                         One App that has all the features your Fashion Business Needs To{' '}
                         <span className="text-[#F74F25]">Grow</span>
