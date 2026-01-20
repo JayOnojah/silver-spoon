@@ -162,65 +162,6 @@ export const CoinStackIcon = () => {
     )
 } 
 
-export const CoinStack = () => {
-    return (
-        <svg
-            width="64"
-            height="64"
-            viewBox="0 0 24 24"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-        
-        >
-            <path
-                d="M12.8573 10.7143C16.4077 10.7143 19.2859 9.4351 19.2859 7.85714C19.2859 6.27919 16.4077 5 12.8573 5C9.30688 5 6.42871 6.27919 6.42871 7.85714C6.42871 9.4351 9.30688 10.7143 12.8573 10.7143Z"
-                stroke="#F74F25"
-                strokeWidth=".5"
-                strokeLinecap="round"
-                strokeLinejoin="round" 
-                fill="#FDC8BB"
-            />
-            <path
-                d="M6.42871 7.85715V16.4286C6.42871 18 9.28585 19.2857 12.8573 19.2857C16.4287 19.2857 19.2859 18 19.2859 16.4286V7.85715"
-                stroke="#F74F25"
-                strokeWidth=".5"
-                strokeLinecap="round"
-                strokeLinejoin="round" 
-                fill="#FEEDE9"
-            />
-            <path
-                d="M19.2859 12.1429C19.2859 13.7143 16.4287 15 12.8573 15C9.28585 15 6.42871 13.7143 6.42871 12.1429"
-                stroke="#F74F25"
-                strokeWidth=".5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="##FEEDE9"
-            />
-            <path
-                d="M12.7144 2.14286C11.0451 1.11268 9.10197 0.614455 7.14293 0.714289C3.58578 0.714289 0.714355 2 0.714355 3.57143C0.714355 4.41429 1.54293 5.17143 2.85721 5.71429"
-                stroke="#F74F25"
-                strokeWidth=".5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M2.85721 14.2857C1.54293 13.7429 0.714355 12.9857 0.714355 12.1429V3.57144"
-                stroke="#F74F25"
-                strokeWidth=".5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-            <path
-                d="M2.85721 10C1.54293 9.45715 0.714355 8.7 0.714355 7.85715"
-                stroke="#F74F25"
-                strokeWidth=".5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
-    )
-}
-
 export const StarIcon = () => {
     return (
         <svg

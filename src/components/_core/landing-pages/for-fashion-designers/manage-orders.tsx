@@ -6,7 +6,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react"; 
 import { CardBox } from '../shared/card-box' 
-import { CartBasket, CoinStack, Truck, CalendarDays
+import { CartBasket, CoinStack, Delivery, CalendarDays
 } from '@/components/svg';
 
 export const ManageOrders = ({}) => {
@@ -18,7 +18,7 @@ const operationsCard = [
             label: 'Streamlined order creation with all details in one place.',
         },
         {
-            icons: <Truck />,
+            icons: <Delivery />,
             title: 'Shipping & Delivery',
             label: 'Track shipments and manage delivery schedules effortlessly.',
         },

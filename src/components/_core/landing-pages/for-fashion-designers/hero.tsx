@@ -9,7 +9,7 @@ export const ForFashionDesignersHero = ({}) => {
 
   return (
     <section className="bg-white w-full">
-      <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-30">
+      <div className="mx-auto max-w-7xl px-5 py-30 md:px-8 md:py-30">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
           {/* LEFT */}
           <div className="space-y-6 md:space-y-7">
@@ -72,7 +72,7 @@ export const ForFashionDesignersHero = ({}) => {
             </div>
 
             {/* Trust card overlay */}
-            <div className="absolute -bottom-6 left-4 right-4 rounded-xl bg-white p-3 shadow-[0_18px_50px_rgba(0,0,0,0.12)] md:left-[-30] md:right-auto md:min-w-70">
+            <div className="absolute -bottom-6 left-4 right-4 rounded-xl bg-white p-3 shadow-[0_18px_50px_rgba(0,0,0,0.12)] md:left-[-40] md:right-auto md:min-w-70 w-70">
               <div className="flex items-center gap-4">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFEDEA]">
                   <Star className="h-6 w-6 text-[#F74F25]" />
