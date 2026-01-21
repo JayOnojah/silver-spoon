@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function Cobblers() {
     return (
         <>
-            <Navbar />
+            <Navbar bgNav="bg-[#F9F0EE]"/>
             <CraftsmenHero />
             <Professionals />
             <WorkshopOperations />
