@@ -1,9 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
-import {
-  IconCloudUpload,
-} from "@tabler/icons-react";
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -21,6 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
+import { FileUpload } from "@/src/components/_core/dashboard/shared/file-upload";
 
 interface BusinessSetupDialogProps {
   open: boolean;
@@ -53,10 +51,6 @@ const BusinessSetupDialog = ({
     storeBanner: null,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [logoPreview, setLogoPreview] = useState<string | null>(null);
-  const [bannerPreview, setBannerPreview] = useState<string | null>(null);
-  const logoInputRef = useRef<HTMLInputElement>(null);
-  const bannerInputRef = useRef<HTMLInputElement>(null);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
@@ -80,35 +74,6 @@ const BusinessSetupDialog = ({
         delete newErrors[field];
         return newErrors;
       });
-    }
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        if (field === "logo") {
-          setLogoPreview(reader.result as string);
-        } else {
-          setBannerPreview(reader.result as string);
-        }
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
-  const handleDragOver = (e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-  };
-
-  const handleDrop = (
-    e: React.DragEvent,
-    field: "logo" | "storeBanner",
-  ) => {
-    e.preventDefault();
-    e.stopPropagation();
-    const file = e.dataTransfer.files[0];
-    if (file) {
-      handleFileChange(field, file);
     }
   };
 
@@ -163,17 +128,19 @@ const BusinessSetupDialog = ({
         showCloseButton={true}
         className="max-w-200 w-[90vw] rounded-md p-6 sm:p-8 overflow-y-auto max-h-[90vh] overflow-x-hidden"
       >
-        <DialogHeader className="space-y-2">
-          <DialogTitle className="text-2xl font-bold text-foreground">
-            Complete Business Setup
+        <DialogHeader className="space-y-2 py-0!">
+          <DialogTitle className="py-0!">
+            <div className="text-xl font-extrabold text-foreground">
+              Complete Business Setup
+            </div>
+            <p className="text-xs font-normal text-[#9AA4B2]">
+              Provide your business profile so it can be displayed on the
+              storefront for your customers to see
+            </p>
           </DialogTitle>
-          <p className="text-sm text-[#4B5565]">
-            Provide your business profile so it can be displayed on the
-            storefront for your customers to see
-          </p>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-6 mt-6">
+        <form onSubmit={handleSubmit} className="space-y-6">
           {/* Business Name */}
           <div className="grid gap-1.5">
             <label
@@ -186,10 +153,12 @@ const BusinessSetupDialog = ({
               id="businessName"
               type="text"
               value={formData.businessName}
-              onChange={(e) => handleInputChange("businessName", e.target.value)}
+              onChange={(e) =>
+                handleInputChange("businessName", e.target.value)
+              }
               className={cn(
                 "h-12 rounded-xl",
-                errors.businessName && "border-destructive"
+                errors.businessName && "border-destructive",
               )}
             />
             {errors.businessName && (
@@ -198,7 +167,7 @@ const BusinessSetupDialog = ({
           </div>
 
           {/* Tagline */}
-         <div className="grid gap-1.5">
+          <div className="grid gap-1.5">
             <label
               htmlFor="tagline"
               className="text-sm font-medium text-[#4B5565]"
@@ -213,7 +182,7 @@ const BusinessSetupDialog = ({
               onChange={(e) => handleInputChange("tagline", e.target.value)}
               className={cn(
                 "h-12 rounded-xl",
-                errors.tagline && "border-destructive"
+                errors.tagline && "border-destructive",
               )}
             />
             {errors.tagline && (
@@ -236,7 +205,7 @@ const BusinessSetupDialog = ({
               onChange={(e) => handleInputChange("description", e.target.value)}
               className={cn(
                 "min-h-24 rounded-xl resize-none",
-                errors.description && "border-destructive"
+                errors.description && "border-destructive",
               )}
             />
             {errors.description && (
@@ -260,7 +229,7 @@ const BusinessSetupDialog = ({
               onChange={(e) => handleInputChange("address", e.target.value)}
               className={cn(
                 "h-12 rounded-xl",
-                errors.address && "border-destructive"
+                errors.address && "border-destructive",
               )}
             />
             {errors.address && (
@@ -285,7 +254,7 @@ const BusinessSetupDialog = ({
               <SelectTrigger
                 className={cn(
                   "h-12! rounded-xl w-full",
-                  errors.country && "border-destructive"
+                  errors.country && "border-destructive",
                 )}
               >
                 <SelectValue placeholder="Select Country" />
@@ -305,108 +274,24 @@ const BusinessSetupDialog = ({
           </div>
 
           {/* Upload Logo */}
-          <div className="grid gap-1.5">
-            <label className="text-sm font-medium text-[#4B5565]">
-              Upload Logo<span className="text-destructive">*</span>
-            </label>
-            <div
-              onDragOver={handleDragOver}
-              onDrop={(e) => handleDrop(e, "logo")}
-              onClick={() => logoInputRef.current?.click()}
-              className={cn(
-                "border-2 border-dashed border-primary rounded-xl p-8 bg-[#FFF1EC] cursor-pointer transition-colors hover:bg-[#FFE8E0]",
-                errors.logo && "border-destructive"
-              )}
-            >
-              <input
-                ref={logoInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] || null;
-                  handleFileChange("logo", file);
-                }}
-              />
-              {logoPreview ? (
-                <div className="flex flex-col items-center gap-2">
-                  <img
-                    src={logoPreview}
-                    alt="Logo preview"
-                    className="max-h-32 max-w-full object-contain"
-                  />
-                  <p className="text-sm text-[#4B5565]">
-                    Click to change or drag & drop
-                  </p>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center gap-3">
-                  <IconCloudUpload className="size-8 text-foreground" />
-                  <p className="text-sm text-center">
-                    <span className="text-primary">Click to upload</span>{" "}
-                    <span className="text-[#4B5565]">
-                      or drag & drop your document here
-                    </span>
-                  </p>
-                </div>
-              )}
-            </div>
-            {errors.logo && (
-              <p className="text-sm text-destructive">{errors.logo}</p>
-            )}
-          </div>
+          <FileUpload
+            label="Upload Logo"
+            required
+            accept="image/*"
+            value={formData.logo}
+            onChange={(file) => handleFileChange("logo", file)}
+            error={errors.logo}
+          />
 
           {/* Store Banner */}
-          <div className="grid gap-1.5">
-            <label className="text-sm font-medium text-[#4B5565]">
-              Store Banner<span className="text-destructive">*</span>
-            </label>
-            <div
-              onDragOver={handleDragOver}
-              onDrop={(e) => handleDrop(e, "storeBanner")}
-              onClick={() => bannerInputRef.current?.click()}
-              className={cn(
-                "border-2 border-dashed border-primary rounded-xl p-8 bg-[#FFF1EC] cursor-pointer transition-colors hover:bg-[#FFE8E0]",
-                errors.storeBanner && "border-destructive"
-              )}
-            >
-              <input
-                ref={bannerInputRef}
-                type="file"
-                accept="image/*"
-                className="hidden"
-                onChange={(e) => {
-                  const file = e.target.files?.[0] || null;
-                  handleFileChange("storeBanner", file);
-                }}
-              />
-              {bannerPreview ? (
-                <div className="flex flex-col items-center gap-2">
-                  <img
-                    src={bannerPreview}
-                    alt="Banner preview"
-                    className="max-h-32 max-w-full object-contain"
-                  />
-                  <p className="text-sm text-[#4B5565]">
-                    Click to change or drag & drop
-                  </p>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center gap-3">
-                  <IconCloudUpload className="size-8 text-foreground" />
-                  <p className="text-sm text-center">
-                    <span className="text-primary">Click to upload</span>{" "}
-                    <span className="text-[#4B5565]">
-                      or drag & drop your document here
-                    </span>
-                  </p>
-                </div>
-              )}
-            </div>
-            {errors.storeBanner && (
-              <p className="text-sm text-destructive">{errors.storeBanner}</p>
-            )}
-          </div>
+          <FileUpload
+            label="Store Banner"
+            required
+            accept="image/*"
+            value={formData.storeBanner}
+            onChange={(file) => handleFileChange("storeBanner", file)}
+            error={errors.storeBanner}
+          />
 
           {/* Submit Button */}
           <Button
