@@ -38,7 +38,7 @@ export const ScaleBusiness = () => {
     ];
 
     return (
-        <div className="w-full py-20 px-4 md:px-8 bg-white overflow-x-hidden">
+        <div className="w-full py-20 px-4 md:px-8 bg-white overflow-x-hidden font-sans">
             <div className="lg:w-[94%] mx-auto">
                 <div className="grid md:grid-cols-2 gap-12 items-center">
                     <motion.div

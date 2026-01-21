@@ -77,7 +77,7 @@ export const WorkshopOperations = () => {
         <>
             <div
                 ref={sectionRef}
-                className="w-full bg-[#F9F0EE] px-4 md:px-8 md:py-20 py-10 overflow-x-hidden"
+                className="w-full bg-[#F9F0EE] px-4 md:px-8 md:py-20 py-10 overflow-x-hidden font-sans"
             >
                 <div className="lg:w-[94%] mx-auto flex flex-col lg:flex-row justify-between items-center gap-10">
                     <div className="space-y-4 text-block">

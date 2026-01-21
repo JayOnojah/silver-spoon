@@ -68,9 +68,9 @@ const FullWidthCard = ({
         <motion.div
             ref={cardRef}
             transition={{ type: 'spring', stiffness: 200 }}
-            className="bg-white rounded-2xl overflow-hidden"
+            className="bg-white rounded-2xl overflow-hidden font-sans"
         >
-            <div className={`flex flex-col ${imageRight ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 p-8`}>
+            <div className={`flex flex-col font-sans ${imageRight ? 'md:flex-row' : 'md:flex-row-reverse'} items-center gap-8 p-8`}>
                 <div className="flex-1">
                     <Badge className="text-[#F74F25] bg-[#FEEDE9]">{badge}</Badge>
 
@@ -124,7 +124,7 @@ const SmallCard = ({
         initial={{ opacity: 0, y: 40 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        className="bg-white rounded-2xl overflow-hidden"
+        className="bg-white rounded-2xl overflow-hidden font-sans"
     >
         <div className="p-8">
             <Badge className="text-[#F74F25] bg-[#FEEDE9]">{badge}</Badge>
@@ -184,7 +184,7 @@ export default function Features() {
     ]
 
     return (
-        <div className="min-h-screen bg-[#F9F0EE] px-4 md:px-8 overflow-x-hidden" id='features'>
+        <div className="min-h-screen bg-[#F9F0EE] px-4 md:px-8 overflow-x-hidden font-sans" id='features'>
             <div className='lg:w-[94%] mx-auto md:py-30 py-10'>
                 <div className='flex justify-center'>
                     <Badge className='bg-[#FDC8BB] text-[#F74F25] text-xs'>Feature</Badge>

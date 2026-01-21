@@ -337,7 +337,7 @@ export const Navbar = ({bgNav}: NavProps) => {
       {isOpen && (
         <div
           ref={menuRef}
-          className="fixed top-0 left-0 w-full h-full bg-[#F9F0EE] flex flex-col justify-between p-6 z-50 lg:hidden overflow-y-auto"
+          className="fixed top-0 font-sans left-0 w-full h-full bg-[#F9F0EE] flex flex-col justify-between p-6 z-50 lg:hidden overflow-y-auto"
         >
           <div className="w-full">
             <div className="w-full flex justify-between items-center">

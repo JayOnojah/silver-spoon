@@ -123,7 +123,7 @@ export const FeatureList = ({bgColor}: FeaturedListProps) => {
     }, []);
 
     return (
-        <div className={`w-full md:py-24 py-16 overflow-hidden ${bgColor}`}>
+        <div className={`w-full md:py-24 py-16 overflow-hidden font-sans ${bgColor}`}>
             <div className="w-full mx-auto">
                 <div className="overflow-hidden mb-12">
                     <div ref={firstRowRef} className="flex">
