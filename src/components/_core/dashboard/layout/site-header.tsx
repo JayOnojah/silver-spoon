@@ -23,7 +23,7 @@ export function SiteHeader() {
         <Button
           onClick={toggleSidebar}
           className={cn(
-            "bg-primary border-2 border-white rounded-full text-white hover:bg-primary/90 absolute top-4 size-9",
+            "hidden md:flex bg-primary border-2 border-white rounded-full text-white hover:bg-primary/90 absolute top-4 size-9",
             state === "expanded" ? "-left-3.5" : "left-4"
           )}
           size="icon"
