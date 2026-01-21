@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 export default function Page() {
     return (
         <div className="">
-            <Navbar />
+            <Navbar bgNav="bg-white"/>
             <ForFashionDesignersHero /> 
             <FashionBusiness /> 
             <Operations /> 

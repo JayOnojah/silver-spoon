@@ -21,8 +21,8 @@ export const metadata: Metadata = {
 
 const Page = () => {
   return (
-    <div className="">
-      <Navbar />
+    <>
+      <Navbar bgNav="bg-[#F9F0EE]"/>
       <HomeHero />
       <FashionDesigners />
       <Features />
@@ -34,7 +34,7 @@ const Page = () => {
       <FAQ />
       <Journey />
       <Footer />
-    </div>
+    </>
   );
 };
 
