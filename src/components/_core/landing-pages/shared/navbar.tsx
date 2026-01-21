@@ -251,7 +251,7 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`transition-colors duration-300 ${scrolled ? 'backdrop-blur-3xl shadow-2xs' : 'bg-[#F9F0EE]'} px-4 md:px-8 w-full top-0 z-30 fixed`}
+        className={`transition-colors font-sans duration-300 ${scrolled ? 'backdrop-blur-3xl shadow-2xs' : 'bg-[#F9F0EE]'} px-4 md:px-8 w-full top-0 z-30 fixed`}
       >
         <nav className="lg:w-[94%] max-xl mx-auto bg-transparent py-4 lg:py-5 flex justify-between items-center relative">
           <div className="shrink-0">
@@ -333,7 +333,7 @@ export const Navbar = () => {
       {isOpen && (
         <div
           ref={menuRef}
-          className="fixed top-0 left-0 w-full h-full bg-[#F9F0EE] flex flex-col justify-between p-6 z-50 lg:hidden overflow-y-auto"
+          className="fixed top-0 font-sans left-0 w-full h-full bg-[#F9F0EE] flex flex-col justify-between p-6 z-50 lg:hidden overflow-y-auto"
         >
           <div className="w-full">
             <div className="w-full flex justify-between items-center">

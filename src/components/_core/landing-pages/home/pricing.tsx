@@ -98,7 +98,7 @@ export const Pricing = () => {
     ];
 
     return (
-        <div className="w-full py-20 px-4 md:px-8 bg-white" id='pricing'>
+        <div className="w-full py-20 px-4 md:px-8 bg-white font-sans" id='pricing'>
             <div className="lg:w-[94%] mx-auto">
                 <motion.div
                     className="text-center mb-12"

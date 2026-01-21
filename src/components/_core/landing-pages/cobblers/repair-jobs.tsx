@@ -78,7 +78,7 @@ export const RepairJobs = () => {
         <>
             <div
                 ref={sectionRef}
-                className="w-full bg-[#121926] px-4 md:px-8 md:py-20 py-10 overflow-x-hidden"
+                className="w-full bg-[#121926] px-4 md:px-8 md:py-20 py-10 overflow-x-hidden font-sans"
             >
                 <div className="lg:w-[94%] mx-auto flex flex-col lg:flex-row justify-between items-center gap-10">
                     <div className="image-block w-full">

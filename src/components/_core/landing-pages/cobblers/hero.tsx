@@ -29,7 +29,7 @@ export const CraftsmenHero = () => {
     }, []);
 
     return (
-        <div className="bg-[#F9F0EE] md:pt-35 pb-20 pt-25 flex items-center justify-center md:px-8 px-4 overflow-x-hidden">
+        <div className="bg-[#F9F0EE] md:pt-35 pb-20 pt-25 flex items-center justify-center md:px-8 px-4 overflow-x-hidden font-sans">
             <div className="lg:w-[94%] grid lg:grid-cols-2 gap-12 items-center">
                 <div className="space-y-8">
                     <motion.div

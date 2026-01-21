@@ -41,7 +41,7 @@ export const HomeHero = () => {
 
   return (
     <>
-      <div className="bg-[#F9F0EE] w-full pt-30 px-4 md:px-8 overflow-x-hidden">
+      <div className="bg-[#F9F0EE] w-full pt-30 px-4 md:px-8 overflow-x-hidden font-sans">
         <div className="lg:w-[94%] mx-auto">
           <div className="flex justify-center">
             <Badge className="bg-[#FDC8BB] text-[#F74F25]">

@@ -19,7 +19,7 @@ interface FAQProps {
 
 export const FaqProp = ({ faqs }: FAQProps) => {
     return (
-        <div className="md:py-20 py-15 px-4 md:px-8 bg-white">
+        <div className="md:py-20 py-15 px-4 md:px-8 bg-white font-sans">
             <div className="lg:w-[94%] mx-auto">
                 <div className="flex justify-center">
                     <Badge className="mb-4 text-[#F74F25] bg-[#FEEDE9]">
