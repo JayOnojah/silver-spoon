@@ -14,7 +14,7 @@ export const ForFashionDesignersHero = ({}) => {
           {/* LEFT */}
           <div className="space-y-6 md:space-y-7">
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#FEEDE9] px-4 py-2 text-sm font-medium text-[#F74F25]">
+            <div className="inline-flex items-center gap-2 rounded-full bg-[#FEEDE9] px-3 py-1 text-sm font-medium text-[#F74F25]">
               <Scissors className="h-4 w-4" />
               <span>For Fashion Designers</span>
             </div>
@@ -72,15 +72,15 @@ export const ForFashionDesignersHero = ({}) => {
             </div>
 
             {/* Trust card overlay */}
-            <div className="absolute -bottom-6 left-4 right-4 rounded-xl bg-white p-3 shadow-[0_18px_50px_rgba(0,0,0,0.12)] md:left-[-40] md:right-auto md:min-w-70 w-70">
+            <div className="absolute -bottom-10 -left-2.5 right-4 bg-white rounded-xl shadow-xl px-6 py-4 flex items-center gap-3 md:left-[-40] md:right-auto md:min-w-70 w-70">
               <div className="flex items-center gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#FFEDEA]">
-                  <Star className="h-6 w-6 text-[#F74F25]" />
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#F9F0EE]">
+                  <Star className="text-[#F74F25]" />
                 </div>
 
                 <div className="leading-tight">
-                  <p className="text-lg font-extrabold text-[#121926]">Trusted by 2000+</p>
-                  <p className="text-sm font-medium text-[#121926]/45">Fashion Designers</p>
+                  <p className="font-bold text-[18px] text-[#121926]">Trusted by 2000+</p>
+                  <p className="text-[#9AA4B2]">Fashion Designers</p>
                 </div>
               </div>
             </div>
