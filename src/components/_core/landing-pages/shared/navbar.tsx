@@ -12,11 +12,15 @@ import {
   HammerIcon,
   CoinStackIcon,
   StarIcon,
-  BookIcon,
+  Television,
   UsersIcon,
 } from "@/components/svg";
 
-export const Navbar = () => {
+interface NavProps {
+  bgNav: string
+}
+
+export const Navbar = ({bgNav}: NavProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [isDarkBackground, setIsDarkBackground] = useState(false);
@@ -67,7 +71,7 @@ export const Navbar = () => {
     },
     {
       pathName: "Academy",
-      icon: BookIcon,
+      icon: Television,
       href: "/academy",
       isSection: false,
     },
@@ -251,7 +255,7 @@ export const Navbar = () => {
   return (
     <>
       <div
-        className={`transition-colors font-sans duration-300 ${scrolled ? 'backdrop-blur-3xl shadow-2xs' : 'bg-[#F9F0EE]'} px-4 md:px-8 w-full top-0 z-30 fixed`}
+        className={`transition-colors duration-300 ${scrolled ? 'backdrop-blur-3xl shadow-2xs' : `${bgNav}`} px-4 md:px-8 w-full top-0 z-30 fixed`}
       >
         <nav className="lg:w-[94%] max-xl mx-auto bg-transparent py-4 lg:py-5 flex justify-between items-center relative">
           <div className="shrink-0">

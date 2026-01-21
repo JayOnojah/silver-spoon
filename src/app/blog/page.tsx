@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function Blog() {
     return (
         <>
-            <Navbar />
+            <Navbar bgNav="bg-white"/>
         </>
     )
 }
