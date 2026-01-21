@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function AboutUs() {
     return (
         <>
-            <Navbar bgNav="bg-[#F2E9E7]"/> 
+            <Navbar bgNav="bg-[#F2E9E7]"/>
             <AboutHero />
             <Mission />
             <Footer />
