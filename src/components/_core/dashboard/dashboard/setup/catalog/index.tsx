@@ -2,14 +2,19 @@
 import React from "react";
 import CreateCatalogueDialog from "./create-catalogue-dialog";
 
-const CatalogSetup = () => {
+interface CatalogSetupProps {
+  onComplete?: (data: { catalogueName: string; description: string }) => void;
+}
+
+const CatalogSetup = ({ onComplete }: CatalogSetupProps) => {
   const [status, setStatus] = React.useState<"create">("create");
   const [isDialogOpen, setIsDialogOpen] = React.useState(true);
 
   const handleSubmit = (data: { catalogueName: string; description: string }) => {
     // Handle catalogue creation
     console.log("Catalogue data:", data);
-    // You can add logic here to save the catalogue
+    // Call parent's onComplete handler
+    onComplete?.(data);
   };
 
   return (

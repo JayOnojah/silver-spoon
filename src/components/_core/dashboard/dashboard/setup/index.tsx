@@ -15,8 +15,9 @@ import BusinessSetupDialog from "./business-setup-dialog";
 import CatalogSetup from "./catalog";
 
 const Setup = () => {
-  const [completedSteps, setCompletedSteps] = useState([1]); // Step 1 is completed
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
+  const [currentStep, setCurrentStep] = useState<number | null>(null);
+  const [isBusinessDialogOpen, setIsBusinessDialogOpen] = useState(false);
   const totalSteps = 5;
   const progress = (completedSteps.length / totalSteps) * 100;
 
@@ -31,7 +32,8 @@ const Setup = () => {
     {
       id: 2,
       title: "Create Your Catalogue",
-      description: "",
+      description: "Create your first catalogue to organize your products.",
+      buttonText: "Create Catalogue",
       completed: completedSteps.includes(2),
     },
     {
@@ -54,26 +56,42 @@ const Setup = () => {
     },
   ];
 
-  const handleSubmit = (data: any) => {
+  const handleBusinessSubmit = (data: any) => {
     // Handle business setup submission
     console.log("Business setup data:", data);
-    // Mark step 1 as completed if not already
+    // Mark step 1 as completed
     if (!completedSteps.includes(1)) {
       setCompletedSteps([...completedSteps, 1]);
     }
+    // Move to next step (catalog)
+    setIsBusinessDialogOpen(false);
+    setCurrentStep(2);
+  };
+
+  const handleCatalogueSubmit = (data: any) => {
+    // Handle catalogue creation
+    console.log("Catalogue data:", data);
+    // Mark step 2 as completed
+    if (!completedSteps.includes(2)) {
+      setCompletedSteps([...completedSteps, 2]);
+    }
+    // Close the step
+    setCurrentStep(null);
   };
 
   return (
     <div className="space-y-6">
-      {completedSteps.includes(1) && (
+      {currentStep === 1 && (
         <BusinessSetupDialog
-          open={isDialogOpen}
-          onOpenChange={setIsDialogOpen}
-          onSubmit={handleSubmit}
+          open={isBusinessDialogOpen}
+          onOpenChange={setIsBusinessDialogOpen}
+          onSubmit={handleBusinessSubmit}
         />
       )}
 
-      {completedSteps.includes(2) && <CatalogSetup />}
+      {currentStep === 2 && (
+        <CatalogSetup onComplete={handleCatalogueSubmit} />
+      )}
       {/* Get Started Card */}
       <div className="rounded p-6 bg-white">
         {/* Title Section */}
@@ -147,7 +165,10 @@ const Setup = () => {
                       <Button
                         onClick={() => {
                           if (step.id === 1) {
-                            setIsDialogOpen(true);
+                            setCurrentStep(1);
+                            setIsBusinessDialogOpen(true);
+                          } else if (step.id === 2) {
+                            setCurrentStep(2);
                           }
                         }}
                         className="bg-primary hover:bg-primary/90 rounded-xl h-10"
