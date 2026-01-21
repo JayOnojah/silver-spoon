@@ -12,6 +12,7 @@ import {
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import BusinessSetupDialog from "./business-setup-dialog";
+import CatalogSetup from "./catalog";
 
 const Setup = () => {
   const [completedSteps, setCompletedSteps] = useState([1]); // Step 1 is completed
@@ -64,11 +65,15 @@ const Setup = () => {
 
   return (
     <div className="space-y-6">
-      <BusinessSetupDialog
-        open={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-        onSubmit={handleSubmit}
-      />
+      {completedSteps.includes(1) && (
+        <BusinessSetupDialog
+          open={isDialogOpen}
+          onOpenChange={setIsDialogOpen}
+          onSubmit={handleSubmit}
+        />
+      )}
+
+      {completedSteps.includes(2) && <CatalogSetup />}
       {/* Get Started Card */}
       <div className="rounded p-6 bg-white">
         {/* Title Section */}
