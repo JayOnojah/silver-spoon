@@ -2,50 +2,45 @@
 
 import Image from "next/image"; 
 import { motion } from "framer-motion";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { ArrowRight } from "lucide-react"; 
 import { CardBox } from '../shared/card-box' 
-import { CartBasket, CoinStack, Delivery, CalendarDays
-} from '@/components/svg';
+import { Heart, UserMultiple, GlobeIconBig, Target} from '@/components/svg';     
 
-export const ManageOrders = ({}) => {
+export const Mission = ({}) => {
 
 const operationsCard = [
         {
-            icons: <CartBasket />,
-            title: 'Ceating & Managing Orders',
-            label: 'Streamlined order creation with all details in one place.',
+            icons: <Target />,
+            title: 'Mission-Driven',
+            label: 'We exist to empower fashion creators with tools that were once only available to the biggest brands.',
         },
         {
-            icons: <Delivery />,
-            title: 'Shipping & Delivery',
-            label: 'Track shipments and manage delivery schedules effortlessly.',
+            icons: <Heart />,
+            title: 'Creator-First',
+            label: 'Every feature we build starts with understanding the real challenges fashion professionals face daily.',
         },
         {
-            icons: <CoinStack />,
-            title: 'Receiving Payment',
-            label: 'Multiple payment options with automatic invoicing.',
+            icons: <UserMultiple />,
+            title: 'Community-Focused',
+            label: 'We are building more than software — we are creating a movement of empowered fashion entrepreneurs.',
         },
         {
-            icons: <CalendarDays />,
-            title: 'Scheduling',
-            label: 'Manage fittings, deadlines, and production timelines.',
+            icons: <GlobeIconBig />,
+            title: 'Globally Local',
+            label: 'We understand that fashion is local, but aspirations are global. We bridge that gap.',
         },
     ]
-
   return (
-    <section className="bg-[#121926] w-full">
+    <section className="bg-white w-full">
       <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-20">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
-            {/* LEFT */}
+          {/* LEFT */} 
           <div className="relative">
             {/* Image wrapper */}
             <div className="relative overflow-hidden rounded-[28px] bg-[#f4f4f5] ">
               <div className="h-70 relative aspect-4/3 w-full md:aspect-[1.08/1] md:h-96">
                 <Image
-                  src={"/images/pngs/frame.png"}
-                  alt={"Fashion designers" }
+                  src={"/images/pngs/shop.png"}
+                  alt={"Fashion designers shopping" }
                   fill
                   priority
                   className="object-cover"
@@ -53,39 +48,26 @@ const operationsCard = [
               </div>
             </div>
           </div>
+          
 
           {/* RIGHT */}
-          <div className="space-y-6 md:space-y-7">
+          <div className="space-y-6">
             {/* heading */}
-            <h1 className="text-2xl font-black tracking-tight text-white md:text-[34px]">
-              Create & Manage Orders 
+            <h1 className="text-2xl font-black tracking-tight text-[#121926] md:text-[34px]">
+              Our Mission
             </h1>
 
             {/* body */}
             <p className="max-w-xl text-lg leading-relaxed text-[#9AA4B2] md:text-xl">
-             Handle every order with precision from initial inquiry to final delivery. Track payments, shipping, and customer communications seamlessly.
+             To democratize access to professional business tools for fashion creators everywhere, enabling them to focus on what they do best — creating beautiful things.
+              We believe that every talented designer, tailor, and cobbler deserves the same operational advantages as major fashion houses. Technology should be an equalizer, not a barrier.
             </p>
-
-            {/* CTAs */}
-            <div className="flex flex-col gap-6 md:flex-row sm:items-center">
-
-          <Button 
-            className="w-52 bg-[#F74F25] hover:bg-[#F74F25]/90 md:w-52 text-white h-12 font-bold">
-            
-            <Link href="#" className="inline-flex items-center justify-center gap-2 whitespace-nowrap"> 
-            Get Started For Free 
-            <ArrowRight className="ml-2 h-4 w-4" /> 
-            </Link>
-          </Button>
-            </div>
           </div>
-
-        
         </div>
       </div> 
 
       {/* Card */}
-    <div className="w-full bg-white py-10 md:py-20">
+    <div className="w-full bg-[#F74F25] py-10 md:py-20">
       <motion.div
                           initial="hidden"
                           whileInView="visible"
