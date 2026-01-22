@@ -436,11 +436,11 @@ export const BagDollar = () => {
 export const Target = () => {
     return (
         <svg width="54" height="54" viewBox="0 0 54 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-<path d="M26.6855 44.6857C36.6267 44.6857 44.6855 36.6268 44.6855 26.6857C44.6855 16.7445 36.6267 8.68567 26.6855 8.68567C16.7444 8.68567 8.68555 16.7445 8.68555 26.6857C8.68555 36.6268 16.7444 44.6857 26.6855 44.6857Z" fill="#FDC8BB" stroke="#F74F25" strokeWidth="1.37143" stroke-linecap="round" strokeLinejoin="round"/>
-<path d="M26.6855 8.68567V0.685669" stroke="#F74F25" strokeWidth="1.37143" stroke-linecap="round" stroke-Linejoin="round"/>
-<path d="M26.6855 52.6857V44.6857" stroke="#F74F25" strokeWidth="1.37143" stroke-linecap="round" stroke-Linejoin="round"/>
-<path d="M44.6855 26.6857H52.6855" stroke="#F74F25" strokeWidth="1.37143" stroke-linecap="round" stroke-Linejoin="round"/>
-<path d="M0.685547 26.6857H8.68555" stroke="#F74F25" strokeWidth="1.37143" stroke-linecap="round" stroke-Linejoin="round"/>
+<path d="M26.6855 44.6857C36.6267 44.6857 44.6855 36.6268 44.6855 26.6857C44.6855 16.7445 36.6267 8.68567 26.6855 8.68567C16.7444 8.68567 8.68555 16.7445 8.68555 26.6857C8.68555 36.6268 16.7444 44.6857 26.6855 44.6857Z" fill="#FDC8BB" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M26.6855 8.68567V0.685669" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M26.6855 52.6857V44.6857" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M44.6855 26.6857H52.6855" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round"/>
+<path d="M0.685547 26.6857H8.68555" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round"/>
 </svg>
     )
 }
