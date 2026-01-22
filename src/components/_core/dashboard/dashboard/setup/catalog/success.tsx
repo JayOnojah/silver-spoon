@@ -1,22 +1,29 @@
 "use client";
 
-import { IconCheck } from "@tabler/icons-react";
+import { IconCheck, IconPlus } from "@tabler/icons-react";
 import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
-interface SuccessDialogProps {
+interface CatalogueSuccessDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onBackToLogin?: () => void;
+  onAddDesigns?: () => void;
+  onCreateAnother?: () => void;
 }
 
-const SuccessDialog = ({
+const CatalogueSuccessDialog = ({
   open,
   onOpenChange,
-  onBackToLogin,
-}: SuccessDialogProps) => {
-  const handleBackToLogin = () => {
-    onBackToLogin?.();
+  onAddDesigns,
+  onCreateAnother,
+}: CatalogueSuccessDialogProps) => {
+  const handleAddDesigns = () => {
+    onAddDesigns?.();
+    onOpenChange(false);
+  };
+
+  const handleCreateAnother = () => {
+    onCreateAnother?.();
     onOpenChange(false);
   };
 
@@ -40,25 +47,34 @@ const SuccessDialog = ({
           {/* Title */}
           <div className="text-center space-y-3 w-full overflow-x-hidden">
             <h2 className="text-3xl font-bold text-foreground">
-              Your Password Has Been Reset!
+              Catalogue Created Successfully 🎉
             </h2>
             <p className="text-sm text-[#4B5565] max-w-md mx-auto">
-              This is the password you should enter when next you're logging in
-              to your creative workspace
+              Add your designs now or come back anytime.
             </p>
           </div>
 
-          {/* Back to Login Button */}
-          <Button
-            onClick={handleBackToLogin}
-            className="w-full h-12 text-base font-medium rounded-2xl bg-primary hover:bg-primary/90"
-          >
-            Back to login
-          </Button>
+          {/* Action Buttons */}
+          <div className="space-y-3 w-full">
+            <Button
+              onClick={handleAddDesigns}
+              className="w-full h-12 text-base font-medium rounded-2xl bg-primary hover:bg-primary/90"
+            >
+              Add Designs To Catalogue
+            </Button>
+            <Button
+              onClick={handleCreateAnother}
+              variant="outline"
+              className="w-full h-12 text-base font-medium rounded-2xl border-primary text-primary hover:bg-primary/10"
+            >
+              <IconPlus className="size-5 mr-2" />
+              Create Another Catalogue
+            </Button>
+          </div>
         </DialogHeader>
       </DialogContent>
     </Dialog>
   );
 };
 
-export default SuccessDialog;
+export default CatalogueSuccessDialog;
