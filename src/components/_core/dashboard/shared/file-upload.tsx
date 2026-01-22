@@ -119,7 +119,7 @@ const FileUpload = ({
         onDrop={handleDrop}
         onClick={handleClick}
         className={cn(
-          "border-2 border-dashed border-primary rounded-xl p-8 bg-[#FFF1EC] cursor-pointer transition-colors",
+          "border-2 mt-1 border-dashed border-primary rounded-xl p-8 bg-[#FFF1EC] cursor-pointer transition-colors",
           isDragging && "bg-[#FFE8E0] border-primary/80",
           !isDragging && "hover:bg-[#FFE8E0]",
           error && "border-destructive",

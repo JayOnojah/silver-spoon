@@ -13,6 +13,7 @@ import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
 import BusinessSetupDialog from "./business-setup-dialog";
 import CatalogSetup from "./catalog";
+import CreateCustomer from "./create-customer";
 
 const Setup = () => {
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
@@ -43,9 +44,10 @@ const Setup = () => {
     {
       id: 3,
       title: "Add Your First Customer",
-      description: "",
+      description: "Add your first customer to start managing orders.",
+      buttonText: "Add Customer",
       completed: completedSteps.includes(3),
-      onclick: () => setIsBusinessDialogOpen(true),
+      onclick: () => setIsAddFirstCustomerDialogOpen(true),
     },
     {
       id: 4,
@@ -84,6 +86,16 @@ const Setup = () => {
     // Close the step
   };
 
+  const handleCustomerSubmit = (customers: any[]) => {
+    // Handle customer creation
+    console.log("Customer data:", customers);
+    // Mark step 3 as completed
+    if (!completedSteps.includes(3)) {
+      setCompletedSteps([...completedSteps, 3]);
+    }
+    setIsAddFirstCustomerDialogOpen(false);
+  };
+
   return (
     <div className="space-y-6">
       <BusinessSetupDialog
@@ -96,6 +108,11 @@ const Setup = () => {
         open={isCatalogueDialogOpen}
         onOpenChange={setIsCatalogueDialogOpen}
         onComplete={handleCatalogueSubmit}
+      />
+      <CreateCustomer
+        open={isAddFirstCustomerDialogOpen}
+        onOpenChange={setIsAddFirstCustomerDialogOpen}
+        onSubmit={handleCustomerSubmit}
       />
       {/* Get Started Card */}
       <div className="rounded p-6 bg-white">
