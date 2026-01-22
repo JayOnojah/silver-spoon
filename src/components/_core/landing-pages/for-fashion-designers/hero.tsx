@@ -8,7 +8,7 @@ import { Scissors, PlayIcon, Star, ArrowRight } from "lucide-react";
 export const ForFashionDesignersHero = ({}) => {
 
   return (
-    <section className="bg-white w-full">
+    <div className="bg-white w-full font-sans">
       <div className="mx-auto max-w-7xl px-5 py-30 md:px-8 md:py-30">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
           {/* LEFT */}
@@ -87,6 +87,6 @@ export const ForFashionDesignersHero = ({}) => {
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };

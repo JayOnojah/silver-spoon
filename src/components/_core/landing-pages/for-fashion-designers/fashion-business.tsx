@@ -36,7 +36,7 @@ export default function FashionBusiness() {
     ]
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-white font-sans">
             <div className='w-[90%] mx-auto md:py-10 py-5'>
                 {/* <div className='flex justify-center'>
                     <Badge className='bg-[#FDC8BB] text-[#F74F25] text-xs'>Feature</Badge>

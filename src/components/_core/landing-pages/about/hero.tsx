@@ -5,7 +5,7 @@ import Image from "next/image";
 export const AboutHero = ({}) => {
 
   return ( 
-        <section className="bg-[#F9F0EE] w-full">
+        <div className="bg-[#F2E9E7] w-full font-sans">
               <div className="mx-auto max-w-7xl px-5 py-30 md:px-8 md:py-30">
                 <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
                   {/* LEFT */}
@@ -15,7 +15,7 @@ export const AboutHero = ({}) => {
                                   <span>Our Story</span>
                                 </div>
                     {/* heading */}
-                    <h1 className="text-4xl font-black tracking-tight text-[#121926] md:text-[40px]">
+                    <h1 className="text-4xl font-black tracking-tight text-[#121926] md:text-[39px]">
                       Empowering <span className="text-[#F74F25]">Fashion Creators</span> <br />
                       To Build Their Dreams 
                     </h1>
@@ -43,6 +43,6 @@ export const AboutHero = ({}) => {
                   </div>
                 </div>
               </div> 
-        </section>
+        </div>
     ); 
 };

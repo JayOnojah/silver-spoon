@@ -30,7 +30,7 @@ const operationsCard = [
         },
     ]
   return (
-    <section className="bg-white w-full">
+    <div className="bg-white w-full font-sans">
       <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-20">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
           {/* LEFT */} 
@@ -58,7 +58,7 @@ const operationsCard = [
             </h1>
 
             {/* body */}
-            <p className="max-w-xl text-lg leading-relaxed text-[#9AA4B2] md:text-xl">
+            <p className="max-w-xl text-lg leading-relaxed text-[#9AA4B2]">
              To democratize access to professional business tools for fashion creators everywhere, enabling them to focus on what they do best — creating beautiful things.
               We believe that every talented designer, tailor, and cobbler deserves the same operational advantages as major fashion houses. Technology should be an equalizer, not a barrier.
             </p>
@@ -92,6 +92,6 @@ const operationsCard = [
                       </motion.div>
     </div>
       
-    </section> 
+    </div> 
   );
 };
