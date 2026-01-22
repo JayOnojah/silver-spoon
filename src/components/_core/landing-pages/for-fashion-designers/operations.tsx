@@ -37,7 +37,7 @@ const operationsCard = [
     ]
   return (
     <section className="bg-[#F9F0EE] w-full">
-      <div className="mx-auto max-w-7xl px-5 py-12 md:px-8 md:py-30">
+      <div className="mx-auto max-w-7xl px-5 py-10 md:px-8 md:py-20">
         <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
           {/* LEFT */}
           <div className="space-y-6 md:space-y-7">
