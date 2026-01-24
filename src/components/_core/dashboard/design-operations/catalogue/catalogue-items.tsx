@@ -2,7 +2,6 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { Input } from '@/components/ui/input';
-import { Button } from '@/src/components/ui/button';
 import { useRouter } from 'next/navigation';
 import {
     DropdownMenu,
@@ -26,9 +25,9 @@ import {
     Eye,
     Share2,
     Trash2,
-    Plus
 } from 'lucide-react';
 import { Cookies } from '@/src/components/svg';
+import { CreateCatalogue } from './create-catalogue';
 
 interface CatalogueCardProps {
     id: string;
@@ -227,10 +226,7 @@ export const CatalogueItems = () => {
                             <h1 className='text-[#121926] text-lg font-bold mb-2'>No  Catalogue Created Yet</h1>
                             <p className='text-[#9AA4B2] text-sm'>Create your first catalogue</p>
                         </div>
-                        <Button className="bg-[#F74F25] text-white rounded-2xl h-12 font-bold">
-                            <Plus />
-                            Create Catalogue
-                        </Button>
+                        <CreateCatalogue btnName='Create catalogue'/>
                     </div>
                 </div>
             )}
