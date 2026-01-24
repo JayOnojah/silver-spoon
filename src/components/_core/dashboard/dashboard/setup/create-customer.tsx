@@ -153,7 +153,7 @@ const CreateCustomer = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={true}
-        className="max-w-200! w-full rounded-xl p-6 sm:p-8 overflow-y-auto max-h-[90vh]"
+        className="max-w-250! w-full rounded-xl p-6 sm:p-8 overflow-y-auto max-h-[90vh]"
       >
         <DialogHeader className="space-y-2">
           <DialogTitle>
@@ -184,128 +184,157 @@ const CreateCustomer = ({
           />
 
           {/* Customer(s) Section */}
-          <h3 className="text-sm font-bold text-foreground mt-10">Customer(s)</h3>
+          <h3 className="text-sm font-bold text-foreground mt-10">
+            Customer(s)
+          </h3>
           <div className="space-y-4 flex-1 w-full mt-2">
             <div className="space-y-2 w-full  border py-3">
               {customers.map((customer, index) => (
-                <div
-                  key={index}
-                  className="flex gap-2 items-center px-4 border-[#E5E7EB] rounded-xl"
-                >
-                  {/* Full Name */}
-                  <div className="space-y-1.5 flex-1">
-                    <label className="text-xs font-medium text-[#4B5565]">
-                      Full Name <span className="text-destructive">*</span>
-                    </label>
-                    <Input
-                      type="text"
-                      placeholder="Enter Full Name"
-                      value={customer.fullName}
-                      onChange={(e) =>
-                        handleCustomerChange(index, "fullName", e.target.value)
-                      }
-                      className={cn(
-                        "h-10 rounded-xl flex-1",
-                        errors[index]?.fullName && "border-destructive",
-                      )}
-                    />
-                    {errors[index]?.fullName && (
-                      <p className="text-xs text-destructive">
-                        {errors[index].fullName}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Phone Number */}
-                  <div className="space-y-1.5 flex-1">
-                    <label className="text-xs font-medium text-[#4B5565]">
-                      Phone Number <span className="text-destructive">*</span>
-                    </label>
-                    <Input
-                      type="tel"
-                      placeholder="Enter Phone Number"
-                      value={customer.phoneNumber}
-                      onChange={(e) =>
-                        handleCustomerChange(
-                          index,
-                          "phoneNumber",
-                          e.target.value,
-                        )
-                      }
-                      className={cn(
-                        "h-10 rounded-xl flex-1",
-                        errors[index]?.phoneNumber && "border-destructive",
-                      )}
-                    />
-                    {errors[index]?.phoneNumber && (
-                      <p className="text-xs text-destructive">
-                        {errors[index].phoneNumber}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Email Address */}
-                  <div className="space-y-1.5 flex-1">
-                    <label className="text-xs font-medium text-[#4B5565]">
-                      Email Address <span className="text-destructive">*</span>
-                    </label>
-                    <Input
-                      type="email"
-                      placeholder="Enter Email Address"
-                      value={customer.emailAddress}
-                      onChange={(e) =>
-                        handleCustomerChange(
-                          index,
-                          "emailAddress",
-                          e.target.value,
-                        )
-                      }
-                      className={cn(
-                        "h-10 rounded-xl flex-1",
-                        errors[index]?.emailAddress && "border-destructive",
-                      )}
-                    />
-                    {errors[index]?.emailAddress && (
-                      <p className="text-xs text-destructive">
-                        {errors[index].emailAddress}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Address */}
-                  <div className="space-y-1.5 flex-1">
-                    <label className="text-xs font-medium text-[#4B5565]">
-                      Address <span className="text-destructive">*</span>
-                    </label>
-                    <Input
-                      type="text"
-                      placeholder="Enter Address"
-                      value={customer.address}
-                      onChange={(e) =>
-                        handleCustomerChange(index, "address", e.target.value)
-                      }
-                      className={cn(
-                        "h-10 rounded-xl flex-1",
-                        errors[index]?.address && "border-destructive",
-                      )}
-                    />
-                    {errors[index]?.address && (
-                      <p className="text-xs text-destructive">
-                        {errors[index].address}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Actions */}
-                  <div className="flex items-end h-10">
+                <div className="w-full grid">
+                  <div className="md:hidden flex items-center justify-between gap-1 px-3 mb-2 mt-3">
+                    <h3 className="text-xs font-bold text-foreground mt">
+                      Customer {index + 1}
+                    </h3>
                     <button
                       type="button"
                       onClick={() => handleRemoveCustomer(index)}
-                      className="p-2 text-[#9AA4B2] hover:text-destructive transition-colors"
+                      className="text-[#9AA4B2] hover:text-destructive transition-colors"
                       disabled={customers.length === 1}
                     >
                       <IconTrash className="size-5" />
                     </button>
+                  </div>
+                  <div className="md:flex md:items-center">
+                    <div
+                      key={index}
+                      className="grid sm:grid-cols-2 md:grid-cols-4 gap-2 items-center px-4 border-[#E5E7EB] rounded-xl"
+                    >
+                      {/* Full Name */}
+                      <div className="space-y-1.5 flex-1">
+                        <label className="text-xs font-medium text-[#4B5565]">
+                          Full Name <span className="text-destructive">*</span>
+                        </label>
+                        <Input
+                          type="text"
+                          placeholder="Enter Full Name"
+                          value={customer.fullName}
+                          onChange={(e) =>
+                            handleCustomerChange(
+                              index,
+                              "fullName",
+                              e.target.value,
+                            )
+                          }
+                          className={cn(
+                            "h-10 rounded-xl flex-1",
+                            errors[index]?.fullName && "border-destructive",
+                          )}
+                        />
+                        {errors[index]?.fullName && (
+                          <p className="text-xs text-destructive">
+                            {errors[index].fullName}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Phone Number */}
+                      <div className="space-y-1.5 flex-1">
+                        <label className="text-xs font-medium text-[#4B5565]">
+                          Phone Number{" "}
+                          <span className="text-destructive">*</span>
+                        </label>
+                        <Input
+                          type="tel"
+                          placeholder="Enter Phone Number"
+                          value={customer.phoneNumber}
+                          onChange={(e) =>
+                            handleCustomerChange(
+                              index,
+                              "phoneNumber",
+                              e.target.value,
+                            )
+                          }
+                          className={cn(
+                            "h-10 rounded-xl flex-1",
+                            errors[index]?.phoneNumber && "border-destructive",
+                          )}
+                        />
+                        {errors[index]?.phoneNumber && (
+                          <p className="text-xs text-destructive">
+                            {errors[index].phoneNumber}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Email Address */}
+                      <div className="space-y-1.5 flex-1">
+                        <label className="text-xs font-medium text-[#4B5565]">
+                          Email Address{" "}
+                          <span className="text-destructive">*</span>
+                        </label>
+                        <Input
+                          type="email"
+                          placeholder="Enter Email Address"
+                          value={customer.emailAddress}
+                          onChange={(e) =>
+                            handleCustomerChange(
+                              index,
+                              "emailAddress",
+                              e.target.value,
+                            )
+                          }
+                          className={cn(
+                            "h-10 rounded-xl flex-1",
+                            errors[index]?.emailAddress && "border-destructive",
+                          )}
+                        />
+                        {errors[index]?.emailAddress && (
+                          <p className="text-xs text-destructive">
+                            {errors[index].emailAddress}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Address */}
+                      <div className="space-y-1.5 flex-1">
+                        <label className="text-xs font-medium text-[#4B5565]">
+                          Address <span className="text-destructive">*</span>
+                        </label>
+                        <Input
+                          type="text"
+                          placeholder="Enter Address"
+                          value={customer.address}
+                          onChange={(e) =>
+                            handleCustomerChange(
+                              index,
+                              "address",
+                              e.target.value,
+                            )
+                          }
+                          className={cn(
+                            "h-10 rounded-xl flex-1",
+                            errors[index]?.address && "border-destructive",
+                          )}
+                        />
+                        {errors[index]?.address && (
+                          <p className="text-xs text-destructive">
+                            {errors[index].address}
+                          </p>
+                        )}
+                      </div>
+
+                      {/* Actions */}
+                    </div>
+                    <div className="hidden md:flex items-end h-10">
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveCustomer(index)}
+                        className="p-2 text-[#9AA4B2] hover:text-destructive transition-colors"
+                        disabled={customers.length === 1}
+                      >
+                        <IconTrash className="size-5" />
+                      </button>
+                    </div>
                   </div>
                 </div>
               ))}
