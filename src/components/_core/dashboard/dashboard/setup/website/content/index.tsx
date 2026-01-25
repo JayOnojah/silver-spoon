@@ -8,6 +8,9 @@ import AboutBusiness from "./about-business";
 import YourService from "./your-service";
 import Product from "./product";
 import HowItWorks from "./how-it-works";
+import Features from "./features";
+import CustomerTestimonial from "./customer-testimonial";
+import Faq from "./faq";
 
 const Content = () => {
   const [activeTab, setActiveTab] = useState("hero");
@@ -78,16 +81,20 @@ const Content = () => {
           <HowItWorks />
         </TabsContent>
 
-        {/* Placeholder for other tabs */}
-        {tabs
-          .filter((tab) => tab.id !== "hero" && tab.id !== "about" && tab.id !== "services" && tab.id !== "products" && tab.id !== "how-it-works")
-          .map((tab) => (
-            <TabsContent key={tab.id} value={tab.id} className="mt-6">
-              <div className="text-center py-12 text-[#9AA4B2]">
-                {tab.label} content coming soon...
-              </div>
-            </TabsContent>
-          ))}
+        {/* Features Content */}
+        <TabsContent value="features" className="mt-6 space-y-6">
+          <Features />
+        </TabsContent>
+
+        {/* Customer Testimonials Content */}
+        <TabsContent value="testimonials" className="mt-6 space-y-6">
+          <CustomerTestimonial />
+        </TabsContent>
+
+        {/* FAQ Section Content */}
+        <TabsContent value="faq" className="mt-6 space-y-6">
+          <Faq />
+        </TabsContent>
       </Tabs>
     </div>
   );
