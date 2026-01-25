@@ -129,9 +129,7 @@ const Setup = () => {
       <WebsiteSetup
         open={isWebsiteBuilderOpen}
         onOpenChange={setIsWebsiteBuilderOpen}
-      >
-        <ChooseTemplate />
-      </WebsiteSetup>
+      />
       {/* Get Started Card */}
       <div className="rounded p-6 bg-white">
         {/* Title Section */}

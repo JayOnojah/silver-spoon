@@ -15,13 +15,13 @@ import {
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import ChooseTemplate from "./choose-template";
 
 interface WebsiteSetupProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   onSave?: () => void;
   onPreview?: () => void;
-  children: React.ReactNode;
 }
 
 interface NavItem {
@@ -87,7 +87,6 @@ const WebsiteSetup = ({
   onOpenChange,
   onSave,
   onPreview,
-  children,
 }: WebsiteSetupProps) => {
   const [selectedTemplate, setSelectedTemplate] = useState<string>("1");
   const [activeNav, setActiveNav] = useState<string>("template");
@@ -164,7 +163,7 @@ const WebsiteSetup = ({
 
             {/* Main Content Area */}
             <div className="flex-1 bg-white overflow-y-auto overflow-x-hidden p-8 h-[calc(100dvh-80px)]">
-              {children}
+              <ChooseTemplate />
             </div>
           </div>
         </div>
