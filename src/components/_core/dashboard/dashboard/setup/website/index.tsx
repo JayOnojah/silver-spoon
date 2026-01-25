@@ -16,6 +16,11 @@ import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import ChooseTemplate from "./choose-template";
+import Branding from "./branding";
+import Content from "./content";
+import Gallery from "./gallery";
+import ContactInfo from "./contact-info";
+import DomainSettings from "./domin-settings";
 
 interface WebsiteSetupProps {
   open: boolean;
@@ -91,6 +96,25 @@ const WebsiteSetup = ({
   const [selectedTemplate, setSelectedTemplate] = useState<string>("1");
   const [activeNav, setActiveNav] = useState<string>("template");
 
+  const renderContent = () => {
+    switch (activeNav) {
+      case "template":
+        return <ChooseTemplate />;
+      case "branding":
+        return <Branding />;
+      case "content":
+        return <Content />;
+      case "gallery":
+        return <Gallery />;
+      case "contact":
+        return <ContactInfo />;
+      case "domain":
+        return <DomainSettings />;
+      default:
+        return <ChooseTemplate />;
+    }
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
@@ -99,7 +123,7 @@ const WebsiteSetup = ({
       >
         <div className="flex flex-col h-screen w-full">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 shrink-0 border-b border-[#E5E7EB]">
+          <div className="flex items-center justify-between px-6 py-4 shrink-0">
             <div className="flex items-center gap-4">
               <Button
                 variant="ghost"
@@ -163,7 +187,7 @@ const WebsiteSetup = ({
 
             {/* Main Content Area */}
             <div className="flex-1 bg-white overflow-y-auto overflow-x-hidden p-8 h-[calc(100dvh-80px)]">
-              <ChooseTemplate />
+              {renderContent()}
             </div>
           </div>
         </div>
