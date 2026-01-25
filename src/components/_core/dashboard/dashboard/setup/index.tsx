@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import BusinessSetupDialog from "./business-setup-dialog";
+import BusinessSetupDialog from "./business-setup";
 import CatalogSetup from "./catalog";
 import CreateCustomer from "./create-customer";
 import CreateOrder from "./create-order";
