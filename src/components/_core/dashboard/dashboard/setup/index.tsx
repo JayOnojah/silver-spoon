@@ -15,6 +15,8 @@ import BusinessSetupDialog from "./business-setup-dialog";
 import CatalogSetup from "./catalog";
 import CreateCustomer from "./create-customer";
 import CreateOrder from "./create-order";
+import WebsiteSetup from "./website";
+import ChooseTemplate from "./website/choose-template";
 
 const Setup = () => {
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
@@ -23,6 +25,7 @@ const Setup = () => {
     useState(false);
   const [isCatalogueDialogOpen, setIsCatalogueDialogOpen] = useState(false);
   const [isSelectCustomerOpen, setIsSelectCustomerOpen] = useState(false);
+  const [isWebsiteBuilderOpen, setIsWebsiteBuilderOpen] = useState(false);
 
   const totalSteps = 5;
   const progress = (completedSteps.length / totalSteps) * 100;
@@ -63,9 +66,10 @@ const Setup = () => {
     {
       id: 5,
       title: "Set Up Your Website",
-      description: "",
+      description: "Create your website",
+      buttonText: "Create website",
       completed: completedSteps.includes(5),
-      onclick: () => setIsBusinessDialogOpen(true),
+      onclick: () => setIsWebsiteBuilderOpen(true),
     },
   ];
 
@@ -122,6 +126,12 @@ const Setup = () => {
         isSelectCustomerOpen={isSelectCustomerOpen}
         setIsSelectCustomerOpen={setIsSelectCustomerOpen}
       />
+      <WebsiteSetup
+        open={isWebsiteBuilderOpen}
+        onOpenChange={setIsWebsiteBuilderOpen}
+      >
+        <ChooseTemplate />
+      </WebsiteSetup>
       {/* Get Started Card */}
       <div className="rounded p-6 bg-white">
         {/* Title Section */}
