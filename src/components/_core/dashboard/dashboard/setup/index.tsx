@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 import BusinessSetupDialog from "./business-setup-dialog";
 import CatalogSetup from "./catalog";
 import CreateCustomer from "./create-customer";
+import CreateOrder from "./create-order";
 
 const Setup = () => {
   const [completedSteps, setCompletedSteps] = useState<number[]>([]);
@@ -21,6 +22,8 @@ const Setup = () => {
   const [isAddFirstCustomerDialogOpen, setIsAddFirstCustomerDialogOpen] =
     useState(false);
   const [isCatalogueDialogOpen, setIsCatalogueDialogOpen] = useState(false);
+  const [isSelectCustomerOpen, setIsSelectCustomerOpen] = useState(false);
+
   const totalSteps = 5;
   const progress = (completedSteps.length / totalSteps) * 100;
 
@@ -52,9 +55,10 @@ const Setup = () => {
     {
       id: 4,
       title: "Create Your First Order",
-      description: "",
+      description: "Create your first order",
+      buttonText: "Create Order",
       completed: completedSteps.includes(4),
-      onclick: () => setIsBusinessDialogOpen(true),
+      onclick: () => setIsSelectCustomerOpen(true),
     },
     {
       id: 5,
@@ -113,6 +117,10 @@ const Setup = () => {
         open={isAddFirstCustomerDialogOpen}
         onOpenChange={setIsAddFirstCustomerDialogOpen}
         onSubmit={handleCustomerSubmit}
+      />
+      <CreateOrder
+        isSelectCustomerOpen={isSelectCustomerOpen}
+        setIsSelectCustomerOpen={setIsSelectCustomerOpen}
       />
       {/* Get Started Card */}
       <div className="rounded p-6 bg-white">
