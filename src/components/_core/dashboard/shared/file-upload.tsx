@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback, useEffect } from "react";
-import { IconCloudUpload } from "@tabler/icons-react";
+import { IconCloudUpload, IconX } from "@tabler/icons-react";
 import { cn } from "@/lib/utils";
 
 interface FileUploadProps {
@@ -92,6 +92,16 @@ const FileUpload = ({
     inputRef.current?.click();
   };
 
+  const handleDelete = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setPreview(null);
+    if (inputRef.current) {
+      inputRef.current.value = "";
+    }
+    onChange?.(null);
+  };
+
   // Update preview when value changes externally
   useEffect(() => {
     if (value && showPreview && value.type.startsWith("image/")) {
@@ -105,8 +115,12 @@ const FileUpload = ({
     }
   }, [value, showPreview]);
 
+  // Extract height class if provided
+  const heightClass = className?.match(/h-[\w-]+/)?.[0];
+  const otherClasses = className?.replace(/h-[\w-]+/g, "").trim();
+
   return (
-    <div className={cn("space-y-2", className)}>
+    <div className={cn("space-y-2 w-full", otherClasses)}>
       {label && (
         <label className="text-sm font-medium text-[#4B5565]">
           {label}
@@ -119,7 +133,8 @@ const FileUpload = ({
         onDrop={handleDrop}
         onClick={handleClick}
         className={cn(
-          "border-2 mt-1 border-dashed border-primary rounded-xl p-8 bg-[#FFF1EC] cursor-pointer transition-colors",
+          "border-2 mt-1 border-dashed border-primary rounded-xl p-8 bg-[#FFF1EC] cursor-pointer transition-colors relative overflow-hidden w-full box-border flex items-center justify-center",
+          heightClass,
           isDragging && "bg-[#FFE8E0] border-primary/80",
           !isDragging && "hover:bg-[#FFE8E0]",
           error && "border-destructive",
@@ -133,23 +148,31 @@ const FileUpload = ({
           onChange={handleFileInputChange}
         />
         {preview && showPreview ? (
-          <div className="flex flex-col items-center gap-2">
+          <div className="relative flex flex-col items-center gap-2 w-full min-w-0">
+            <button
+              type="button"
+              onClick={handleDelete}
+              className="absolute top-2 right-2 z-10 bg-destructive text-white rounded-full p-1.5 hover:bg-destructive/90 transition-colors shadow-md shrink-0"
+              aria-label="Delete image"
+            >
+              <IconX className="size-4" />
+            </button>
             <img
               src={preview}
               alt="Preview"
               className={cn(
-                "max-h-32 max-w-full object-contain",
+                "max-h-26 max-w-full object-contain w-auto",
                 previewClassName,
               )}
             />
-            <p className="text-sm text-[#4B5565]">
+            <p className="text-sm text-[#4B5565] text-center">
               Click to change or drag & drop
             </p>
           </div>
         ) : (
-          <div className="flex flex-col items-center gap-3">
-            <IconCloudUpload className="size-8 text-foreground" />
-            <p className="text-sm text-center">
+          <div className="flex flex-col items-center gap-3 w-full min-w-0">
+            <IconCloudUpload className="size-8 text-foreground shrink-0" />
+            <p className="text-sm text-center w-full">
               <span className="text-primary">Click to upload</span>{" "}
               <span className="text-[#4B5565]">
                 or drag & drop your document here

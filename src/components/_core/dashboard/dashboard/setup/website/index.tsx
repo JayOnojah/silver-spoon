@@ -163,7 +163,7 @@ const WebsiteSetup = ({
           {/* Main Content */}
           <div className="flex flex-1 min-h-0 overflow-hidden">
             {/* Sidebar */}
-            <div className="w-64 px-6 py-6 flex flex-col shrink-0">
+            <div className="w-64 px-6 pb-6 flex flex-col shrink-0">
               <nav className="flex rounded-xl bg-white flex-col p-4 gap-1">
                 {navItems.map((item) => (
                   <button
@@ -186,7 +186,7 @@ const WebsiteSetup = ({
             </div>
 
             {/* Main Content Area */}
-            <div className="flex-1 bg-white overflow-y-auto overflow-x-hidden p-8 h-[calc(100dvh-80px)]">
+            <div className="flex-1 bg-white rounded-xl overflow-y-auto overflow-x-hidden p-8 h-[calc(100dvh-80px)]">
               {renderContent()}
             </div>
           </div>
