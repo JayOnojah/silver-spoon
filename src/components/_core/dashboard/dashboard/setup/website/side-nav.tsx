@@ -8,8 +8,8 @@ interface IProps {
 }
 const SideNav = ({activeNav, setActiveNav}: IProps) => {
   return (
-    <div className="w-64 px-6 pb-6 flex flex-col shrink-0">
-      <nav className="flex rounded-xl overflow-auto bg-white flex-col p-4 gap-1">
+    <div className="lg:w-64 lg:px-6 pb-6 flex flex-col shrink-0">
+      <nav className="flex ld:rounded-xl overflow-auto! bg-white lg:flex-col p-4 gap-1">
         {navItems.map((item) => (
           <button
             key={item.id}

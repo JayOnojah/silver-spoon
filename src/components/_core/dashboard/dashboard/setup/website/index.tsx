@@ -50,11 +50,11 @@ const WebsiteSetup = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="fixed bg-[#FFF1EC] inset-0 max-w-none! w-full! h-full! translate-x-0! translate-y-0! rounded-none! p-0 pr-6 gap-0 overflow-hidden"
+        className="fixed bg-[#FFF1EC] inset-0 max-w-none! w-full! h-full! translate-x-0! translate-y-0! rounded-none! px-4 lg:p-0 lg:pr-6 gap-0 overflow-hidden"
       >
         <div className="flex flex-col h-screen w-full">
           {/* Header */}
-          <div className="flex items-center justify-between px-6 py-4 shrink-0">
+          <div className="flex items-center justify-between lg:px-6 py-4 shrink-0">
             <div className="flex items-center gap-4">
               <Button
                 variant="ghost"
@@ -92,7 +92,7 @@ const WebsiteSetup = ({
           </div>
 
           {/* Main Content */}
-          <div className="flex flex-1 min-h-0 overflow-hidden">
+          <div className="flex flex-col lg:flex-row flex-1 min-h-0 overflow-hidden">
             {/* Sidebar */}
             <SideNav activeNav={activeNav} setActiveNav={setActiveNav} />
 
