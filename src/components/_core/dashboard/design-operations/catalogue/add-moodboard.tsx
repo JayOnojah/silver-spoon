@@ -15,7 +15,6 @@ import { Button } from '@/src/components/ui/button';
 import { Plus } from 'lucide-react';
 
 interface AddMoodboardModalProps {
-    onSubmit?: (data: { name: string; description: string }) => void;
     btnName: string;
 }
 
