@@ -2,13 +2,12 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
+import { AddDesign } from './add-design';
+import { ShareCollection } from './share-collection';
 import Image from 'next/image';
 import {
     ArrowLeft,
-    Plus,
     Eye,
-    Share2,
     Edit,
     Trash2
 } from 'lucide-react';
@@ -43,10 +42,12 @@ export const CatalogueDetails = () => {
                 <div className="flex justify-between flex-col md:flex-row gap-6 md:items-center mb-8">
                     <h1 className="text-2xl font-black text-[#121926]">Catalogue Details</h1>
                     <div className="flex items-center justify-end gap-3 w-full flex-1">
-                        <Button className="bg-[#F74F25] w-full md:w-40 hover:bg-[#E63E15] text-white rounded-xl px-6 h-12 font-semibold shadow-sm">
-                            <Plus className="w-5 h-5" />
-                            New Images
-                        </Button>
+                        <AddDesign
+                            btnName='New Image'
+                            onSubmit={(file) => {
+                                console.log('File uploaded:', file);
+                            }}
+                        />
                     </div>
                 </div>
 
@@ -61,12 +62,13 @@ export const CatalogueDetails = () => {
                         </div>
                         {/* Action Icons */}
                         <div className="flex items-center gap-2">
-                            <button className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors">
+                            <button
+                                onClick={() => router.push(`/collection`)}
+                                className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
+                            >
                                 <Eye className="w-5 h-5 text-[#9AA4B2]" />
                             </button>
-                            <button className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors">
-                                <Share2 className="w-5 h-5 text-[#9AA4B2]" />
-                            </button>
+                            <ShareCollection />
                             <button className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors">
                                 <Edit className="w-5 h-5 text-[#9AA4B2]" />
                             </button>
