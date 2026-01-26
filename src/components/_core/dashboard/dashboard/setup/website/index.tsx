@@ -1,26 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import {
-  IconX,
-  IconEye,
-  IconCheck,
-  IconFileText,
-  IconSettings,
-  IconTypography,
-  IconPhoto,
-  IconPhone,
-  IconWorld,
-} from "@tabler/icons-react";
+import { IconX, IconEye } from "@tabler/icons-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
 import ChooseTemplate from "./choose-template";
 import Branding from "./branding";
 import Content from "./content";
 import Gallery from "./gallery";
 import ContactInfo from "./contact-info";
 import DomainSettings from "./domin-settings";
+import SideNav from "./side-nav";
 
 interface WebsiteSetupProps {
   open: boolean;
@@ -29,71 +19,12 @@ interface WebsiteSetupProps {
   onPreview?: () => void;
 }
 
-interface NavItem {
-  id: string;
-  label: string;
-  icon: React.ReactNode;
-}
-
-const navItems: NavItem[] = [
-  {
-    id: "template",
-    label: "Choose Template",
-    icon: <IconFileText className="size-5" />,
-  },
-  {
-    id: "branding",
-    label: "Branding",
-    icon: <IconSettings className="size-5" />,
-  },
-  {
-    id: "content",
-    label: "Content",
-    icon: <IconTypography className="size-5" />,
-  },
-  {
-    id: "gallery",
-    label: "Gallery",
-    icon: <IconPhoto className="size-5" />,
-  },
-  {
-    id: "contact",
-    label: "Contact Info",
-    icon: <IconPhone className="size-5" />,
-  },
-  {
-    id: "domain",
-    label: "Domain & Settings",
-    icon: <IconWorld className="size-5" />,
-  },
-];
-
-interface Template {
-  id: string;
-  name: string;
-  description: string;
-}
-
-const templates: Template[] = [
-  {
-    id: "1",
-    name: "Elegant Minimal",
-    description: "Modern & Clean",
-  },
-  {
-    id: "2",
-    name: "Elegant Minimal",
-    description: "Modern & Clean",
-  },
-];
-
 const WebsiteSetup = ({
   open,
   onOpenChange,
   onSave,
   onPreview,
 }: WebsiteSetupProps) => {
-  const [selectedTemplate, setSelectedTemplate] = useState<string>("1");
   const [activeNav, setActiveNav] = useState<string>("template");
 
   const renderContent = () => {
@@ -163,27 +94,7 @@ const WebsiteSetup = ({
           {/* Main Content */}
           <div className="flex flex-1 min-h-0 overflow-hidden">
             {/* Sidebar */}
-            <div className="w-64 px-6 pb-6 flex flex-col shrink-0">
-              <nav className="flex rounded-xl bg-white flex-col p-4 gap-1">
-                {navItems.map((item) => (
-                  <button
-                    key={item.id}
-                    onClick={() => setActiveNav(item.id)}
-                    className={cn(
-                      "flex items-center gap-3 px-4 py-3 rounded-xl text-left transition-colors",
-                      activeNav === item.id
-                        ? "bg-[#FEEDE9] text-primary font-bold"
-                        : "text-foreground hover:bg-primary/10",
-                    )}
-                  >
-                    {item.icon}
-                    <span className="text-xs whitespace-nowrap">
-                      {item.label}
-                    </span>
-                  </button>
-                ))}
-              </nav>
-            </div>
+            <SideNav activeNav={activeNav} setActiveNav={setActiveNav} />
 
             {/* Main Content Area */}
             <div className="flex-1 bg-white rounded-xl overflow-y-auto overflow-x-hidden p-8 h-[calc(100dvh-80px)]">

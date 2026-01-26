@@ -15,7 +15,6 @@ import Faq from "./faq";
 const Content = () => {
   const [activeTab, setActiveTab] = useState("hero");
 
-
   const tabs = [
     { id: "hero", label: "Hero Section" },
     { id: "about", label: "About Business" },
