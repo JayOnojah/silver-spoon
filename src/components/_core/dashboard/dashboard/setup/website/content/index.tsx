@@ -40,7 +40,7 @@ const Content = () => {
 
       {/* Tabs Navigation */}
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <TabsList className="w-full flex-wrap justify-start! overflow-x-auto bg-[#FEEDE9] h-auto p-0 border-b border-[#E5E7EB] rounded-none">
+        <TabsList className="w-full flex-wrap xl:flex-nowrap justify-start! overflow-x-auto bg-[#FEEDE9] h-auto p-0 border-b border-[#E5E7EB] rounded-none">
           {tabs.map((tab) => (
             <TabsTrigger
               key={tab.id}
