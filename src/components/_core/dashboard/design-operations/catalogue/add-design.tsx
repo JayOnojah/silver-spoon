@@ -1,29 +1,31 @@
-import React, { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, X, Palette, Eye, Share2, Edit2, Upload } from 'lucide-react';
+import { useState } from 'react';
 
-interface AddDesignModalProps {
-    open: boolean;
-    onOpenChange: (open: boolean) => void;
-    catalogueData?: {
-        name: string;
-        description: string;
-        designCount: number;
-    };
+import { 
+    Dialog, 
+    DialogContent, 
+    DialogHeader, 
+    DialogTitle, 
+    DialogTrigger 
+} from '@/components/ui/dialog';
+import { Button } from '@/components/ui/button';
+
+import { 
+    ArrowLeft, 
+    Eye, 
+    Share2, 
+    Edit, 
+    Plus 
+} from 'lucide-react';
+import { Cookies } from '@/src/components/svg';
+import { ImageIcon } from '../svg';
+
+interface AddDesignProps {
     onSubmit?: (file: File) => void;
+    btnName: string;
 }
 
-export const AddDesignModal: React.FC<AddDesignModalProps> = ({
-    open,
-    onOpenChange,
-    catalogueData = {
-        name: "Men's Face Cap",
-        description: "Description",
-        designCount: 0
-    },
-    onSubmit
-}) => {
+export const AddDesign = ({ onSubmit, btnName}: AddDesignProps) => {
+    const [open, setOpen] = useState(false);
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [dragActive, setDragActive] = useState(false);
 
@@ -60,29 +62,31 @@ export const AddDesignModal: React.FC<AddDesignModalProps> = ({
         if (selectedFile && onSubmit) {
             onSubmit(selectedFile);
             setSelectedFile(null);
-            onOpenChange(false);
+            setOpen(false);
         }
     };
 
     return (
-        <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="sm:max-w-[600px] p-0 gap-0 rounded-3xl border-0 font-sans">
+        <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger asChild>
+                <Button className="bg-[#F74F25] w-full md:w-36 text-white rounded-2xl h-12 font-bold font-sans hover:bg-[#F74F25]/90">
+                    <Plus className="w-5 h-5" />
+                    {btnName}
+                </Button>
+            </DialogTrigger>
+
+            <DialogContent className="sm:max-w-150 p-0 gap-0 rounded-3xl border-0 font-sans">
                 <div className="relative">
                     {/* Header */}
                     <DialogHeader className="px-6 pt-6 pb-4 flex flex-row items-center justify-between space-y-0">
                         <button
-                            onClick={() => onOpenChange(false)}
-                            className="flex items-center gap-2 text-gray-900 hover:text-gray-700 transition-colors"
+                            onClick={() => setOpen(false)}
+                            className="flex text-sm items-center gap-2 cursor-pointer text-[#0D0D0D] hover:text-gray-700 transition-colors"
                         >
-                            <ArrowLeft className="w-5 h-5" />
+                            <ArrowLeft className="w-4 h-4" />
                             <span className="font-semibold">Back</span>
                         </button>
-                        <button
-                            onClick={() => onOpenChange(false)}
-                            className="text-gray-900 hover:text-gray-700 transition-colors"
-                        >
-                            <X className="w-5 h-5" />
-                        </button>
+
                     </DialogHeader>
 
                     <div className="px-6">
@@ -91,35 +95,32 @@ export const AddDesignModal: React.FC<AddDesignModalProps> = ({
                         </DialogTitle>
 
                         {/* Catalogue Card */}
-                        <div className="bg-[#FFE8E0] rounded-2xl p-5 mb-6 relative">
+                        <div className="bg-[#FEEDE9] rounded-2xl p-5 mb-6 relative">
                             <div className="absolute top-4 right-4 flex items-center gap-2">
-                                <div className="bg-gray-900 text-white text-xs px-3 py-1 rounded-full">
-                                    Preview
-                                </div>
-                                <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center hover:bg-gray-50 transition-colors">
-                                    <Eye className="w-4 h-4 text-gray-600" />
+                                <button className="w-8 h-8 rounded-full flex items-center cursor-pointer justify-center hover:text-gray-500 transition-colors text-[#9AA4B2]">
+                                    <Eye className="w-5 h-5 " />
                                 </button>
-                                <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center hover:bg-gray-50 transition-colors">
-                                    <Share2 className="w-4 h-4 text-gray-600" />
+                                <button className="w-8 h-8 rounded-full flex items-center cursor-pointer justify-center hover:text-gray-500 transition-colors text-[#9AA4B2]">
+                                    <Share2 className="w-5 h-5 " />
                                 </button>
-                                <button className="w-8 h-8 rounded-full bg-white flex items-center justify-center hover:bg-gray-50 transition-colors">
-                                    <Edit2 className="w-4 h-4 text-gray-600" />
+                                <button className="w-8 h-8 rounded-full flex items-center cursor-pointer justify-center hover:text-gray-500 transition-colors text-[#9AA4B2]">
+                                    <Edit className="w-5 h-5 " />
                                 </button>
                             </div>
 
-                            <div className="flex items-start gap-4">
-                                <div className="w-12 h-12 rounded-xl bg-white flex items-center justify-center">
-                                    <Palette className="w-6 h-6 text-[#F74F25]" />
+                            <div className="">
+                                <div className="w-8 h-8 flex items-center justify-center mb-4">
+                                    <Cookies />
                                 </div>
                                 <div>
-                                    <h3 className="font-bold text-gray-900 text-lg mb-1">
-                                        {catalogueData.name}
+                                    <h3 className="font-bold text-[#121926] text-lg">
+                                        Men's Face Cap
                                     </h3>
-                                    <p className="text-gray-500 text-sm mb-2">
-                                        {catalogueData.description}
+                                    <p className="text-[#9AA4B2] text-sm mb-1">
+                                        Description
                                     </p>
-                                    <p className="text-gray-400 text-xs">
-                                        {catalogueData.designCount} Designs
+                                    <p className="text-[#9AA4B2] text-xs">
+                                        0 Designs
                                     </p>
                                 </div>
                             </div>
@@ -131,14 +132,15 @@ export const AddDesignModal: React.FC<AddDesignModalProps> = ({
                                 Upload Image(s)<span className="text-[#F74F25]">*</span>
                             </label>
 
-                            <div
+                            <label
+                                htmlFor="file-upload"
                                 onDragEnter={handleDrag}
                                 onDragLeave={handleDrag}
                                 onDragOver={handleDrag}
                                 onDrop={handleDrop}
-                                className={`relative border-2 border-dashed rounded-2xl p-12 text-center transition-all ${dragActive
-                                        ? 'border-[#F74F25] bg-orange-50'
-                                        : 'border-gray-300 bg-white'
+                                className={`relative border-2 border-dashed rounded-2xl p-5 text-center transition-all cursor-pointer block ${dragActive
+                                    ? 'border-[#F74F25] bg-orange-50'
+                                    : 'border-gray-300 bg-white hover:border-[#F74F25] hover:bg-orange-50/50'
                                     }`}
                             >
                                 <input
@@ -149,18 +151,15 @@ export const AddDesignModal: React.FC<AddDesignModalProps> = ({
                                     onChange={handleFileChange}
                                 />
 
-                                <div className="flex flex-col items-center justify-center">
+                                <div className="flex flex-col items-center justify-center pointer-events-none">
                                     <div className="w-16 h-16 mb-4 flex items-center justify-center">
-                                        <Upload className="w-10 h-10 text-gray-400" />
+                                       <ImageIcon />
                                     </div>
 
                                     <div className="text-sm">
-                                        <label
-                                            htmlFor="file-upload"
-                                            className="text-[#F74F25] font-semibold cursor-pointer hover:text-[#F74F25]/80 transition-colors"
-                                        >
+                                        <span className="text-[#F74F25] font-semibold">
                                             Click to upload
-                                        </label>
+                                        </span>
                                         <span className="text-gray-600"> or drag & drop your</span>
                                     </div>
                                     <p className="text-gray-600 text-sm">
@@ -168,15 +167,14 @@ export const AddDesignModal: React.FC<AddDesignModalProps> = ({
                                     </p>
 
                                     {selectedFile && (
-                                        <div className="mt-4 text-sm text-gray-700 bg-green-50 px-4 py-2 rounded-lg">
+                                        <div className="mt-4 text-sm text-gray-700 bg-[#F74F25]/10 px-4 py-2 rounded-lg">
                                             Selected: {selectedFile.name}
                                         </div>
                                     )}
                                 </div>
-                            </div>
+                            </label>
                         </div>
 
-                        {/* Submit Button */}
                         <Button
                             onClick={handleSubmit}
                             disabled={!selectedFile}
