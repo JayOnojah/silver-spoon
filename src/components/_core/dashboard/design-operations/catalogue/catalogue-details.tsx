@@ -9,9 +9,15 @@ import {
     ArrowLeft,
     Eye,
     Edit,
-    Trash2
+    Trash2,
 } from 'lucide-react';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { Cookies } from '@/src/components/svg';
+import { Picture } from '../svg';
 
 interface DesignImage {
     id: string;
@@ -20,6 +26,7 @@ interface DesignImage {
 
 export const CatalogueDetails = () => {
     const router = useRouter();
+    const [isEmpty, setIsEmpty] = useState(false);
     const [designs] = useState<DesignImage[]>(
         Array(8).fill(null).map((_, i) => ({
             id: `design-${i + 1}`,
@@ -62,12 +69,19 @@ export const CatalogueDetails = () => {
                         </div>
                         {/* Action Icons */}
                         <div className="flex items-center gap-2">
-                            <button
-                                onClick={() => router.push(`/collection`)}
-                                className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
-                            >
-                                <Eye className="w-5 h-5 text-[#9AA4B2]" />
-                            </button>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <button
+                                        onClick={() => router.push(`/collection`)}
+                                        className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors"
+                                    >
+                                        <Eye className="w-5 h-5 text-[#9AA4B2]" />
+                                    </button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                    <p>Preview</p>
+                                </TooltipContent>
+                            </Tooltip>
                             <ShareCollection />
                             <button className="w-10 h-10 rounded-full hover:bg-gray-100 flex items-center justify-center transition-colors">
                                 <Edit className="w-5 h-5 text-[#9AA4B2]" />
@@ -112,6 +126,22 @@ export const CatalogueDetails = () => {
                     ))}
                 </div>
             </div>
+
+            {/* Empty State */}
+            {isEmpty && (
+                <div className='bg-white h-90 flex items-center justify-center text-center mx-auto rounded-3xl my-6'>
+                    <div className=''>
+                        <div className='flex justify-center'>
+                            <Picture />
+                        </div>
+                        <div className='py-6'>
+                            <h1 className='text-[#121926] text-lg font-bold mb-2'>No  Designs Added Yet</h1>
+                            <p className='text-[#9AA4B2] text-sm'>Add catalogue designs to capture the customer’s vision.</p>
+                        </div>
+                        <AddDesign btnName='New Design' />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
