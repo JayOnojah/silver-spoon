@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { Cookies } from '@/src/components/svg';
 import { AddMoodboard } from './add-moodboard';
+import { Pin } from '../svg';
 
 
 const tabs: TabItem[] = [
@@ -43,10 +44,11 @@ interface MoodboardCardProps {
     title: string;
     description: string;
     designs: number;
-    updated: string;
+    updated: string; 
+    owner: string;
 }
 
-const MoodboardCard = ({ id, title, description, designs, updated }: MoodboardCardProps) => {
+const MoodboardCard = ({ id, title, description, designs, updated, owner }: MoodboardCardProps) => {
     const router = useRouter();
 
     const handleCardClick = (e: React.MouseEvent) => {
@@ -96,16 +98,17 @@ const MoodboardCard = ({ id, title, description, designs, updated }: MoodboardCa
             </div>
 
             <h3 className="text-lg font-semibold text-[#121926] mb-2">{title}</h3>
-            <p className="text-sm text-[#9AA4B2] mb-4">{description}</p>
+            <p className="text-sm text-[#9AA4B2] mb-2">{description}</p>
 
-            <div className="flex items-center text-xs text-[#9AA4B2] space-x-2">
+            <div className="flex items-center text-xs text-[#9AA4B2] space-x-2 border-b pb-4">
                 <span className="font-bold">{designs}</span>
                 <span>Designs</span>
                 <span>•</span>
                 <span>Last updated {updated}</span>
             </div>
-            <div className="border-t-2 mt-4 pt-4 border-[#F3F4F6]">
-
+            <div className="flex text-[#F74F25] text-xs items-center pt-4 gap-2">
+                <Pin />
+                <span>Linked to {owner}</span>
             </div>
         </div>
     );
@@ -120,15 +123,15 @@ export const MoodboardItems = () => {
     const totalPages = 10;
 
     const designs = [
-        { id: "mod-001", title: "Men's Face Cap", description: "Classic baseball caps with designs", designs: 20, updated: "2 hours ago" },
-        { id: "mod-002", title: "Women's Summer Dress", description: "Lightweight floral print dresses", designs: 15, updated: "2 hours ago" },
-        { id: "mod-003", title: "Kids T-Shirt Collection", description: "Colorful graphic tees for children", designs: 25, updated: "2 hours ago" },
-        { id: "mod-004", title: "Men's Face Cap", description: "Premium cotton snapback caps", designs: 18, updated: "2 hours ago" },
-        { id: "mod-005", title: "Unisex Hoodies", description: "Comfortable pullover hoodies", designs: 22, updated: "2 hours ago" },
-        { id: "mod-006", title: "Women's Accessories", description: "Scarves, bags and jewelry", designs: 30, updated: "2 hours ago" },
-        { id: "mod-007", title: "Men's Polo Shirts", description: "Business casual polo collection", designs: 16, updated: "2 hours ago" },
-        { id: "mod-008", title: "Athletic Wear", description: "Performance sportswear line", designs: 28, updated: "2 hours ago" },
-        { id: "mod-009", title: "Winter Jackets", description: "Insulated outerwear collection", designs: 12, updated: "2 hours ago" },
+        { id: "mod-001", title: "Men's Face Cap", description: "Classic baseball caps with designs", designs: 20, updated: "2 hours ago", owner: "Order 3635" },
+        { id: "mod-002", title: "Women's Summer Dress", description: "Lightweight floral print dresses", designs: 15, updated: "2 hours ago", owner: "Customer 4521" },
+        { id: "mod-003", title: "Kids T-Shirt Collection", description: "Colorful graphic tees for children", designs: 25, updated: "2 hours ago", owner: "Sandra Jones" },
+        { id: "mod-004", title: "Men's Face Cap", description: "Premium cotton snapback caps", designs: 18, updated: "2 hours ago", owner: "Order 3635" },
+        { id: "mod-005", title: "Unisex Hoodies", description: "Comfortable pullover hoodies", designs: 22, updated: "2 hours ago", owner: "Customer 4521" },
+        { id: "mod-006", title: "Women's Accessories", description: "Scarves, bags and jewelry", designs: 30, updated: "2 hours ago", owner: "Sandra Jones" },
+        { id: "mod-007", title: "Men's Polo Shirts", description: "Business casual polo collection", designs: 16, updated: "2 hours ago", owner: "Order 3635" },
+        { id: "mod-008", title: "Athletic Wear", description: "Performance sportswear line", designs: 28, updated: "2 hours ago", owner: "Customer 4521" },
+        { id: "mod-009", title: "Winter Jackets", description: "Insulated outerwear collection", designs: 12, updated: "2 hours ago", owner: "Sandra Jones" },
     ];
 
     useEffect(() => {

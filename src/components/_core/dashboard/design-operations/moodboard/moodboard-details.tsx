@@ -12,7 +12,7 @@ import {
     Edit,
     Trash2
 } from 'lucide-react';
-import { Cookies } from '@/src/components/svg';
+import { Cookies, FileDouble } from '@/src/components/svg';
 
 interface DesignImage {
     id: string;
@@ -72,12 +72,20 @@ export const MoodboardDetails = () => {
                             </button>
                         </div>
                     </div>
-                    <div className='mt-2'>
+                    <div className='mt-2 border-b pb-4'>
                         <h2 className="font-bold text-[#121926] mb-1">Men's Face Cap</h2>
                         <p className="text-sm text-[#9AA4B2] mb-2">Description</p>
                         <p className="text-xs text-[#9AA4B2]">
                             <span className="font-semibold">8 Designs</span> • Last updated 2 hours ago
                         </p>
+                    </div> 
+
+                    <div className="flex text-sm font-bold items-center pt-4 gap-2"> 
+                        <div className='flex h-10 w-10 items-center justify-center rounded-full bg-[#FEEDE9]'>
+                            <FileDouble />
+                        </div>
+                        
+                        <span>Personal Project</span>
                     </div>
                 </div>
             </div>
@@ -87,14 +95,14 @@ export const MoodboardDetails = () => {
                 <h3 className="text-xl font-bold text-[#121926] mb-6">All Designs</h3>
 
                 {/* Design Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-[#F74F25] p-2 rounded-4xl">
                     {designs.map((design) => (
                         <div
                             key={design.id}
-                            className="relative group bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow"
+                            className="relative group bg-[#F9F0EE] rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow w-full h-full flex items-center justify-center"
                         >
                             {/* Image Container */}
-                            <div className="aspect-4/5 bg-gray-100 relative">
+                            <div className="aspect-4/5 bg-gray-100 relative w-[94%] h-[94%] rounded-xl overflow-hidden shadow-sm">
                                 <Image
                                     className='w-full object-cover h-full'
                                     src={design.imageUrl}
