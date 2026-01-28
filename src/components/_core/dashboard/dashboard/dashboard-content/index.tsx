@@ -10,6 +10,8 @@ import { Button } from "@/components/ui/button";
 import ProductionPipeline from "./production-pipeline";
 import Metric from "./metric";
 import RecentOrders from "./recent-orders";
+import UpComingAppointment from "./up-coming-appointment";
+import FinanceReport from "./finance-report";
 
 const DashboardContent = () => {
   // Set to true to show filled state, false for empty state
@@ -60,35 +62,11 @@ const DashboardContent = () => {
             </Button>
           </div>
 
-          {/* No Appointment Yet Card */}
-          <div className="bg-white rounded-xl p-6 border border-[#E5E7EB]">
-            <div className="flex flex-col items-center justify-center py-8">
-              <div className="bg-[#FFF1EC] rounded-lg p-4 mb-4">
-                <IconCalendar className="size-8 text-primary" />
-              </div>
-              <h3 className="text-base font-bold text-foreground mb-2">
-                No Appointment Yet
-              </h3>
-              <p className="text-sm text-[#9AA4B2] text-center">
-                Upcoming appointments will be displayed here
-              </p>
-            </div>
-          </div>
+          {/* Upcoming Appointments Card */}
+          <UpComingAppointment isFilled={isFilled} />
 
-          {/* No Finance Report Yet Card */}
-          <div className="bg-white rounded-xl p-6 border border-[#E5E7EB]">
-            <div className="flex flex-col items-center justify-center py-8">
-              <div className="bg-[#FFF1EC] rounded-lg p-4 mb-4">
-                <IconCurrencyDollar className="size-8 text-primary" />
-              </div>
-              <h3 className="text-base font-bold text-foreground mb-2">
-                No Finance Report Yet
-              </h3>
-              <p className="text-sm text-[#9AA4B2] text-center">
-                Financial snapshots will be displayed here
-              </p>
-            </div>
-          </div>
+          {/* Financial Snapshot */}
+          <FinanceReport isFilled={isFilled} />
         </div>
       </div>
     </div>
