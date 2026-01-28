@@ -23,7 +23,6 @@ import {
     MoreHorizontal,
     Edit,
     Eye,
-    Share2,
     Trash2,
     MessageSquareMore,
     FileText
@@ -53,12 +52,15 @@ const NoteCard = ({ id, title, description, chats, updated, owner }: CatalogueCa
                 </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="text-[#9AA4B2] cursor-pointer hover:text-gray-600 focus:outline-none">
+                        <button
+                            data-dropdown
+                            className="text-[#9AA4B2] cursor-pointer hover:text-gray-600 focus:outline-none"
+                        >
                             <MoreHorizontal className="w-5 h-5" />
                         </button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end" className="w-48 text-[#9AA4B2] text-base">
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onClick={() => router.push(`/dashboard/orders/order-discussions/${id}`)}>
                             <Eye />
                             View Discussions
                         </DropdownMenuItem>
@@ -104,7 +106,7 @@ export const NoteItems = () => {
 
     const designs = [
         {
-            id: "cat-001",
+            id: "dis-001",
             title: "Discussion About Sarah’s Design",
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 0,
@@ -112,7 +114,7 @@ export const NoteItems = () => {
             owner: "Sandra James"
         },
         {
-            id: "cat-002",
+            id: "dis-002",
             title: "Discussion About Sarah’s Design",
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 45,
@@ -120,7 +122,7 @@ export const NoteItems = () => {
             owner: "Sandra Olu"
         },
         {
-            id: "cat-003",
+            id: "dis-003",
             title: "Discussion About Sarah’s Design",
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 30,
@@ -128,7 +130,7 @@ export const NoteItems = () => {
             owner: "Order 4857"
         },
         {
-            id: "cat-004",
+            id: "dis-004",
             title: "Discussion About Sarah’s Design",
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 30,
@@ -136,7 +138,7 @@ export const NoteItems = () => {
             owner: "Faith James"
         },
         {
-            id: "cat-005",
+            id: "dis-005",
             title: "Discussion About Sarah’s Design",
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 40,
@@ -144,7 +146,7 @@ export const NoteItems = () => {
             owner: "Mark Johnson"
         },
         {
-            id: "cat-006",
+            id: "dis-006",
             title: "Discussion About Sarah’s Design",
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 30,
@@ -152,7 +154,7 @@ export const NoteItems = () => {
             owner: "David Mark"
         },
         {
-            id: "cat-007",
+            id: "dis-007",
             title: "Discussion About Sarah’s Design",
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 37,
@@ -160,7 +162,7 @@ export const NoteItems = () => {
             owner: "Sandra Olu"
         },
         {
-            id: "cat-008",
+            id: "dis-008",
             title: "Discussion About Sarah’s Design",
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 30,
@@ -168,7 +170,7 @@ export const NoteItems = () => {
             owner: "Sandra Olu"
         },
         {
-            id: "cat-009",
+            id: "dis-009",
             title: "Discussion About Sarah’s Design",
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 45,

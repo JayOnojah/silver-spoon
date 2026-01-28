@@ -8,7 +8,6 @@ interface Tab {
     count: number;
 }
 
-// Move tabs outside the component so it's not recreated on every render
 const tabs: Tab[] = [
     { id: 'all-notes', label: 'All Notes', count: 30 },
     { id: 'orders', label: 'For Orders', count: 30 },
@@ -30,7 +29,7 @@ export default function NoteTabs() {
                 width: activeElement.offsetWidth,
             });
         }
-    }, [activeTab]); // Remove 'tabs' from dependencies
+    }, [activeTab]);
 
     return (
         <div className="w-full bg-white rounded-xl pr-6">
