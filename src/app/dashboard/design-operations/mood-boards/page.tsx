@@ -1,5 +1,5 @@
-import { MoodboardItems } from "@/src/components/_core/dashboard/design-operations/catalogue/moodboard-items";
-import { AddMoodboard } from "@/src/components/_core/dashboard/design-operations/catalogue/add-moodboard";
+import { MoodboardItems } from "@/src/components/_core/dashboard/design-operations/moodboard/moodboard-items";
+import { AddMoodboard } from "@/src/components/_core/dashboard/design-operations/moodboard/add-moodboard";
 
 const Moodboard = () => {
     return (
