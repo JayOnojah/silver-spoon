@@ -13,9 +13,11 @@ import RecentOrders from "./recent-orders";
 import UpComingAppointment from "./up-coming-appointment";
 import FinanceReport from "./finance-report";
 
-const DashboardContent = () => {
+interface DashboardContentProps {
+  isFilled: boolean;
+}
+const DashboardContent = ({ isFilled }: DashboardContentProps) => {
   // Set to true to show filled state, false for empty state
-  const isFilled = true;
 
   return (
     <div className="space-y-6 mt-10">
