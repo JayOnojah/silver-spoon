@@ -28,7 +28,7 @@ import {
     FileText
 } from 'lucide-react';
 import { Pin } from '../svg';
-
+import AddNoteModal from './edit-note';
 
 interface CatalogueCardProps {
     id: string;
@@ -65,9 +65,9 @@ const NoteCard = ({ id, title, description, chats, updated, owner }: CatalogueCa
                             View Discussions
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>
+                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
                             <Edit />
-                            Edit
+                            <AddNoteModal triggerText="Edit" />
                         </DropdownMenuItem>
                         <DropdownMenuSeparator />
                         <DropdownMenuItem>
@@ -96,7 +96,7 @@ const NoteCard = ({ id, title, description, chats, updated, owner }: CatalogueCa
     );
 };
 
-export const NoteItems = () => {
+export const NoteItems = ({ activeTab }: { activeTab: string }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [isEmpty, setIsEmpty] = useState(false)
     const [searchQuery, setSearchQuery] = useState('');
@@ -143,7 +143,7 @@ export const NoteItems = () => {
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 40,
             updated: "2 hours ago",
-            owner: "Mark Johnson"
+            owner: "Order 4857"
         },
         {
             id: "dis-006",
@@ -167,7 +167,7 @@ export const NoteItems = () => {
             description: "Brainstorming on possible ideas and concept regarding sarah’s red carpet event ",
             chats: 30,
             updated: "2 hours ago",
-            owner: "Sandra Olu"
+            owner: "Order 4857"
         },
         {
             id: "dis-009",
@@ -188,16 +188,25 @@ export const NoteItems = () => {
     }, [searchQuery]);
 
     const filteredDesigns = useMemo(() => {
-        // Use debouncedQuery instead of searchQuery
-        if (!searchQuery.trim()) {
-            return designs;
+        let filtered = designs;
+
+        // Filter by tab
+        if (activeTab === 'orders') {
+            filtered = filtered.filter(d => d.owner.toLowerCase().includes('order'));
+        } else if (activeTab === 'customers') {
+            filtered = filtered.filter(d => !d.owner.toLowerCase().includes('order'));
         }
 
-        return designs.filter((design) =>
-            design.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            design.description.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-    }, [debouncedQuery, designs]);
+        // search filter
+        if (searchQuery.trim()) {
+            filtered = filtered.filter((design) =>
+                design.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                design.description.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
+
+        return filtered;
+    }, [activeTab, debouncedQuery]);
 
     return (
         <div className="min-h-screen bg-[#FFF1EC] pt-5 font-sans">

@@ -2,6 +2,11 @@
 
 import { useState, useRef, useEffect } from 'react';
 
+interface NoteTabsProps {
+    activeTab: string;
+    setActiveTab: (id: string) => void
+}
+
 interface Tab {
     id: string;
     label: string;
@@ -14,8 +19,7 @@ const tabs: Tab[] = [
     { id: 'customers', label: 'For Customers', count: 30 },
 ];
 
-export default function NoteTabs() {
-    const [activeTab, setActiveTab] = useState(tabs[0].id);
+export default function NoteTabs({activeTab, setActiveTab}: NoteTabsProps) {
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
