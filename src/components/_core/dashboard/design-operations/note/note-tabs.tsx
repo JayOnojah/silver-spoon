@@ -2,21 +2,24 @@
 
 import { useState, useRef, useEffect } from 'react';
 
+interface NoteTabsProps {
+    activeTab: string;
+    setActiveTab: (id: string) => void
+}
+
 interface Tab {
     id: string;
     label: string;
     count: number;
 }
 
-// Move tabs outside the component so it's not recreated on every render
 const tabs: Tab[] = [
     { id: 'all-notes', label: 'All Notes', count: 30 },
     { id: 'orders', label: 'For Orders', count: 30 },
     { id: 'customers', label: 'For Customers', count: 30 },
 ];
 
-export default function NoteTabs() {
-    const [activeTab, setActiveTab] = useState(tabs[0].id);
+export default function NoteTabs({activeTab, setActiveTab}: NoteTabsProps) {
     const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
     const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -30,7 +33,7 @@ export default function NoteTabs() {
                 width: activeElement.offsetWidth,
             });
         }
-    }, [activeTab]); // Remove 'tabs' from dependencies
+    }, [activeTab]);
 
     return (
         <div className="w-full bg-white rounded-xl pr-6">
