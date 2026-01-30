@@ -80,7 +80,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                       )}
                     >
                       <div className="flex items-center gap-2">
-                        {item.icon && <item.icon className="size-4" />}
+                        {item.icon && <item.icon className="size-4 text-[#9AA4B2]" />}
                         <span
                           className={cn(
                             "text-sm",
