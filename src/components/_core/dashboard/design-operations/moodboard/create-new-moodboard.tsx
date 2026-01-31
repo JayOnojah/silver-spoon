@@ -273,7 +273,7 @@ function LayoutCard({
       type="button"
       onClick={onClick}
       className={[
-        "relative w-full rounded-xl border bg-white p-4 text-left transition",
+        "relative w-full rounded-xl border bg-white p-4 text-left transition", 
         selected ? "border-[#F74F25]" : "border-[#D0D5DD] hover:border-[#B9C0CA]",
         className,
       ].join(" ")}
