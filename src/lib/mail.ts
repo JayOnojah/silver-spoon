@@ -3,9 +3,9 @@ import { VerifyEmail } from "@/src/components/emails/verify-email";
 import { SetPassword } from "@/src/components/emails/set-password";
 import { ResetPassword } from "@/src/components/emails/reset-password";
 
-const sender = "KeepOS <no-reply@mail.keep-os.com>";
+const sender = "SilverSpoon <no-reply@mail.usesilverspoon.com>";
 const resend = new Resend(process.env.RESEND_API_KEY);
-const domain = process.env.NEXT_PUBLIC_RESEND_DOMAIN || "keep-os.com";
+const domain = process.env.NEXT_PUBLIC_RESEND_DOMAIN || "usesilverspoon.com";
 
 export const sendVerificationEmail = async (
   email: string,

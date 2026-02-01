@@ -31,8 +31,8 @@ export const {
   signOut,
 } = NextAuth({
   pages: {
-    signIn: "/auth/login",
-    error: "/auth/error",
+    signIn: "/sign-in",
+    error: "/error",
   },
   events: {
     async linkAccount({ user }) {
@@ -74,8 +74,8 @@ export const {
           typeof token.emailVerified === "string"
             ? new Date(token.emailVerified)
             : token.emailVerified instanceof Date
-            ? token.emailVerified
-            : null;
+              ? token.emailVerified
+              : null;
       }
 
       return session;

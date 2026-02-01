@@ -1,33 +1,48 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
 import {
-  IconArrowLeft,
   IconUser,
   IconMail,
   IconLock,
   IconBriefcase,
+  IconArrowLeft,
 } from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Checkbox } from "@/components/ui/checkbox";
+
 import {
   Select,
-  SelectContent,
   SelectItem,
-  SelectTrigger,
   SelectValue,
+  SelectTrigger,
+  SelectContent,
 } from "@/components/ui/select";
-import { cn } from "@/lib/utils";
-import VerifyOtpDialog from "./verify-otp-dialog";
-import SuccessDialog from "./success-dialog";
 
-const BasicInfo = () => {
+import Link from "next/link";
+import { useState, useTransition } from "react";
+import { cn } from "@/lib/utils";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
+
+import SuccessDialog from "./success-dialog";
+import VerifyOtpDialog from "./verify-otp-dialog";
+
+import { createAccount } from "@/src/actions/create-account";
+
+type BusinessType = "fashion-designer" | "cobbler" | null;
+
+interface BasicInfoProps {
+  businessType: BusinessType;
+}
+
+const BasicInfo = ({ businessType }: BasicInfoProps) => {
+  const [isPending, startTransition] = useTransition();
+  const [serverError, setServerError] = useState<string | null>(null);
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-  const [isSuccessOpen, setIsSuccessOpen] = useState(true);
+  const [isOtpOpen, setIsOtpOpen] = useState(false);
+  const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -40,13 +55,13 @@ const BasicInfo = () => {
     confirmPassword: "",
     agreeToTerms: false,
   });
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
 
-    // Clear error when user starts typing
     if (errors[field]) {
       setErrors((prev) => {
         const newErrors = { ...prev };
@@ -55,18 +70,18 @@ const BasicInfo = () => {
       });
     }
 
-    // Validate email on change
-    if (field === "email" && typeof value === "string") {
+    // Live email validation
+    if (field === "email" && typeof value === "string" && value) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (value && !emailRegex.test(value)) {
+      if (!emailRegex.test(value)) {
         setErrors((prev) => ({
           ...prev,
-          email: "Please enter a valid email address to continue",
+          email: "Please enter a valid email address",
         }));
       }
     }
 
-    // Validate password match on confirm password change
+    // Password match live check
     if (field === "confirmPassword" && typeof value === "string") {
       if (value && value !== formData.password) {
         setErrors((prev) => ({
@@ -75,8 +90,6 @@ const BasicInfo = () => {
         }));
       }
     }
-
-    // Validate password match on password change
     if (field === "password" && typeof value === "string") {
       if (formData.confirmPassword && value !== formData.confirmPassword) {
         setErrors((prev) => ({
@@ -97,165 +110,147 @@ const BasicInfo = () => {
   };
 
   const validateField = (field: string, value: string | boolean): string => {
-    if (
-      field === "firstName" &&
-      (!value || (typeof value === "string" && !value.trim()))
-    ) {
-      return "First name is required";
+    if (typeof value === "string" && !value.trim() && field !== "countryCode") {
+      if (field === "firstName") return "First name is required";
+      if (field === "lastName") return "Last name is required";
+      if (field === "email") return "Email is required";
+      if (field === "businessName") return "Business name is required";
+      if (field === "country") return "Country is required";
+      if (field === "phoneNumber") return "Phone number is required";
+      if (field === "password") return "Password is required";
+      if (field === "confirmPassword") return "Please confirm your password";
     }
-    if (
-      field === "lastName" &&
-      (!value || (typeof value === "string" && !value.trim()))
-    ) {
-      return "Last name is required";
-    }
-    if (field === "email") {
-      if (!value || (typeof value === "string" && !value.trim())) {
-        return "Email is required";
-      }
+
+    if (field === "email" && typeof value === "string" && value.trim()) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (typeof value === "string" && !emailRegex.test(value)) {
-        return "Please enter a valid email address to continue";
-      }
+      if (!emailRegex.test(value)) return "Invalid email address";
     }
+
     if (
-      field === "businessName" &&
-      (!value || (typeof value === "string" && !value.trim()))
+      field === "confirmPassword" &&
+      typeof value === "string" &&
+      value.trim()
     ) {
-      return "Business name is required";
+      if (value !== formData.password) return "Passwords do not match";
     }
-    if (
-      field === "country" &&
-      (!value || (typeof value === "string" && !value.trim()))
-    ) {
-      return "Country is required";
-    }
-    if (
-      field === "phoneNumber" &&
-      (!value || (typeof value === "string" && !value.trim()))
-    ) {
-      return "Phone number is required";
-    }
-    if (
-      field === "password" &&
-      (!value || (typeof value === "string" && !value.trim()))
-    ) {
-      return "Password is required";
-    }
-    if (field === "confirmPassword") {
-      if (!value || (typeof value === "string" && !value.trim())) {
-        return "Please confirm your password";
-      }
-      if (typeof value === "string" && value !== formData.password) {
-        return "Passwords do not match";
-      }
-    }
+
     if (field === "agreeToTerms" && !value) {
-      return "You must agree to the terms and conditions";
+      return "You must agree to the terms";
     }
+
     return "";
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setServerError(null);
 
     const newErrors: Record<string, string> = {};
-    const newTouched: Record<string, boolean> = {};
-
-    // Validate all fields
-    Object.keys(formData).forEach((field) => {
-      const error = validateField(
-        field,
-        formData[field as keyof typeof formData],
-      );
-      if (error) {
-        newErrors[field] = error;
-        newTouched[field] = true;
-      }
+    Object.keys(formData).forEach((key) => {
+      const error = validateField(key, formData[key as keyof typeof formData]);
+      if (error) newErrors[key] = error;
     });
 
     setErrors(newErrors);
-    setTouched(newTouched);
+    setTouched(Object.fromEntries(Object.keys(formData).map((k) => [k, true])));
 
-    // If no errors, proceed with form submission
-    if (Object.keys(newErrors).length === 0) {
-      // Handle form submission here
-      console.log("Form submitted:", formData);
-      // Open verification dialog
-      setIsOpen(true);
+    if (Object.keys(newErrors).length > 0) return;
+
+    if (!businessType) {
+      setServerError("Please go back and select your business type");
+      return;
     }
+
+    const payload = {
+      firstName: formData.firstName.trim(),
+      lastName: formData.lastName.trim(),
+      email: formData.email.trim().toLowerCase(),
+      phone: `${formData.countryCode}${formData.phoneNumber.trim()}`,
+      businessName: formData.businessName.trim(),
+      businessType: businessType === "fashion-designer" ? "tailor" : "cobbler", // map to DB values
+      password: formData.password,
+      agreeToTerms: formData.agreeToTerms,
+    };
+
+    startTransition(async () => {
+      const result = await createAccount(payload);
+
+      if (result?.error) {
+        setServerError(result.error);
+      } else {
+        // Account created → show OTP dialog
+        setIsOtpOpen(true);
+      }
+    });
   };
 
   const handleVerify = (code: string) => {
-    // Handle OTP verification
-    console.log("Verifying code:", code);
-    // Add your verification logic here
-    // After successful verification, close OTP dialog and open success dialog
-    setIsOpen(false);
-    setIsSuccessOpen(true);
-  };
-
-  const handleGoToDashboard = () => {
-    // Navigate to dashboard
-    window.location.href = "/dashboard";
+    // TODO: Replace with real verification logic / server action
+    // For now — demo: any 6-digit code "works"
+    if (code.length === 6 && /^\d{6}$/.test(code)) {
+      setIsOtpOpen(false);
+      setIsSuccessOpen(true);
+    } else {
+      // You can pass error back to VerifyOtpDialog if you improve it
+      console.warn("Invalid OTP entered");
+    }
   };
 
   const handleResend = () => {
-    // Handle resend OTP
-    console.log("Resending OTP to:", formData.email);
-    // Add your resend logic here
+    console.log("Resend OTP requested for:", formData.email);
+    // TODO: call resend OTP server action
+  };
+
+  const handleGoToDashboard = () => {
+    window.location.href = "/dashboard"; // or use next/navigation useRouter
   };
 
   return (
     <div className="max-w-163.5 mx-auto px-6 mt-10">
       <VerifyOtpDialog
-        open={isOpen}
-        onOpenChange={setIsOpen}
+        open={isOtpOpen}
+        onOpenChange={setIsOtpOpen}
         email={formData.email || "your@email.com"}
-        onBack={() => setIsOpen(false)}
+        onBack={() => setIsOtpOpen(false)}
         onVerify={handleVerify}
         onResend={handleResend}
       />
+
       <SuccessDialog
         open={isSuccessOpen}
         onOpenChange={setIsSuccessOpen}
         onGoToDashboard={handleGoToDashboard}
       />
-      {/* Back Link */}
-      <Link
-        href="/auth/sign-up"
-        className="flex items-center gap-2 text-[#0D0D0D] hover:text-foreground mb-2 w-fit transition-colors"
-      >
+
+      <button
+        type="button"
+        onClick={() => window.history.back()}
+        className="flex items-center gap-2 text-[#0D0D0D] hover:text-foreground mb-2 w-fit transition-colors">
         <IconArrowLeft className="size-4" />
         <span className="text-sm">Back</span>
-      </Link>
+      </button>
 
-      {/* Title */}
       <h1 className="text-3xl font-bold text-foreground mb-2">
         Basic Information
       </h1>
-
-      {/* Subtitle */}
       <p className="text-sm text-[#9AA4B2] mb-8">
         Enter your information to set things up.
       </p>
 
-      {/* Form */}
       <form className="space-y-4" onSubmit={handleSubmit}>
-        {/* First Name */}
-        <div className="flex flex-col xl:flex-row gap-4 ">
+        {/* First + Last Name */}
+        <div className="flex flex-col xl:flex-row gap-4">
+          {/* First Name */}
           <div className="space-y-2 flex-1">
             <label
               htmlFor="firstName"
-              className="text-sm font-medium text-[#4B5565]"
-            >
+              className="text-sm font-medium text-[#4B5565]">
               First Name <span className="text-destructive">*</span>
             </label>
             <div className="relative mt-1">
               <IconUser className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
               <Input
                 id="firstName"
-                type="text"
                 placeholder="John"
                 className={cn(
                   "pl-10 h-12 rounded-2xl",
@@ -263,12 +258,10 @@ const BasicInfo = () => {
                 )}
                 value={formData.firstName}
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
-                onBlur={() =>
-                  setTouched((prev) => ({ ...prev, firstName: true }))
-                }
+                onBlur={() => setTouched((p) => ({ ...p, firstName: true }))}
               />
             </div>
-            {errors.firstName && touched.firstName && (
+            {touched.firstName && errors.firstName && (
               <p className="text-sm text-destructive">{errors.firstName}</p>
             )}
           </div>
@@ -277,15 +270,13 @@ const BasicInfo = () => {
           <div className="space-y-2 flex-1">
             <label
               htmlFor="lastName"
-              className="text-sm font-medium text-[#4B5565]"
-            >
+              className="text-sm font-medium text-[#4B5565]">
               Last Name <span className="text-destructive">*</span>
             </label>
             <div className="relative mt-1">
               <IconUser className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
               <Input
                 id="lastName"
-                type="text"
                 placeholder="Doe"
                 className={cn(
                   "pl-10 h-12 rounded-2xl",
@@ -293,17 +284,14 @@ const BasicInfo = () => {
                 )}
                 value={formData.lastName}
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
-                onBlur={() =>
-                  setTouched((prev) => ({ ...prev, lastName: true }))
-                }
+                onBlur={() => setTouched((p) => ({ ...p, lastName: true }))}
               />
             </div>
-            {errors.lastName && touched.lastName && (
+            {touched.lastName && errors.lastName && (
               <p className="text-sm text-destructive">{errors.lastName}</p>
             )}
           </div>
         </div>
-
         {/* Email */}
         <div className="space-y-2">
           <label htmlFor="email" className="text-sm font-medium text-[#4B5565]">
@@ -334,8 +322,7 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="businessName"
-            className="text-sm font-medium text-[#4B5565]"
-          >
+            className="text-sm font-medium text-[#4B5565]">
             Business Name <span className="text-destructive">*</span>
           </label>
           <div className="relative mt-1">
@@ -366,8 +353,7 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="country"
-            className="text-sm font-medium text-[#4B5565]"
-          >
+            className="text-sm font-medium text-[#4B5565]">
             Country <span className="text-destructive">*</span>
           </label>
           <Select
@@ -375,14 +361,12 @@ const BasicInfo = () => {
             onValueChange={(value) => {
               handleInputChange("country", value);
               setTouched((prev) => ({ ...prev, country: true }));
-            }}
-          >
+            }}>
             <SelectTrigger
               className={cn(
                 "relative w-full h-12 py-6 rounded-2xl [&>svg]:right-3 [&>svg]:absolute mt-1",
                 errors.country && "border-destructive",
-              )}
-            >
+              )}>
               <SelectValue placeholder="Select country" />
             </SelectTrigger>
             <SelectContent>
@@ -403,15 +387,15 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="phoneNumber"
-            className="text-sm font-medium text-[#4B5565]"
-          >
+            className="text-sm font-medium text-[#4B5565]">
             Phone Number <span className="text-destructive">*</span>
           </label>
           <div className="flex gap-2 mt-1">
             <Select
               value={formData.countryCode}
-              onValueChange={(value) => handleInputChange("countryCode", value)}
-            >
+              onValueChange={(value) =>
+                handleInputChange("countryCode", value)
+              }>
               <SelectTrigger className="relative w-24 h-12 py-5.75 rounded-2xl [&>svg]:right-2 [&>svg]:absolute">
                 <SelectValue />
               </SelectTrigger>
@@ -448,8 +432,7 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="password"
-            className="text-sm font-medium text-[#4B5565]"
-          >
+            className="text-sm font-medium text-[#4B5565]">
             Your Password <span className="text-destructive">*</span>
           </label>
           <div className="relative mt-1">
@@ -469,8 +452,7 @@ const BasicInfo = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#9AA4B2] hover:text-foreground"
-            >
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#9AA4B2] hover:text-foreground">
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
@@ -483,8 +465,7 @@ const BasicInfo = () => {
         <div className="space-y-2">
           <label
             htmlFor="confirmPassword"
-            className="text-sm font-medium text-[#4B5565]"
-          >
+            className="text-sm font-medium text-[#4B5565]">
             Confirm Password <span className="text-destructive">*</span>
           </label>
           <div className="relative mt-1">
@@ -508,8 +489,7 @@ const BasicInfo = () => {
             <button
               type="button"
               onClick={() => setShowConfirmPassword(!showConfirmPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#9AA4B2] hover:text-foreground"
-            >
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#9AA4B2] hover:text-foreground">
               {showConfirmPassword ? "Hide" : "Show"}
             </button>
           </div>
@@ -535,20 +515,17 @@ const BasicInfo = () => {
             />
             <label
               htmlFor="terms"
-              className="text-sm text-[#4B5565] leading-relaxed cursor-pointer"
-            >
+              className="text-sm text-[#4B5565] leading-relaxed cursor-pointer">
               I agree to the{" "}
               <Link
                 href="/terms"
-                className="text-primary hover:underline font-medium"
-              >
+                className="text-primary hover:underline font-medium">
                 Terms of Service
               </Link>{" "}
               and{" "}
               <Link
                 href="/privacy"
-                className="text-primary hover:underline font-medium"
-              >
+                className="text-primary hover:underline font-medium">
                 Privacy Policy
               </Link>
             </label>
@@ -558,22 +535,25 @@ const BasicInfo = () => {
           )}
         </div>
 
-        {/* Create Account Button */}
+        {serverError && (
+          <div className="text-destructive text-sm text-center py-3 border border-destructive/30 rounded-lg bg-destructive/5">
+            {serverError}
+          </div>
+        )}
+
         <Button
           type="submit"
-          className="w-full h-12 text-base font-medium rounded-2xl"
-        >
-          Create Account
+          disabled={isPending}
+          className="w-full h-12 text-base font-medium rounded-2xl">
+          {isPending ? "Creating account..." : "Create Account"}
         </Button>
       </form>
 
-      {/* Login Link */}
       <p className="text-center text-sm text-[#9AA4B2] mt-6 pb-5">
         Already have an account?{" "}
         <Link
           href="/sign-in"
-          className="text-primary hover:underline font-medium"
-        >
+          className="text-primary hover:underline font-medium">
           Login
         </Link>
       </p>

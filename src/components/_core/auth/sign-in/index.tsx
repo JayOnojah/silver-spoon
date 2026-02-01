@@ -1,14 +1,10 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import {
-  IconArrowLeft,
-  IconMail,
-  IconLock,
-} from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { IconMail, IconLock, IconArrowLeft } from "@tabler/icons-react";
 
 const SignInForm = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -23,8 +19,7 @@ const SignInForm = () => {
       {/* Back Link */}
       <Link
         href="/"
-        className="flex items-center gap-2 text-[#0D0D0D] hover:text-foreground mb-2 w-fit transition-colors"
-      >
+        className="flex items-center gap-2 text-[#0D0D0D] hover:text-foreground mb-2 w-fit transition-colors">
         <IconArrowLeft className="size-4" />
         <span className="text-sm">Back</span>
       </Link>
@@ -38,10 +33,7 @@ const SignInForm = () => {
       <form className="space-y-6">
         {/* Email Input */}
         <div className="space-y-2">
-          <label
-            htmlFor="email"
-            className="text-sm font-medium text-[#4B5565]"
-          >
+          <label htmlFor="email" className="text-sm font-medium text-[#4B5565]">
             Your email *
           </label>
           <div className="relative">
@@ -62,14 +54,12 @@ const SignInForm = () => {
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
-              className="text-sm font-medium text-[#4B5565]"
-            >
+              className="text-sm font-medium text-[#4B5565]">
               Your password *
             </label>
             <Link
               href="/forgot-password"
-              className="text-sm text-primary font-medium hover:scale-95 transition-all duration-300 underline"
-            >
+              className="text-sm text-primary font-medium hover:scale-95 transition-all duration-300 underline">
               Forgot password?
             </Link>
           </div>
@@ -86,8 +76,7 @@ const SignInForm = () => {
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#9AA4B2] hover:text-foreground"
-            >
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#9AA4B2] hover:text-foreground">
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
@@ -98,8 +87,7 @@ const SignInForm = () => {
           <Button
             type="button"
             className="w-full h-12 text-base font-medium rounded-2xl"
-            disabled={!isFormValid}
-          >
+            disabled={!isFormValid}>
             Login
           </Button>
         </Link>
@@ -115,8 +103,7 @@ const SignInForm = () => {
       {/* Google Login Button */}
       <Button
         variant="outline"
-        className="w-full h-12 text-base font-medium border-[#CDD5DF]"
-      >
+        className="w-full h-12 text-base font-medium border-[#CDD5DF]">
         <svg className="size-5 mr-2" viewBox="0 0 24 24">
           <path
             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -143,8 +130,7 @@ const SignInForm = () => {
         Don't have an account?{" "}
         <Link
           href="/auth/sign-up"
-          className="text-primary hover:underline font-medium"
-        >
+          className="text-primary hover:underline font-medium">
           Sign Up
         </Link>
       </p>

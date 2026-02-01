@@ -27,12 +27,12 @@ export async function accountLogin(
   }
 
   const userBusinessType = existingUser.defaultBusinessType;
-  const tenantId = existingUser.defaultBusinessId;
+  const businessId = existingUser.defaultBusinessId;
 
   // Set tenant cookie if exists
-  if (tenantId) {
+  if (businessId) {
     const jar = await cookies();
-    jar.set("tenant_id", tenantId, {
+    jar.set("business_id", businessId, {
       path: "/",
       httpOnly: false,
       secure: isProd,

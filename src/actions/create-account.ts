@@ -8,13 +8,13 @@ import { db } from "@/src/db/drizzle";
 import { AuthError } from "next-auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { SignUpSchema } from "@/src/schemas/user";
 import { users } from "@/src/db/schemas/users";
 import { createId } from "@paralleldrive/cuid2";
 import { getUserByEmail } from "@/src/data/user";
-import { businesses } from "@/src/db/schemas/businesses";
+import { SignUpSchema } from "@/src/schemas/user";
 import { sendVerificationEmail } from "@/lib/mail";
 import { websites } from "@/src/db/schemas/websites";
+import { businesses } from "@/src/db/schemas/businesses";
 import { generateVerificationToken } from "@/lib/tokens";
 import { businessUsers } from "@/src/db/schemas/business-users";
 
@@ -82,8 +82,8 @@ export const createAccount = async (values: z.infer<typeof SignUpSchema>) => {
     .insert(websites)
     .values({
       id: createId(),
-      tenantId: businessId,
-      name: `https://${businessName.toLowerCase().replace(/\s+/g, "-")}.keep-os.com`,
+      businessId: businessId,
+      name: `https://${businessName.toLowerCase().replace(/\s+/g, "-")}.usesilverspoon.com`,
     })
     .returning();
 
@@ -125,7 +125,7 @@ export const createAccount = async (values: z.infer<typeof SignUpSchema>) => {
       httpOnly: false, // Allow client-side access if needed
       secure: isProd,
       sameSite: "lax",
-      domain: isProd ? ".keep-os.com" : undefined,
+      domain: isProd ? ".usesilverspoon.com" : undefined,
       maxAge: 60 * 60 * 24 * 365,
     });
   }
@@ -137,10 +137,7 @@ export const createAccount = async (values: z.infer<typeof SignUpSchema>) => {
       redirect: false,
     });
 
-    if (businessType === "hotel") {
-      redirect("/dashboard/hotel");
-    }
-    redirect("/dashboard/restaurant");
+    redirect("/dashboard");
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
