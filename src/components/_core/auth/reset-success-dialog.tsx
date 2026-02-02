@@ -1,8 +1,8 @@
 "use client";
 
 import { IconCheck } from "@tabler/icons-react";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 
 interface ResetSuccessDialogProps {
   open: boolean;
@@ -24,8 +24,7 @@ const ResetSuccessDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={true}
-        className="max-w-125 w-[90vw] rounded-xl p-6 sm:p-8 overflow-y-auto overflow-x-hidden max-h-[90vh] bg-[linear-gradient(180deg,#EBFAED_0%,#FFFFFF_44%)]"
-      >
+        className="max-w-125 w-[90vw] rounded-xl p-6 sm:p-8 overflow-y-auto overflow-x-hidden max-h-[90vh] bg-[linear-gradient(180deg,#EBFAED_0%,#FFFFFF_44%)]">
         <DialogHeader className="space-y-6 mt-6 w-full overflow-x-hidden">
           {/* Success Icon */}
           <div className="flex justify-center">
@@ -51,8 +50,7 @@ const ResetSuccessDialog = ({
           {/* Back to Login Button */}
           <Button
             onClick={handleBackToLogin}
-            className="w-full h-12 text-base font-medium rounded-2xl bg-primary hover:bg-primary/90"
-          >
+            className="w-full h-12 text-base font-medium rounded-2xl bg-primary hover:bg-primary/90">
             Back to login
           </Button>
         </DialogHeader>

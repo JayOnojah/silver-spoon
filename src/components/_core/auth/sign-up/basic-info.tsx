@@ -17,16 +17,17 @@ import {
 } from "@/components/ui/select";
 
 import Link from "next/link";
-import { useState, useTransition } from "react";
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-
+import { useRouter } from "next/navigation";
 import SuccessDialog from "./success-dialog";
+import { Input } from "@/components/ui/input";
+import { useState, useTransition } from "react";
+import { Button } from "@/components/ui/button";
 import VerifyOtpDialog from "./verify-otp-dialog";
-
+import { Checkbox } from "@/components/ui/checkbox";
 import { createAccount } from "@/src/actions/create-account";
+import { newVerification } from "@/src/actions/new-verification";
+import { resendVerification } from "@/src/actions/resend-verification";
 
 type BusinessType = "fashion-designer" | "cobbler" | null;
 
@@ -35,6 +36,7 @@ interface BasicInfoProps {
 }
 
 const BasicInfo = ({ businessType }: BasicInfoProps) => {
+  const router = useRouter();
   const [isPending, startTransition] = useTransition();
   const [serverError, setServerError] = useState<string | null>(null);
 
@@ -42,6 +44,10 @@ const BasicInfo = ({ businessType }: BasicInfoProps) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isOtpOpen, setIsOtpOpen] = useState(false);
   const [isSuccessOpen, setIsSuccessOpen] = useState(false);
+
+  const [otpError, setOtpError] = useState<string | null>(null);
+  const [isVerifying, setIsVerifying] = useState(false);
+  const [isResending, setIsResending] = useState(false);
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -70,7 +76,7 @@ const BasicInfo = ({ businessType }: BasicInfoProps) => {
       });
     }
 
-    // Live email validation
+    // Live validations (same as before)
     if (field === "email" && typeof value === "string" && value) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(value)) {
@@ -81,7 +87,6 @@ const BasicInfo = ({ businessType }: BasicInfoProps) => {
       }
     }
 
-    // Password match live check
     if (field === "confirmPassword" && typeof value === "string") {
       if (value && value !== formData.password) {
         setErrors((prev) => ({
@@ -110,6 +115,7 @@ const BasicInfo = ({ businessType }: BasicInfoProps) => {
   };
 
   const validateField = (field: string, value: string | boolean): string => {
+    // same as before...
     if (typeof value === "string" && !value.trim() && field !== "countryCode") {
       if (field === "firstName") return "First name is required";
       if (field === "lastName") return "Last name is required";
@@ -167,7 +173,7 @@ const BasicInfo = ({ businessType }: BasicInfoProps) => {
       email: formData.email.trim().toLowerCase(),
       phone: `${formData.countryCode}${formData.phoneNumber.trim()}`,
       businessName: formData.businessName.trim(),
-      businessType: businessType === "fashion-designer" ? "tailor" : "cobbler", // map to DB values
+      businessType: businessType === "fashion-designer" ? "tailor" : "cobbler",
       password: formData.password,
       agreeToTerms: formData.agreeToTerms,
     };
@@ -178,31 +184,49 @@ const BasicInfo = ({ businessType }: BasicInfoProps) => {
       if (result?.error) {
         setServerError(result.error);
       } else {
-        // Account created → show OTP dialog
+        // Account created → trigger OTP dialog
+        setOtpError(null); // reset any previous OTP errors
         setIsOtpOpen(true);
       }
     });
   };
 
-  const handleVerify = (code: string) => {
-    // TODO: Replace with real verification logic / server action
-    // For now — demo: any 6-digit code "works"
-    if (code.length === 6 && /^\d{6}$/.test(code)) {
-      setIsOtpOpen(false);
-      setIsSuccessOpen(true);
-    } else {
-      // You can pass error back to VerifyOtpDialog if you improve it
-      console.warn("Invalid OTP entered");
+  const handleVerify = async (code: string) => {
+    if (!formData.email) return;
+
+    setIsVerifying(true);
+    setOtpError(null);
+
+    const cleanCode = code.replace(/\D/g, "");
+
+    const verifyResult = await newVerification(formData.email, cleanCode);
+
+    setIsVerifying(false);
+
+    if (verifyResult.error) {
+      setOtpError(verifyResult.error);
+      return;
     }
+
+    setIsOtpOpen(false);
+    setIsSuccessOpen(true);
   };
 
-  const handleResend = () => {
-    console.log("Resend OTP requested for:", formData.email);
-    // TODO: call resend OTP server action
-  };
+  const handleResend = async () => {
+    if (!formData.email) return;
 
-  const handleGoToDashboard = () => {
-    window.location.href = "/dashboard"; // or use next/navigation useRouter
+    setIsResending(true);
+    setOtpError(null);
+
+    const result = await resendVerification(formData.email);
+
+    setIsResending(false);
+
+    if (result.error) {
+      setOtpError(result.error);
+    } else {
+      setOtpError("New code sent! Check your email.");
+    }
   };
 
   return (
@@ -214,12 +238,15 @@ const BasicInfo = ({ businessType }: BasicInfoProps) => {
         onBack={() => setIsOtpOpen(false)}
         onVerify={handleVerify}
         onResend={handleResend}
+        error={otpError ?? undefined}
+        isVerifying={isVerifying}
+        isResending={isResending}
       />
 
       <SuccessDialog
         open={isSuccessOpen}
         onOpenChange={setIsSuccessOpen}
-        onGoToDashboard={handleGoToDashboard}
+        onAccountSignIn={() => router.push("/sign-in")}
       />
 
       <button

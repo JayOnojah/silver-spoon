@@ -2,12 +2,9 @@
 
 import { z } from "zod";
 import bcrypt from "bcryptjs";
-import { signIn } from "@/auth";
 import { eq } from "drizzle-orm";
 import { db } from "@/src/db/drizzle";
-import { AuthError } from "next-auth";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import { users } from "@/src/db/schemas/users";
 import { createId } from "@paralleldrive/cuid2";
 import { getUserByEmail } from "@/src/data/user";
@@ -24,7 +21,7 @@ export const createAccount = async (values: z.infer<typeof SignUpSchema>) => {
   const validatedFields = SignUpSchema.safeParse(values);
 
   if (!validatedFields.success) {
-    return { error: "You have provied invalid sign-up data." };
+    return { error: "Invalid sign-up data. Please check your inputs." };
   }
 
   const {
@@ -37,14 +34,15 @@ export const createAccount = async (values: z.infer<typeof SignUpSchema>) => {
     password,
   } = validatedFields.data;
 
-  const hashedPassword = await bcrypt.hash(password, 10);
   const existingUser = await getUserByEmail(email);
-
   if (existingUser) {
-    return { error: "User with this email already exists" };
+    return { error: "User with this email already exists." };
   }
 
-  const [userInsertResult] = await db
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  // 1. Create user (emailVerified stays null)
+  const [newUser] = await db
     .insert(users)
     .values({
       id: createId(),
@@ -54,75 +52,65 @@ export const createAccount = async (values: z.infer<typeof SignUpSchema>) => {
       phone,
       password: hashedPassword,
       platformRole: "owner",
+      // IMPORTANT: do NOT set emailVerified here
     })
-    .returning();
+    .returning({ id: users.id });
 
-  const userId = userInsertResult && userInsertResult?.id;
-
-  if (!userId) {
-    return { error: "Failed to create user. Please try again." };
+  if (!newUser?.id) {
+    return { error: "Failed to create user account." };
   }
 
-  const [businessInsertResult] = await db
+  const userId = newUser.id;
+
+  // 2. Create business
+  const [newBusiness] = await db
     .insert(businesses)
     .values({
       id: createId(),
-      userId: userId,
+      userId,
       name: businessName,
       businessType: businessType as "tailor" | "cobbler" | "others",
     })
-    .returning();
+    .returning({ id: businesses.id });
 
-  const businessId = businessInsertResult && businessInsertResult?.id;
+  const businessId = newBusiness?.id;
   if (!businessId) {
-    return { error: "Failed to create business. Please try again." };
+    return { error: "Failed to create business." };
   }
 
-  const [websiteInsertResult] = await db
-    .insert(websites)
-    .values({
-      id: createId(),
-      businessId: businessId,
-      name: `https://${businessName.toLowerCase().replace(/\s+/g, "-")}.usesilverspoon.com`,
-    })
-    .returning();
+  // 3. Create default website
+  await db.insert(websites).values({
+    id: createId(),
+    businessId,
+    name: `https://${businessName.toLowerCase().replace(/\s+/g, "-")}.usesilverspoon.com`,
+  });
 
-  const websiteId = websiteInsertResult && websiteInsertResult?.id;
-
-  if (!websiteId) {
-    return { error: "Failed to create website. Please try again." };
-  }
-
-  const [user] = await db
+  // 4. Set default business on user
+  await db
     .update(users)
     .set({
       defaultBusinessId: businessId,
       defaultBusinessType: businessType,
     })
-    .where(eq(users.id, userId))
-    .returning();
+    .where(eq(users.id, userId));
 
-  if (!user) {
-    return { error: "Failed to create user account. Please try again." };
-  }
+  // 5. Link user to business as admin
+  await db.insert(businessUsers).values({
+    userId,
+    businessId,
+    role: "admin",
+  });
 
-  await db
-    .insert(businessUsers)
-    .values({
-      userId: user.id,
-      businessId: businessId,
-      role: "admin",
-    })
-    .returning();
-
+  // 6. Generate & send verification code
   const verificationCode = await generateVerificationToken(email, userId);
   await sendVerificationEmail(email, verificationCode.token, firstName);
 
+  // 7. Set business_id cookie (useful for future logins too)
   if (businessId) {
     const cookieStore = await cookies();
-    cookieStore.set("business_id", user.defaultBusinessId ?? "", {
+    cookieStore.set("business_id", businessId, {
       path: "/",
-      httpOnly: false, // Allow client-side access if needed
+      httpOnly: false,
       secure: isProd,
       sameSite: "lax",
       domain: isProd ? ".usesilverspoon.com" : undefined,
@@ -130,24 +118,5 @@ export const createAccount = async (values: z.infer<typeof SignUpSchema>) => {
     });
   }
 
-  try {
-    await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
-
-    redirect("/dashboard");
-  } catch (error) {
-    if (error instanceof AuthError) {
-      switch (error.type) {
-        case "CredentialsSignin":
-          return { error: "You have provided invalid credentials." };
-        default:
-          return { error: "Something went wrong. Please try again." };
-      }
-    }
-
-    throw error;
-  }
+  return { success: true };
 };

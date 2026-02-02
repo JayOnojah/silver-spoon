@@ -1,18 +1,19 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { IconArrowLeft } from "@tabler/icons-react";
 import {
   Dialog,
-  DialogContent,
-  DialogHeader,
   DialogTitle,
+  DialogHeader,
+  DialogContent,
 } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
+
 import { cn } from "@/lib/utils";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { IconArrowLeft } from "@tabler/icons-react";
 
 interface VerifyOtpDialogProps {
   open: boolean;
@@ -21,6 +22,9 @@ interface VerifyOtpDialogProps {
   onBack?: () => void;
   onVerify?: (code: string) => void;
   onResend?: () => void;
+  error?: string | null;
+  isVerifying?: boolean;
+  isResending?: boolean;
 }
 
 const VerifyOtpDialog = ({
@@ -30,12 +34,17 @@ const VerifyOtpDialog = ({
   onBack,
   onVerify,
   onResend,
+  error,
+  isVerifying = false,
+  isResending = false,
 }: VerifyOtpDialogProps) => {
   const [verificationCode, setVerificationCode] = useState("");
 
-  const handleVerify = () => {
-    if (verificationCode.trim()) {
-      onVerify?.(verificationCode);
+  const cleanCode = verificationCode.replace(/\D/g, "");
+
+  const handleVerifyClick = () => {
+    if (cleanCode.length === 6) {
+      onVerify?.(cleanCode); // send only digits
     }
   };
 
@@ -48,88 +57,97 @@ const VerifyOtpDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={false}
-        className="max-w-md rounded-2xl p-6 sm:p-8"
-      >
-        <DialogHeader className="">
+        className="max-w-md rounded-2xl p-6 sm:p-8">
+        <DialogHeader>
           {/* Header with Back and Badge */}
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-6">
             <button
               onClick={handleBack}
-              className="flex items-center gap-2 text-[#0D0D0D] hover:text-foreground transition-colors"
-            >
+              className="flex items-center gap-2 text-[#0D0D0D] hover:text-foreground transition-colors">
               <IconArrowLeft className="size-4" />
               <span className="text-sm">Back</span>
             </button>
             <Badge
               variant="default"
-              className="text-[#10B981] bg-white border-none px-3 py-1"
-            >
+              className="text-[#10B981] bg-white border-none px-3 py-1">
               Almost done!
             </Badge>
           </div>
 
           {/* Title */}
-          <DialogTitle className="text-2xl font-extrabold text-foreground text-center">
+          <DialogTitle className="text-2xl font-extrabold text-foreground text-center mb-2">
             Verify your email
           </DialogTitle>
 
           {/* Description */}
-          <div className="text-center space-y-1">
+          <div className="text-center space-y-1 mb-6">
             <p className="text-sm text-[#4B5565]">
               We have sent a 6-digit verification code to
             </p>
             <p className="text-sm font-medium text-foreground">{email}</p>
           </div>
 
+          {/* Error message */}
+          {error && (
+            <div className="text-sm text-destructive bg-destructive/10 border border-destructive/30 rounded-lg p-3 mb-4 text-center">
+              {error}
+            </div>
+          )}
+
           {/* Verification Code Input */}
           <div className="space-y-2 mb-6">
             <label
               htmlFor="verificationCode"
-              className="text-sm font-medium text-[#4B5565]"
-            >
+              className="text-sm font-medium text-[#4B5565]">
               Verification code <span className="text-destructive">*</span>
             </label>
             <Input
               id="verificationCode"
               type="text"
-              placeholder="# 123 - 456"
+              placeholder="123456"
               value={verificationCode}
               onChange={(e) => {
                 const value = e.target.value.replace(/\D/g, "").slice(0, 6);
-                // Format as "123 - 456" if 6 digits
-                if (value.length === 6) {
-                  const formatted = `${value.slice(0, 3)} - ${value.slice(3)}`;
-                  setVerificationCode(formatted);
-                } else {
-                  setVerificationCode(value);
-                }
+                setVerificationCode(value);
               }}
               className={cn(
-                "h-12 rounded-2xl text-lg font-medium mt-2",
-                "placeholder:text-[#9AA4B2]"
+                "h-12 rounded-2xl text-center text-lg font-medium mt-1",
+                "placeholder:text-[#9AA4B2]",
+                error && "border-destructive focus-visible:ring-destructive",
               )}
-              maxLength={9} // "123 - 456" format
+              maxLength={6}
+              disabled={isVerifying}
             />
           </div>
 
           {/* Verify Button */}
           <Button
-            onClick={handleVerify}
-            className="w-full h-12 text-base font-medium rounded-2xl bg-primary hover:bg-primary/90"
-            disabled={!verificationCode.trim() || verificationCode.replace(/\D/g, "").length !== 6}
-          >
-            Verify & Continue
+            onClick={handleVerifyClick}
+            disabled={isVerifying || cleanCode.length !== 6 || !onVerify}
+            className="w-full h-12 text-base font-medium rounded-2xl">
+            {isVerifying ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Verifying...
+              </>
+            ) : (
+              "Verify & Continue"
+            )}
           </Button>
 
           {/* Resend Link */}
-          <div className="text-center">
+          <div className="text-center mt-4">
             <p className="text-sm text-[#9AA4B2]">
               Didn't get an email?{" "}
               <button
+                type="button"
                 onClick={onResend}
-                className="text-primary hover:underline font-medium"
-              >
-                Resend
+                disabled={isResending}
+                className={cn(
+                  "text-primary hover:underline font-medium",
+                  isResending && "opacity-60 cursor-not-allowed",
+                )}>
+                {isResending ? "Resending..." : "Resend"}
               </button>
             </p>
           </div>
