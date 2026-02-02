@@ -6,7 +6,9 @@ export default function ResetPasswordPage() {
     <Suspense
       fallback={
         <div className="flex items-center justify-center min-h-screen">
-          <p className="text-lg text-muted-foreground">Loading reset form...</p>
+          <p className="text-lg text-muted-foreground">
+            Loading password reset form...
+          </p>
         </div>
       }>
       <ResetPasswordForm />
