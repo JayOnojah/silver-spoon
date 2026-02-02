@@ -1,9 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { Search } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { FormatCurrency } from '../../format-currency';
 import {
@@ -22,179 +19,198 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Download } from '../../svg';
+import {
+    Tooltip,
+    TooltipContent,
+    TooltipTrigger,
+} from "@/components/ui/tooltip"
+import { Copy, Trash2, Plus } from 'lucide-react';
+import { Button } from '@/src/components/ui/button';
+import { PaymentLinkModal } from '../../modals/payment-link-generator';
 
-interface Transaction {
+interface Payments {
     id: string;
-    transactionId: string;
-    description: string;
+    linkId: string;
+    order: string;
     customer: string;
     date: string;
     amount: number;
-    status: 'Completed' | 'In Progress';
+    status: 'Paid' | 'In Progress' | 'Expire';
 }
 
-const transactions: Transaction[] = [
+const payments: Payments[] = [
     {
         id: '1',
-        transactionId: 'TXN-1001',
-        description: 'Payment for ORD-1001',
+        linkId: 'TXN-1001',
+        order: 'ORD-1001 ',
         customer: 'Sandra Jones',
-        date: 'Dec 19, 2025, 10:30 AM',
+        date: 'Dec 19, 2025',
         amount: 45000,
-        status: 'Completed'
+        status: 'Paid'
     },
     {
         id: '2',
-        transactionId: 'TXN-1001',
-        description: 'Withdrawal to Bank Account',
+        linkId: 'TXN-1001',
+        order: 'ORD-1001 ',
         customer: 'Sandra Jones',
-        date: 'Dec 19, 2025, 10:30 AM',
-        amount: -45000,
-        status: 'Completed'
+        date: 'Dec 19, 2025',
+        amount: 45000,
+        status: 'Paid'
     },
     {
         id: '3',
-        transactionId: 'TXN-1001',
-        description: 'Withdrawal to Bank Account',
+        linkId: 'TXN-1001',
+        order: 'ORD-1001 ',
         customer: 'Sandra Jones',
-        date: 'Dec 19, 2025, 10:30 AM',
-        amount: -45000,
+        date: 'Dec 19, 2025',
+        amount: 45000,
         status: 'In Progress'
     },
     {
         id: '4',
-        transactionId: 'TXN-1001',
-        description: 'Withdrawal to Bank Account',
-        customer: 'Sandra Jones',
-        date: 'Dec 19, 2025, 10:30 AM',
-        amount: -45000,
-        status: 'Completed'
+        linkId: 'TXN-1001',
+        order: 'ORD-1001 ',
+        customer: 'ORD-1001 ',
+        date: 'Dec 19, 2025',
+        amount: 45000,
+        status: 'Paid'
     },
     {
         id: '5',
-        transactionId: 'TXN-1001',
-        description: 'Payment for ORD-1001',
+        linkId: 'TXN-1001',
+        order: 'ORD-1001 ',
         customer: 'Sandra Jones',
-        date: 'Dec 19, 2025, 10:30 AM',
+        date: 'Dec 19, 2025',
         amount: 45000,
-        status: 'Completed'
+        status: 'Paid'
     },
     {
         id: '6',
-        transactionId: 'TXN-1001',
-        description: 'Payment for ORD-1001',
+        linkId: 'TXN-1001',
+        order: 'ORD-1001',
         customer: 'Sandra Jones',
-        date: 'Dec 19, 2025, 10:30 AM',
+        date: 'Dec 19, 2025',
         amount: 45000,
         status: 'In Progress'
     },
     {
         id: '7',
-        transactionId: 'TXN-1001',
-        description: 'Payment for ORD-1001',
+        linkId: 'TXN-1001',
+        order: 'ORD-1001 ',
         customer: 'Sandra Jones',
-        date: 'Dec 19, 2025, 10:30 AM',
+        date: 'Dec 19, 2025',
         amount: 45000,
-        status: 'Completed'
+        status: 'Expire'
     },
     {
         id: '8',
-        transactionId: 'TXN-1001',
-        description: 'Payment for ORD-1001',
+        linkId: 'TXN-1001',
+        order: 'ORD-1001 ',
         customer: 'Sandra Jones',
-        date: 'Dec 19, 2025, 10:30 AM',
+        date: 'Dec 19, 2025',
         amount: 45000,
         status: 'In Progress'
     }
 ];
 
-export const AllTransactions = () => {
+export const PaymentLinks = () => {
+    const [open, setOpen] = useState(false)
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 10;
 
     return (
         <>
             <div className="w-full lg:p-6 lg:bg-white rounded-2xl my-6 font-sans">
-                {/* Header */}
-                <h1 className="font-semibold text-[#000000] mb-6">All Transactions</h1>
-
-                {/* Search and Export */}
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="relative flex-1">
-                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-6 w-6 text-[#9AA4B2]" />
-                        <Input
-                            type="text"
-                            placeholder="Search transactions..."
-                            className="w-full pl-10 pr-4 h-12 bg-white text-base text-[#9AA4B2] border-[#CDD5DF] rounded-lg"
-                        />
+                <div className='mb-6 flex flex-col md:flex-row justify-between md:items-center gap-4'>
+                    <div>
+                        <h1 className="font-semibold text-[#000000] pb-1">Payment Links</h1>
+                        <p className='text-[#9AA4B2] text-xs'>Manage and track payment links sent to customers</p>
                     </div>
-                    <Button
-                        variant="outline"
-                        className="h-12 px-6 text-[#9AA4B2]! border-gray-200 hover:bg-gray-50 rounded-lg"
-                    >
-                        <Download />
-                        Export CSV
-                    </Button>
+                    <PaymentLinkModal btnName='New Payment Link' open={open} onOpenChange={setOpen} icon={<Plus />}/>
                 </div>
-
                 {/*Desktop Table */}
                 <div className="hidden lg:block border-gray-200 rounded-lg overflow-hidden bg-white">
                     <Table>
                         <TableHeader>
                             <TableRow className="bg-[#FFF1EC]/50 hover:bg-[#FFF1EC]/40 border-none">
                                 <TableHead className="text-[#9AA4B2] font-bold text-sm py-2 pl-4 rounded-l-4xl">
-                                    Transaction ID
+                                    Link ID
                                 </TableHead>
                                 <TableHead className="text-[#9AA4B2] font-bold text-sm py-2">
-                                    Description
+                                    Order
                                 </TableHead>
                                 <TableHead className="text-[#9AA4B2] font-bold text-sm py-2">
                                     Customer
                                 </TableHead>
                                 <TableHead className="text-[#9AA4B2] font-bold text-sm py-2">
-                                    Date
-                                </TableHead>
-                                <TableHead className="text-[#9AA4B2] font-bold text-sm py-2">
                                     Amount
                                 </TableHead>
-                                <TableHead className="text-[#9AA4B2] font-bold text-sm py-2 rounded-r-4xl">
+                                <TableHead className="text-[#9AA4B2] font-bold text-sm py-2">
+                                    Created Date
+                                </TableHead>
+                                <TableHead className="text-[#9AA4B2] font-bold text-sm py-2">
                                     Status
+                                </TableHead>
+                                <TableHead className="text-[#9AA4B2] font-bold text-sm py-2 rounded-r-4xl">
+                                    Actions
                                 </TableHead>
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {transactions.map((transaction) => (
+                            {payments.map((payment) => (
                                 <TableRow
-                                    key={transaction.id}
+                                    key={payment.id}
                                     className="border-b border-[#CDD5DF] hover:bg-gray-50"
                                 >
                                     <TableCell className="font-medium text-[#121926] py-4">
-                                        {transaction.transactionId}
+                                        {payment.linkId}
                                     </TableCell>
                                     <TableCell className="text-[#121926] py-4">
-                                        {transaction.description}
+                                        {payment.order}
                                     </TableCell>
                                     <TableCell className="text-[#121926] py-4">
-                                        {transaction.customer}
+                                        {payment.customer}
+                                    </TableCell>
+                                    <TableCell className='py-4 text-[#121926]'>
+                                        {FormatCurrency(payment.amount)}
                                     </TableCell>
                                     <TableCell className="text-[#121926] py-4">
-                                        {transaction.date}
-                                    </TableCell>
-                                    <TableCell className={`py-4 ${transaction.amount > 0 ? 'text-[#40B773]' : 'text-[#FF5B4D]'
-                                        }`}>
-                                        {transaction.amount > 0 ? '+' : ''} {FormatCurrency(transaction.amount)}
+                                        {payment.date}
                                     </TableCell>
                                     <TableCell className="py-4">
                                         <Badge
                                             variant="outline"
-                                            className={`px-3 py-1 rounded-full font-medium border ${transaction.status === 'Completed'
+                                            className={`px-3 rounded-full font-medium border ${payment.status === 'Paid'
                                                 ? 'bg-[#F0FDF4] text-[#22C55E] border-[#22C55E]'
-                                                : 'bg-[#FEFCE8] text-[#71451F] border-[#71451F]'
+                                                : payment.status === 'In Progress'
+                                                    ? 'bg-[#FEFCE8] text-[#71451F] border-[#71451F]'
+                                                    : 'text-[#FF5B4D] border-[#FF5B4D] bg-[#FFE2DF]'
                                                 }`}
                                         >
-                                            {transaction.status}
+                                            {payment.status}
                                         </Badge>
+                                    </TableCell>
+                                    <TableCell className="text-[#121926] py-4 flex items-center gap-4">
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <button className='flex w-8 h-8 text-[#9AA4B2] hover:bg-gray-200 cursor-pointer rounded-sm justify-center items-center transition-colors duration-300'>
+                                                    <Copy className='w-5 h-5' />
+                                                </button>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Copy</p>
+                                            </TooltipContent>
+                                        </Tooltip>
+                                        <Tooltip>
+                                            <TooltipTrigger asChild>
+                                                <button className='flex w-8 h-8 text-[#9AA4B2] hover:bg-gray-200 cursor-pointer rounded-sm justify-center items-center transition-colors duration-300'>
+                                                    <Trash2 className='w-5 h-5' />
+                                                </button>
+                                            </TooltipTrigger>
+                                            <TooltipContent>
+                                                <p>Delete</p>
+                                            </TooltipContent>
+                                        </Tooltip>
                                     </TableCell>
                                 </TableRow>
                             ))}
@@ -203,41 +219,52 @@ export const AllTransactions = () => {
                 </div>
                 {/* Mobile Table */}
                 <div className='lg:hidden flex flex-col gap-4'>
-                    {transactions.map((transaction) => (
-                        <div className='bg-white p-4 rounded-2xl w-full' key={transaction.id}>
+                    {payments.map((payment) => (
+                        <div className='bg-white p-4 rounded-2xl w-full' key={payment.id}>
                             <div className='flex justify-between items-center mb-2'>
-                                <p className='text-[#9AA4B2]'>Transaction ID</p>
-                                <p className='text-[#121926] text-sm font-bold'>{transaction.transactionId}</p>
+                                <p className='text-[#9AA4B2]'>Link ID</p>
+                                <p className='text-[#121926] text-sm font-bold'>{payment.linkId}</p>
                             </div>
                             <div className='flex justify-between items-center mb-2'>
-                                <p className='text-[#9AA4B2]'>Description</p>
-                                <p className='text-[#121926] text-sm font-bold'>{transaction.description}</p>
+                                <p className='text-[#9AA4B2]'>Order</p>
+                                <p className='text-[#121926] text-sm font-bold'>{payment.order}</p>
                             </div>
                             <div className='flex justify-between items-center mb-2'>
                                 <p className='text-[#9AA4B2]'>Customer</p>
-                                <p className='text-[#121926] text-sm font-bold'>{transaction.customer}</p>
+                                <p className='text-[#121926] text-sm font-bold'>{payment.customer}</p>
                             </div>
                             <div className='flex justify-between items-center mb-2'>
-                                <p className='text-[#9AA4B2]'>Date</p>
-                                <p className='text-[#121926] text-sm font-bold'>{transaction.date}</p>
+                                <p className='text-[#9AA4B2]'>Created Date</p>
+                                <p className='text-[#121926] text-sm font-bold'>{payment.date}</p>
                             </div>
                             <div className='flex justify-between items-center mb-2'>
                                 <p className='text-[#9AA4B2]'>Amount</p>
-                                <p className={`font-bold ${transaction.amount > 0 ? 'text-[#40B773]' : 'text-[#FF5B4D]'
-                                    }`}> {transaction.amount > 0 ? '+' : ''} {FormatCurrency(transaction.amount)}
+                                <p className={`font-bold`}> {FormatCurrency(payment.amount)}
                                 </p>
                             </div>
-                            <div className='flex justify-between items-center'>
+                            <div className='flex justify-between items-center mb-2'>
                                 <p className='text-[#9AA4B2]'>Due Status</p>
                                 <Badge
                                     variant="outline"
-                                    className={`px-3 py-1 rounded-full font-medium border ${transaction.status === 'Completed'
+                                    className={`px-3 rounded-full font-medium border ${payment.status === 'Paid'
                                         ? 'bg-[#F0FDF4] text-[#22C55E] border-[#22C55E]'
-                                        : 'bg-[#FEFCE8] text-[#71451F] border-[#71451F]'
+                                        : payment.status === 'In Progress'
+                                            ? 'bg-[#FEFCE8] text-[#71451F] border-[#71451F]'
+                                            : 'text-[#FF5B4D] border-[#FF5B4D] bg-[#FFE2DF]'
                                         }`}
                                 >
-                                    {transaction.status}
+                                    {payment.status}
                                 </Badge>
+                            </div>
+                            <div className='flex gap-4 items-center w-full'>
+                                <Button variant={'outline'} className='w-full flex-1 border-[#CDD5DF] border h-11 text-[#9AA4B2]'>
+                                    <Copy />
+                                    Copy
+                                </Button>
+                                <Button variant={'outline'} className='w-full flex-1 h-11 border-[#CDD5DF] border text-[#9AA4B2]'>
+                                    <Trash2 />
+                                    Delete
+                                </Button>
                             </div>
                         </div>
                     ))}

@@ -1,8 +1,11 @@
-import { ReactNode } from "react"
+import { ReactNode, useState } from "react"
 import { Wallet } from "../../svg"
 import { FormatCurrency } from "../../format-currency"
 import { Button } from "@/src/components/ui/button"
 import { RecentTransactions } from "./recent-transactions"
+import { PaymentLinkModal } from "../../modals/payment-link-generator"
+import WithdrawFundsModal from "../../modals/withdraw-funds-modal"
+import PayoutSettingsModal from "../../modals/payout-settings-modal"
 
 import {
     Link,
@@ -19,6 +22,10 @@ interface FinancialSummaryCards {
 };
 
 export const Overview = () => {
+    const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+    const [withdrawModalOpen, setWithdrawModalOpen] = useState(false);
+    const [payoutSettingsModalOpen, setPayoutSettingsModalOpen] = useState(false);
+
     const financialSummaryCards: FinancialSummaryCards[] = [
         {
             icon: <ArrowDownLeft />,
@@ -42,18 +49,9 @@ export const Overview = () => {
                 <p className="text-[#9AA4B2] text-sm py-3">Available Balance</p>
                 <h1 className="text-[#121926] text-[28px] font-black">{FormatCurrency(893000.00)}</h1>
                 <div className="pt-6 flex flex-col md:flex-row items-center gap-4 w-full">
-                    <Button className="bg-[#F74F25] rounded-xl w-full md:w-62.25 h-12 font-bold text-white px-6!">
-                        <Link />
-                        Generate Payment Link
-                    </Button>
-                    <Button variant={'outline'} className="text-[#F74F25] w-full md:w-51 px-6! border-[#F74F25] rounded-xl h-12 font-bold hover:bg-transparent hover:text-[#F74F25]">
-                        <ArrowUpRight />
-                        Withdraw Funds
-                    </Button>
-                    <Button variant={'outline'} className="text-[#9AA4B2] px-6! w-full md:w-51 border-[#9AA4B2] rounded-xl h-12 font-bold hover:bg-transparent hover:text-[#9AA4B2]">
-                        <Settings />
-                        Payout Settings
-                    </Button>
+                    <PaymentLinkModal btnName="Generate Payment Link" open={paymentModalOpen} onOpenChange={setPaymentModalOpen} icon={<Link />}/>
+                    <WithdrawFundsModal btnName="Withdraw Funds" open={withdrawModalOpen} onOpenChange={setWithdrawModalOpen} icon={<ArrowUpRight />}/>
+                    <PayoutSettingsModal open={paymentModalOpen} onOpenChange={setPaymentModalOpen} btnName="Payout Settings" icon={<Settings />}/>
                 </div>
             </div>
             {/* Monthly Financial Summary */}

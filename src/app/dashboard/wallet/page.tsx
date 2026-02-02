@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from "react"
-import { WalletTabs } from "@/src/components/_core/dashboard/wallet/wallet-tabs"
+import { WalletTabs } from "@/src/components/_core/dashboard/wallet/tabs/wallet-tabs"
 import { Overview } from "@/src/components/_core/dashboard/wallet/tabs/overview"
 import { AllTransactions } from "@/src/components/_core/dashboard/wallet/tabs/all-transactions"
+import { PaymentLinks } from "@/src/components/_core/dashboard/wallet/tabs/payment-links"
 
 const Wallet = () => {
     const [activeTab, setActiveTab] = useState('overview')
@@ -13,6 +14,7 @@ const Wallet = () => {
             <WalletTabs activeTab={activeTab} setActiveTab={setActiveTab} />
             { activeTab === 'overview' && <Overview /> }
             { activeTab === 'all-transactions' && <AllTransactions /> }
+            { activeTab === 'payment-links' && <PaymentLinks /> }
         </>
     )
 }
