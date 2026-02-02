@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/src/components/ui/button";
 import { IconShoppingCart, IconPlus } from "@tabler/icons-react";
 

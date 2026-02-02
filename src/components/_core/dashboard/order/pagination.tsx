@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "@/src/components/ui/button";
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react";
 import { cn } from "@/src/lib/utils";

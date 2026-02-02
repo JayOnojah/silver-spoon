@@ -1,16 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
-import { Badge } from "@/components/ui/badge";
+
 import { Checkbox } from "@/components/ui/checkbox";
 import { Input } from "@/components/ui/input";
 import {
@@ -22,8 +13,7 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { IconSearch } from "@tabler/icons-react";
-import Link from "next/link";
+import { IconSearch, IconX } from "@tabler/icons-react";
 import OrderTable from "./order-table";
 import OrderMobile from "./order-mobile";
 import EmptyOrder from "./empty-order";
@@ -285,6 +275,64 @@ const OrderContent = () => {
                 </SelectContent>
               </Select>
             </div>
+
+            {/* Selected Orders Action Bar */}
+            {selectedOrders.length > 0 && (
+              <div className="mb-6 p-4 border border-primary rounded-lg bg-[#FEEDE9] flex flex-col sm:flex-row items-start sm:items-center gap-4">
+                {/* Checkbox and Count */}
+                <div className="flex items-center gap-3">
+                  <Checkbox
+                    checked={isAllSelected}
+                    onCheckedChange={handleSelectAll}
+                    className="border-primary data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                  />
+                  <span className="text-sm font-bold text-foreground">
+                    {selectedOrders.length} Selected
+                  </span>
+                </div>
+
+                {/* Dropdowns */}
+                <div className="flex flex-col sm:flex-row gap-3 flex-1">
+                  <Select defaultValue="">
+                    <SelectTrigger className="w-full sm:w-48 border border-[#CDD5DF]">
+                      <SelectValue placeholder="Payment Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="not-paid">Not Paid</SelectItem>
+                      <SelectItem value="partial">Partial Payment</SelectItem>
+                      <SelectItem value="paid">Paid In Full</SelectItem>
+                      <SelectItem value="overdue">Overdue</SelectItem>
+                    </SelectContent>
+                  </Select>
+
+                  <Select defaultValue="">
+                    <SelectTrigger className="w-full sm:w-48 border border-[#CDD5DF]">
+                      <SelectValue placeholder="Order Status" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="not-started">Not Started</SelectItem>
+                      <SelectItem value="in-progress">In Progress</SelectItem>
+                      <SelectItem value="ready">Ready</SelectItem>
+                      <SelectItem value="fitting">Fitting</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                {/* Save Button */}
+                <Button className="bg-primary hover:bg-primary/90 text-white font-bold rounded-lg px-6">
+                  Save Changes
+                </Button>
+
+                {/* Close Icon */}
+                <button
+                  onClick={() => setSelectedOrders([])}
+                  className="text-[#4B5565] hover:text-foreground transition-colors"
+                  aria-label="Clear selection"
+                >
+                  <IconX className="size-5" />
+                </button>
+              </div>
+            )}
 
             {/* Orders Table for Desktop view */}
             <OrderTable

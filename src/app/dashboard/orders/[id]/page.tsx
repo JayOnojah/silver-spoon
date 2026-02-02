@@ -1,6 +1,6 @@
+import OrderDetailsContent from "@/src/components/_core/dashboard/order/order-details";
 import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
-import React from "react";
 
 const OrderDetails = () => {
   return (
@@ -13,6 +13,7 @@ const OrderDetails = () => {
         <ArrowLeft />
         <span>Back</span>
       </Link>
+      <OrderDetailsContent />
     </div>
   );
 };

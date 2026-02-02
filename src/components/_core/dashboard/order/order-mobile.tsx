@@ -2,7 +2,6 @@ import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 import { Checkbox } from "@/src/components/ui/checkbox";
 import { cn } from "@/src/lib/utils";
-import React from "react";
 
 interface Order {
   id: string;
