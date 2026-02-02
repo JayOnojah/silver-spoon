@@ -16,6 +16,7 @@ import {
   SelectValue,
 } from "@/src/components/ui/select";
 
+import { ColorPickerPopover } from "./color-picker-popover";
 import type { AssociatedWith, LayoutStyle } from "./add-moodboard";
 
 type Props = {
@@ -171,9 +172,10 @@ export function CreateNewMoodboard({
               </Label>
 
               <div className="flex items-center gap-3">
-                <div
-                  className="h-12 w-16 rounded-xl border border-[#D0D5DD]"
-                  style={{ backgroundColor: primaryHex }}
+                <ColorPickerPopover
+                  value={primaryHex}
+                  onChange={setPrimaryHex}
+                  swatchClassName="h-12 w-16 rounded-xl border border-[#D0D5DD]"
                 />
                 <Input
                   value={primaryHex}
@@ -189,10 +191,11 @@ export function CreateNewMoodboard({
                 Secondary Background Color<span className="text-[#F74F25]">*</span>
               </Label>
 
-              <div className="flex items-center gap-3">
-                <div
-                  className="h-12 w-16 rounded-xl border border-[#D0D5DD]"
-                  style={{ backgroundColor: secondaryHex }}
+             <div className="flex items-center gap-3">
+                <ColorPickerPopover
+                  value={secondaryHex}
+                  onChange={setSecondaryHex}
+                  swatchClassName="h-12 w-16 rounded-xl border border-[#D0D5DD]"
                 />
                 <Input
                   value={secondaryHex}
