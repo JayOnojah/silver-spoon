@@ -17,7 +17,7 @@ export function MoodboardSuccessModal({
 }: Props) {
   return (
     <div className="relative px-4 py-8 md:px-10 md:py-10 font-sans">
-      {/* Background (subtle grid + soft green tint like File) */}
+      {/* Background (subtle grid + soft green tint) */}
       <div
         aria-hidden="true"
         className="absolute inset-0 rounded-3xl"
