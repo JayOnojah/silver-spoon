@@ -5,7 +5,6 @@ import { signIn } from "@/auth";
 import { AuthError } from "next-auth";
 import { cookies } from "next/headers";
 import { LoginSchema } from "@/src/schemas/user";
-
 import { getUserByEmailWithPassword } from "@/src/data/user";
 
 const isProd = process.env.NODE_ENV === "production";
@@ -27,12 +26,12 @@ export async function accountLogin(
   }
 
   const userBusinessType = existingUser.defaultBusinessType;
-  const tenantId = existingUser.defaultBusinessId;
+  const businessId = existingUser.defaultBusinessId;
 
   // Set tenant cookie if exists
-  if (tenantId) {
+  if (businessId) {
     const jar = await cookies();
-    jar.set("tenant_id", tenantId, {
+    jar.set("business_id", businessId, {
       path: "/",
       httpOnly: false,
       secure: isProd,

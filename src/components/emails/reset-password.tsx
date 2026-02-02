@@ -65,7 +65,7 @@ export const ResetPassword = ({ name, resetLink }: ResetPasswordProps) => {
           <Text style={footerText}>
             This message was produced and distributed by SilverSpoon, a product
             of SILVER SPOON TESH LTD, 7th Floor, LAGOS, Mulliner Towers, Ikoyi,
-            Lagos, Nigeria. © 2022, SilverSpoon. All rights reserved.
+            Lagos, Nigeria. &copy; 2026, SilverSpoon. All rights reserved.
             SilverSpoon is a registered trademark of{" "}
             <Link
               href="https://usesilverspoon.com"
@@ -133,7 +133,7 @@ const text = {
 };
 
 const imageSection = {
-  backgroundColor: "#252f3d",
+  backgroundColor: "#e8e8e8",
   display: "flex",
   padding: "20px 0",
   alignItems: "center",

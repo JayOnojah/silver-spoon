@@ -29,7 +29,7 @@ export const websites = pgTable("websites", {
     "406CF4",
   ),
   userId: text("user_id"),
-  tenantId: text("tenant_id")
+  businessId: text("business_id")
     .notNull()
     .references(() => businesses.id, { onDelete: "cascade" }),
   ...timestamps,
@@ -54,7 +54,7 @@ export const websiteBlocks = pgTable("website_blocks", {
   websiteId: text("website_id")
     .notNull()
     .references(() => websites.id, { onDelete: "cascade" }),
-  tenantId: text("tenant_id")
+  businessId: text("business_id")
     .notNull()
     .references(() => businesses.id, { onDelete: "cascade" }),
   ...timestamps,

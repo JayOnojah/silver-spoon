@@ -136,7 +136,7 @@ const text = {
 };
 
 const imageSection = {
-  backgroundColor: "#252f3d",
+  backgroundColor: "#e8e8e8",
   display: "flex",
   padding: "20px 0",
   alignItems: "center",
