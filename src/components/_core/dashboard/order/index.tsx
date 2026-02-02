@@ -22,11 +22,12 @@ import {
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import {
-  IconSearch,
-  IconChevronLeft,
-  IconChevronRight,
-} from "@tabler/icons-react";
+import { IconSearch } from "@tabler/icons-react";
+import Link from "next/link";
+import OrderTable from "./order-table";
+import OrderMobile from "./order-mobile";
+import EmptyOrder from "./empty-order";
+import Pagination from "./pagination";
 
 interface Order {
   id: string;
@@ -48,17 +49,18 @@ const OrderContent = () => {
   const [subTab, setSubTab] = useState("all");
   const [selectedOrders, setSelectedOrders] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isFilled, setIsFilled] = React.useState(false);
   const totalPages = 10;
 
   const subTabs = [
-    { id: "all", label: "All Orders", count: 30 },
-    { id: "not-started", label: "Not Started", count: 30 },
-    { id: "in-progress", label: "In Progress", count: 30 },
-    { id: "fitting", label: "Fitting", count: 30 },
-    { id: "ready", label: "Ready", count: 30 },
+    { id: "all", label: "All Orders", count: isFilled ? 30 : 0 },
+    { id: "not-started", label: "Not Started", count: isFilled ? 30 : 0 },
+    { id: "in-progress", label: "In Progress", count: isFilled ? 30 : 0 },
+    { id: "fitting", label: "Fitting", count: isFilled ? 30 : 0 },
+    { id: "ready", label: "Ready", count: isFilled ? 30 : 0 },
   ];
 
-  const orders: Order[] = [
+  const allOrders: Order[] = [
     {
       id: "5734-1",
       client: "Sarah Anderson",
@@ -109,6 +111,8 @@ const OrderContent = () => {
     },
   ];
 
+  const orders: Order[] = isFilled ? allOrders : [];
+
   const getPaymentStatusBadgeClass = (variant: string) => {
     switch (variant) {
       case "notPaid":
@@ -147,6 +151,11 @@ const OrderContent = () => {
     }
   };
 
+  // Reset selected orders when switching states
+  React.useEffect(() => {
+    setSelectedOrders([]);
+  }, [isFilled]);
+
   const handleSelectOrder = (orderId: string, checked: boolean) => {
     if (checked) {
       setSelectedOrders([...selectedOrders, orderId]);
@@ -164,25 +173,14 @@ const OrderContent = () => {
     }
   };
 
-  const renderPageNumbers = () => {
-    const pages = [];
-    const maxVisible = 3;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisible / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisible - 1);
-
-    if (endPage - startPage < maxVisible - 1) {
-      startPage = Math.max(1, endPage - maxVisible + 1);
-    }
-
-    for (let i = startPage; i <= endPage; i++) {
-      pages.push(i);
-    }
-
-    return pages;
-  };
-
   return (
     <div className="w-full">
+      <Button
+        onClick={() => setIsFilled(!isFilled)}
+        className="fixed bottom-20 right-6 sm:bottom-6 rounded shadow-lg hover:shadow-xl z-50 bg-primary text-white"
+      >
+        Show {!isFilled ? "Data" : "Empty"} State
+      </Button>
       {/* Main Navigation Tabs */}
       <div className="mb-4">
         <div className="flex sm:inline-flex p-1 rounded-full border-2 border-foreground overflow-hidden bg-white">
@@ -197,7 +195,7 @@ const OrderContent = () => {
                 : "bg-white text-foreground",
             )}
           >
-            In-Store Orders (30)
+            In-Store Orders ({isFilled ? 30 : 0})
           </button>
           <button
             type="button"
@@ -210,7 +208,7 @@ const OrderContent = () => {
                 : "bg-white text-foreground",
             )}
           >
-            Online Orders (30)
+            Online Orders ({isFilled ? 30 : 0})
           </button>
         </div>
       </div>
@@ -238,285 +236,84 @@ const OrderContent = () => {
 
       {/* Main Content Card */}
       <div className="sm:bg-white rounded-xl sm:p-6">
-        <div className="flex justify-between sm:items-center gap-5 mb-3">
-          <h2 className="text-lg font-bold text-foreground">All Orders</h2>
-          <div className="flex gap-2 items-center">
-            <span className="text-sm text-[#6B7280] mr-2 hidden sm:inline">
-              Sort by:
-            </span>
-            <Select defaultValue="due-date">
-              <SelectTrigger className="w-45 border-2! sm:border! border-[#CDD5DF]! sm:border-[#CDD5DF]! py-5!">
-                <SelectValue placeholder="Sort by" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="due-date">Due Date</SelectItem>
-                <SelectItem value="created-date">Created Date</SelectItem>
-                <SelectItem value="amount">Amount</SelectItem>
-                <SelectItem value="client">Client Name</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        {/* Filters and Search */}
-        <div className="flex flex-col sm:flex-row gap-4 mb-6">
-          {/* Search Bar */}
-          <div className="relative flex-1">
-            <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
-            <Input
-              type="text"
-              placeholder="Search by title, customer name..."
-              className="pl-10 w-full border-2! sm:border! border-[#CDD5DF]! sm:border-[#CDD5DF]! py-5"
-            />
-          </div>
-          {/* Payment Status Filter */}
-          <Select defaultValue="all">
-            <SelectTrigger className="w-full sm:w-45 border-2! sm:border! border-[#CDD5DF]! sm:border-[#CDD5DF]! py-5!">
-              <SelectValue placeholder="Payment Status" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">All Status</SelectItem>
-              <SelectItem value="not-paid">Not Paid</SelectItem>
-              <SelectItem value="partial">Partial Payment</SelectItem>
-              <SelectItem value="paid">Paid In Full</SelectItem>
-              <SelectItem value="overdue">Overdue</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-
-        {/* Orders Table for Desktop view */}
-        <div className="hidden sm:block overflow-x-auto">
-          <Table>
-            <TableHeader>
-              <TableRow className="border-b border-[#E5E7EB]">
-                <TableHead className="w-12">
-                  <Checkbox
-                    checked={isAllSelected}
-                    onCheckedChange={handleSelectAll}
-                  />
-                </TableHead>
-                <TableHead className="font-semibold text-foreground">
-                  Order ID
-                </TableHead>
-                <TableHead className="font-semibold text-foreground">
-                  Client
-                </TableHead>
-                <TableHead className="font-semibold text-foreground">
-                  Order Amount
-                </TableHead>
-                <TableHead className="font-semibold text-foreground">
-                  Payment Status
-                </TableHead>
-                <TableHead className="font-semibold text-foreground">
-                  Order Status
-                </TableHead>
-                <TableHead className="font-semibold text-foreground">
-                  Created Date
-                </TableHead>
-                <TableHead className="font-semibold text-foreground">
-                  Actions
-                </TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {orders.map((order, index) => (
-                <TableRow
-                  key={order.id}
-                  className="border-b border-[#E5E7EB] hover:bg-[#F9FAFB]"
-                >
-                  <TableCell>
-                    <Checkbox
-                      checked={selectedOrders.includes(order.id)}
-                      onCheckedChange={(checked) =>
-                        handleSelectOrder(order.id, checked as boolean)
-                      }
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                  </TableCell>
-                  <TableCell className="font-medium text-foreground">
-                    {order.id.split("-")[0]}
-                  </TableCell>
-                  <TableCell className="text-[#4B5565]">
-                    {order.client}
-                  </TableCell>
-                  <TableCell className="text-[#4B5565]">
-                    {order.amount}
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      className={cn(
-                        "border text-xs font-medium px-2 py-0.5",
-                        getPaymentStatusBadgeClass(order.paymentStatus.variant),
-                      )}
-                    >
-                      {order.paymentStatus.label}
-                    </Badge>
-                  </TableCell>
-                  <TableCell>
-                    <Badge
-                      className={cn(
-                        "border text-xs font-medium px-2 py-0.5",
-                        getOrderStatusBadgeClass(order.orderStatus.variant),
-                      )}
-                    >
-                      {order.orderStatus.label}
-                    </Badge>
-                  </TableCell>
-                  <TableCell className="text-[#4B5565]">
-                    {order.createdDate}
-                  </TableCell>
-                  <TableCell>
-                    <Button
-                      variant="ghost"
-                      className="text-primary hover:text-primary/80 hover:bg-transparent p-0 h-auto font-medium text-sm"
-                    >
-                      View Details
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </div>
-
-        {/* Mobile Card View */}
-        <div className="sm:hidden space-y-2">
-          {orders.map((order) => (
-            <div
-              key={order.id}
-              className="bg-white rounded-xl p-4 border border-[#E5E7EB]"
-            >
-              {/* Checkbox */}
-              <div className="mb-4">
-                <Checkbox
-                  checked={selectedOrders.includes(order.id)}
-                  onCheckedChange={(checked) =>
-                    handleSelectOrder(order.id, checked as boolean)
-                  }
-                />
-              </div>
-
-              {/* Order Details */}
-              <div className="space-y-3">
-                {/* Order ID */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-[#6B7280]">Order ID</span>
-                  <span className="text-sm font-bold text-foreground">
-                    Order {order.id.split("-")[0]}
-                  </span>
-                </div>
-
-                {/* Client */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-[#6B7280]">Client</span>
-                  <span className="text-sm font-bold text-foreground">
-                    {order.client}
-                  </span>
-                </div>
-
-                {/* Order Amount */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-[#6B7280]">Order Amount</span>
-                  <span className="text-sm font-bold text-foreground">
-                    {order.amount}
-                  </span>
-                </div>
-
-                {/* Payment Status */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-[#6B7280]">Payment Status</span>
-                  <Badge
-                    className={cn(
-                      "border text-xs font-medium px-2 py-0.5",
-                      getPaymentStatusBadgeClass(order.paymentStatus.variant),
-                    )}
-                  >
-                    {order.paymentStatus.label}
-                  </Badge>
-                </div>
-
-                {/* Order Status */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-[#6B7280]">Order Status</span>
-                  <Badge
-                    className={cn(
-                      "border text-xs font-medium px-2 py-0.5",
-                      getOrderStatusBadgeClass(order.orderStatus.variant),
-                    )}
-                  >
-                    {order.orderStatus.label}
-                  </Badge>
-                </div>
-
-                {/* Due Date */}
-                <div className="flex justify-between items-center">
-                  <span className="text-sm text-[#6B7280]">Due Date</span>
-                  <span className="text-sm font-bold text-foreground">
-                    {order.createdDate}
-                  </span>
-                </div>
-              </div>
-
-              {/* View Details Button */}
-              <div className="mt-4 flex justify-center">
-                <Button
-                  variant="outline"
-                  className="w-full rounded-lg border border-[#E5E7EB] bg-white text-[#4B5565] hover:bg-[#F9FAFB] font-medium"
-                >
-                  View Details
-                </Button>
+        {orders.length === 0 ? (
+          <EmptyOrder />
+        ) : (
+          <>
+            <div className="flex justify-between sm:items-center gap-5 mb-3">
+              <h2 className="text-lg font-bold text-foreground">All Orders</h2>
+              <div className="flex gap-2 items-center">
+                <span className="text-sm text-[#6B7280] mr-2 hidden sm:inline">
+                  Sort by:
+                </span>
+                <Select defaultValue="due-date">
+                  <SelectTrigger className="w-45 border-2! sm:border! border-[#CDD5DF]! sm:border-[#CDD5DF]! py-5!">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="due-date">Due Date</SelectItem>
+                    <SelectItem value="created-date">Customer Name</SelectItem>
+                    <SelectItem value="amount">Order Value</SelectItem>
+                    <SelectItem value="client">Created Date</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             </div>
-          ))}
-        </div>
 
-        {/* Pagination */}
-        <div className="flex items-center justify-between mt-6 pt-6 border-t border-[#E5E7EB]">
-          {/* Page Status */}
-          <div className="text-sm text-[#4B5565]">
-            Page {currentPage} of {totalPages}
-          </div>
+            {/* Filters and Search */}
+            <div className="flex flex-col sm:flex-row gap-4 mb-6">
+              {/* Search Bar */}
+              <div className="relative flex-1">
+                <IconSearch className="absolute left-3 top-1/2 -translate-y-1/2 size-5 text-[#9AA4B2]" />
+                <Input
+                  type="text"
+                  placeholder="Search by title, customer name..."
+                  className="pl-10 w-full border-2! sm:border! border-[#CDD5DF]! sm:border-[#CDD5DF]! py-5"
+                />
+              </div>
+              {/* Payment Status Filter */}
+              <Select defaultValue="all">
+                <SelectTrigger className="w-full sm:w-45 border-2! sm:border! border-[#CDD5DF]! sm:border-[#CDD5DF]! py-5!">
+                  <SelectValue placeholder="Payment Status" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="all">All Status</SelectItem>
+                  <SelectItem value="not-paid">Not Paid</SelectItem>
+                  <SelectItem value="partial">Partial Payment</SelectItem>
+                  <SelectItem value="paid">Paid In Full</SelectItem>
+                  <SelectItem value="overdue">Overdue</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
 
-          {/* Page Numbers */}
-          <div className="flex items-center gap-2">
-            {renderPageNumbers().map((page) => (
-              <button
-                key={page}
-                onClick={() => handlePageChange(page)}
-                className={cn(
-                  "size-8 rounded-full text-sm font-medium transition-colors",
-                  currentPage === page
-                    ? "bg-primary text-white"
-                    : "bg-white text-[#4B5565] border border-[#E5E7EB] hover:bg-[#F9FAFB]",
-                )}
-              >
-                {page}
-              </button>
-            ))}
-          </div>
+            {/* Orders Table for Desktop view */}
+            <OrderTable
+              orders={orders}
+              selectedOrders={selectedOrders}
+              isAllSelected={isAllSelected}
+              handleSelectAll={handleSelectAll}
+              handleSelectOrder={handleSelectOrder}
+              getPaymentStatusBadgeClass={getPaymentStatusBadgeClass}
+              getOrderStatusBadgeClass={getOrderStatusBadgeClass}
+            />
 
-          {/* Navigation Arrows */}
-          <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-              className="size-8 rounded-full border border-[#E5E7EB] hover:bg-[#F9FAFB] disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <IconChevronLeft className="size-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={currentPage === totalPages}
-              className="size-8 rounded-full border border-[#E5E7EB] hover:bg-[#F9FAFB] disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <IconChevronRight className="size-4" />
-            </Button>
-          </div>
-        </div>
+            {/* Mobile Card View */}
+            <OrderMobile
+              orders={orders}
+              selectedOrders={selectedOrders}
+              handleSelectOrder={handleSelectOrder}
+              getPaymentStatusBadgeClass={getPaymentStatusBadgeClass}
+              getOrderStatusBadgeClass={getOrderStatusBadgeClass}
+            />
+
+            {/* Pagination */}
+            <Pagination
+              currentPage={currentPage}
+              totalPages={totalPages}
+              handlePageChange={handlePageChange}
+            />
+          </>
+        )}
       </div>
     </div>
   );
