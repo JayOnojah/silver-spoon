@@ -13,7 +13,7 @@ export const Download = () => {
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g clipPath="url(#clip0_378_60399)">
                 <path d="M0.856934 18V19.7143C0.856934 20.6236 1.21816 21.4957 1.86114 22.1387C2.50412 22.7816 3.37619 23.1429 4.28551 23.1429H19.7141C20.6234 23.1429 21.4955 22.7816 22.1384 22.1387C22.7814 21.4957 23.1426 20.6236 23.1426 19.7143V18" stroke="#9AA4B2" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
-                <path d="M6.85693 10.2852L11.9998 16.2852L17.1426 10.2852" stroke="#9AA4B2" stroke-width="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+                <path d="M6.85693 10.2852L11.9998 16.2852L17.1426 10.2852" stroke="#9AA4B2" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
                 <path d="M12 16.284V0.855469" stroke="#9AA4B2" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
             </g>
             <defs>
