@@ -7,6 +7,7 @@ import {
 
 import { timestamps } from "../utils";
 import { businesses } from "./businesses";
+import { customers } from "./customers";
 import { timestamp } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { pgTable, text, integer } from "drizzle-orm/pg-core";
@@ -15,6 +16,9 @@ import { pgTable, text, integer } from "drizzle-orm/pg-core";
 export const orders = pgTable("orders", {
   id: text("id").primaryKey(),
   orderId: text("order_id").notNull(),
+  customerId: text("customer_id")
+    .notNull()
+    .references(() => customers.id),
   customerFirstName: text("customer_first_name").notNull(),
   customerLastName: text("customer_last_name").notNull(),
   customerAddress: text("customer_address"),
@@ -48,8 +52,8 @@ export const orderItems = pgTable("order_items", {
   orderId: text("order_id")
     .notNull()
     .references(() => orders.id),
-  title: text("name").notNull(),
-  description: text("name").notNull(),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
   quantity: integer("quantity"),
   unitPrice: integer("unit_price").notNull(),
   businessId: text("business_id")

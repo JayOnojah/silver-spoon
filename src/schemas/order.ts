@@ -1,17 +1,8 @@
 import { z } from "zod";
 
 export const OrderSchema = z.object({
-  orderId: z.string(),
-  customerFirstName: z.string(),
-  customerLastName: z.string(),
-  customerEmail: z.string().email().optional(),
-  customerPhone: z.string().optional(),
-  customerAddress: z.string().optional(),
-  customerLandmark: z.string().optional(),
-  customerCity: z.string().optional(),
-  customerPostalCode: z.string().optional(),
-  customerCountry: z.string().optional(),
-  orderItems: z
+  customerId: z.string(),
+  items: z
     .array(
       z.object({
         title: z.string(),
@@ -20,7 +11,9 @@ export const OrderSchema = z.object({
         unitPrice: z.number(),
       })
     )
-    .optional(),
-  userId: z.string().optional(),
-  businessId: z.string().optional(),
+    .min(1, "At least one item is required"),
+  startDate: z.string().optional(),
+  endDate: z.string().optional(),
+  orderStatus: z.enum(["pending", "processing", "completed", "cancelled"]).optional(),
+  paymentStatus: z.enum(["not_paid", "paid_in_full", "partial_payment"]).optional(),
 });
