@@ -5,6 +5,7 @@ import { cn } from "@/src/lib/utils";
 import { IconEdit, IconEyeOff } from "@tabler/icons-react";
 import React from "react";
 import CustomersMeasurement from "./customers-measurement";
+import OrderCost from "./order-cost";
 
 const Measurement = () => {
   const [activeTab, setActiveTab] = React.useState("customer-measurements");
@@ -41,12 +42,17 @@ const Measurement = () => {
         {/* Customer Measurements Content */}
         {activeTab === "customer-measurements" && <CustomersMeasurement />}
 
+        {/* Order Cost Content */}
+        {activeTab === "order-cost" && <OrderCost />}
+
         {/* Placeholder for other tabs */}
-        {activeTab !== "customer-measurements" && (
-          <div className="mt-6 text-center py-12 text-[#6B7280]">
-            {tabs.find((t) => t.id === activeTab)?.label} content coming soon...
-          </div>
-        )}
+        {activeTab !== "customer-measurements" &&
+          activeTab !== "order-cost" && (
+            <div className="mt-6 text-center py-12 text-[#6B7280]">
+              {tabs.find((t) => t.id === activeTab)?.label} content coming
+              soon...
+            </div>
+          )}
       </div>
     </div>
   );

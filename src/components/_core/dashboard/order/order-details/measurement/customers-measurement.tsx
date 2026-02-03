@@ -1,9 +1,15 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { Textarea } from "@/src/components/ui/textarea";
 import { IconEdit, IconEyeOff } from "@tabler/icons-react";
 import { EditSvg } from "../../svg";
+import EditMeasurement from "./edit-measurement";
 
 const CustomersMeasurement = () => {
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
+
   const measurements = [
     { name: "Bust", value: "36" },
     { name: "Waist", value: "28" },
@@ -16,7 +22,11 @@ const CustomersMeasurement = () => {
     <div className="mt-6">
       <div className="flex items-center justify-between mb-6">
         <h3 className="text-lg font-bold text-foreground">Measurements</h3>
-        <Button variant="ghost" className=" text-primary h-10 px-4">
+        <Button
+          variant="ghost"
+          className="font-bold text-primary h-10 px-4"
+          onClick={() => setIsDialogOpen(true)}
+        >
           <EditSvg />
           Edit Measurements
         </Button>
@@ -44,12 +54,17 @@ const CustomersMeasurement = () => {
         ))}
       </div>
 
-      <div className="bg-[#F9F0EE] border border-[#F74F25] p-5 rounded-xl">
+      <div className="bg-[#F9F0EE] border border-[#F74F25] p-4 space-y-1 rounded-xl">
         <div className="text-xs text-[#9AA4B2]">Measurement Notes</div>
         <div className="font-bold text-sm text-[#121926]">
           Customer prefers slightly loose fit around waist area
         </div>
       </div>
+
+      <EditMeasurement
+        open={isDialogOpen}
+        onOpenChange={setIsDialogOpen}
+      />
     </div>
   );
 };
