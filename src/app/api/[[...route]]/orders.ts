@@ -7,7 +7,20 @@ import { and, eq, desc } from "drizzle-orm";
 import { createId } from "@paralleldrive/cuid2";
 import { zValidator } from "@hono/zod-validator";
 import { OrderSchema } from "@/src/schemas/order";
+import { customers } from "@/src/db/schemas/customers";
 import { orders, orderItems } from "@/src/db/schemas/orders";
+
+// Generate order ID like ORD-001, ORD-002, etc.
+const generateOrderId = async (businessId: string): Promise<string> => {
+  const existingOrders = await db
+    .select({ orderId: orders.orderId })
+    .from(orders)
+    .where(eq(orders.businessId, businessId))
+    .orderBy(desc(orders.createdAt));
+
+  const count = existingOrders.length + 1;
+  return `ORD-${count.toString().padStart(3, "0")}`;
+};
 
 const app = new Hono()
   .get("/", async (c) => {
@@ -27,6 +40,7 @@ const app = new Hono()
       .select({
         id: orders.id,
         orderId: orders.orderId,
+        customerId: orders.customerId,
         customerFirstName: orders.customerFirstName,
         customerLastName: orders.customerLastName,
         customerEmail: orders.customerEmail,
@@ -101,44 +115,58 @@ const app = new Hono()
       return c.json({ error: "Business ID is required" }, 400);
     }
 
-    const orderId = createId();
+    // Fetch customer data
+    const [customer] = await db
+      .select()
+      .from(customers)
+      .where(and(eq(customers.id, values.customerId), eq(customers.businessId, businessId)));
 
-    const subtotal = values.orderItems?.reduce(
+    if (!customer) {
+      return c.json({ error: "Customer not found" }, 404);
+    }
+
+    const id = createId();
+    const orderId = await generateOrderId(businessId);
+
+    const subtotal = values.items.reduce(
       (sum, item) => sum + (item.unitPrice * (item.quantity || 1)),
       0,
-    ) || 0;
+    );
 
     const taxAmount = 0;
     const amount = subtotal + taxAmount;
 
     await db.insert(orders).values({
-      id: orderId,
-      orderId: values.orderId,
-      customerFirstName: values.customerFirstName,
-      customerLastName: values.customerLastName,
-      customerEmail: values.customerEmail || null,
-      customerPhone: values.customerPhone || null,
-      customerAddress: values.customerAddress || null,
-      customerCity: values.customerCity || null,
-      customerPostalCode: values.customerPostalCode || null,
-      customerCountry: values.customerCountry || null,
-      customerLandmark: values.customerLandmark || null,
+      id,
+      orderId,
+      customerId: customer.id,
+      customerFirstName: customer.firstName,
+      customerLastName: customer.lastName,
+      customerEmail: customer.email || null,
+      customerPhone: customer.phone || null,
+      customerAddress: customer.address || null,
+      customerCity: customer.city || null,
+      customerPostalCode: customer.postalCode || null,
+      customerCountry: customer.country || null,
+      customerLandmark: customer.landmark || null,
       subtotal,
       taxAmount,
       amount,
-      orderStatus: "pending",
+      orderStatus: values.orderStatus || "pending",
       orderSource: "system",
       paymentMethodEnum: "cash",
-      paymentStatus: "not_paid",
+      paymentStatus: values.paymentStatus || "not_paid",
+      startDate: values.startDate ? new Date(values.startDate) : null,
+      endDate: values.endDate ? new Date(values.endDate) : null,
       userId: user.id,
       businessId,
     } as typeof orders.$inferInsert);
 
-    if (values.orderItems && values.orderItems.length > 0) {
+    if (values.items.length > 0) {
       await db.insert(orderItems).values(
-        values.orderItems.map((item) => ({
+        values.items.map((item) => ({
           id: createId(),
-          orderId,
+          orderId: id,
           title: item.title,
           description: item.description,
           quantity: item.quantity || 1,
@@ -151,7 +179,7 @@ const app = new Hono()
     const [data] = await db
       .select()
       .from(orders)
-      .where(eq(orders.id, orderId));
+      .where(eq(orders.id, id));
 
     return c.json({ data });
   })
