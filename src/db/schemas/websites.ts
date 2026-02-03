@@ -26,7 +26,7 @@ export const websites = pgTable("websites", {
   buttonPrimaryTextColor: text("button_primary_text_color").default("FFFFFF"),
   buttonSecondaryColor: text("button_secondary_color").default("ECF0FE"),
   buttonSecondaryTextColor: text("button_secondary_text_color").default(
-    "406CF4",
+    "406CF4"
   ),
   userId: text("user_id"),
   businessId: text("business_id")

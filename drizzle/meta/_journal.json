@@ -22,6 +22,20 @@
       "when": 1769739286429,
       "tag": "0002_cloudy_angel",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1770087411662,
+      "tag": "0003_sour_apocalypse",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1770112915506,
+      "tag": "0004_flaky_diamondback",
+      "breakpoints": true
     }
   ]
 }

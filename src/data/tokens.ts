@@ -1,7 +1,7 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/src/db/drizzle";
 import { passwordResetTokens } from "@/src/db/schemas/tokens";
-import { verificationTokens } from "@/src/db/schemas/tokens";
+import { emailVerificationTokens } from "@/src/db/schemas/tokens";
 
 export const getPasswordResetTokenByToken = async (token: string) => {
   try {
@@ -33,8 +33,8 @@ export const getVerificationTokenByToken = async (token: string) => {
   try {
     const [verificationToken] = await db
       .select()
-      .from(verificationTokens)
-      .where(eq(verificationTokens.token, token));
+      .from(emailVerificationTokens)
+      .where(eq(emailVerificationTokens.token, token));
 
     return verificationToken;
   } catch {
@@ -46,8 +46,8 @@ export const getVerificationTokenByEmail = async (email: string) => {
   try {
     const [verificationToken] = await db
       .select()
-      .from(verificationTokens)
-      .where(eq(verificationTokens.email, email));
+      .from(emailVerificationTokens)
+      .where(eq(emailVerificationTokens.email, email));
 
     return verificationToken;
   } catch {

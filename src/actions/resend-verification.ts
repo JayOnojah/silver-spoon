@@ -5,8 +5,8 @@ import { db } from "@/src/db/drizzle";
 import { getUserByEmail } from "@/src/data/user";
 import { sendVerificationEmail } from "@/lib/mail";
 import { generateVerificationToken } from "@/lib/tokens";
-import { verificationTokens } from "@/src/db/schemas/tokens";
 import { getVerificationTokenByEmail } from "@/src/data/tokens";
+import { emailVerificationTokens } from "@/src/db/schemas/tokens";
 
 export const resendVerification = async (email: string) => {
   try {
@@ -18,8 +18,8 @@ export const resendVerification = async (email: string) => {
     const existingToken = await getVerificationTokenByEmail(email);
     if (existingToken) {
       await db
-        .delete(verificationTokens)
-        .where(eq(verificationTokens.email, existingToken.email));
+        .delete(emailVerificationTokens)
+        .where(eq(emailVerificationTokens.email, existingToken.email));
     }
 
     const verificationCode = await generateVerificationToken(

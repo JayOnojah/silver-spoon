@@ -2,6 +2,8 @@ import { pgEnum } from "drizzle-orm/pg-core";
 
 export const userPlatformRoleEnum = pgEnum("platform_role", ["user", "owner"]);
 
+export const orderSourceEnum = pgEnum("order_source", ["system", "online"]);
+
 export const orderTypeEnum = pgEnum("order_type", ["delivery", "pick_up"]);
 
 export const transactionTypeEnum = pgEnum("transaction_type", [
@@ -13,6 +15,12 @@ export const paymentMethodEnum = pgEnum("payment_method", [
   "card",
   "cash",
   "transfer",
+]);
+
+export const paymentStatusEnum = pgEnum("payment_status", [
+  "not_paid",
+  "paid_in_full",
+  "partial_payment",
 ]);
 
 export const businessTypeEnum = pgEnum("business_type", [

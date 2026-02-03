@@ -4,8 +4,8 @@ import { eq } from "drizzle-orm";
 import { db } from "@/src/db/drizzle";
 import { users } from "@/src/db/schemas/users";
 import { getUserByEmail } from "@/src/data/user";
-import { verificationTokens } from "@/src/db/schemas/tokens";
 import { getVerificationTokenByEmail } from "@/src/data/tokens";
+import { emailVerificationTokens } from "@/src/db/schemas/tokens";
 
 /**
  * Verifies a user's email using a 6-digit code.
@@ -48,8 +48,8 @@ export const newVerification = async (email: string, code: string) => {
     .where(eq(users.email, existingToken.email));
 
   await db
-    .delete(verificationTokens)
-    .where(eq(verificationTokens.email, existingToken.email));
+    .delete(emailVerificationTokens)
+    .where(eq(emailVerificationTokens.email, existingToken.email));
 
   return { success: "Your email was verified successfully." };
 };

@@ -1,6 +1,6 @@
 import {
-  verificationTokens,
   passwordResetTokens,
+  emailVerificationTokens,
 } from "@/src/db/schemas/tokens";
 
 import { eq } from "drizzle-orm";
@@ -21,12 +21,12 @@ export const generateVerificationToken = async (
 
   if (existingToken) {
     await db
-      .delete(verificationTokens)
-      .where(eq(verificationTokens.email, email));
+      .delete(emailVerificationTokens)
+      .where(eq(emailVerificationTokens.email, email));
   }
 
   const [verificationData] = await db
-    .insert(verificationTokens)
+    .insert(emailVerificationTokens)
     .values({
       id: createId(),
       email,
