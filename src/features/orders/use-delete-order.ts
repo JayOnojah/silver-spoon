@@ -7,18 +7,21 @@ type ResponseType = InferResponseType<
   (typeof client.api.orders)[":id"]["$delete"]
 >;
 
-export const useDeleteOrder = (id?: string) => {
+export const useDeleteOrder = () => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<ResponseType, Error>({
-    mutationFn: async () => {
+  return useMutation<ResponseType, Error, string>({
+    mutationFn: async (id: string) => {
       const response = await client.api.orders[":id"].$delete({
         param: { id },
       });
+      if (!response.ok) {
+        throw new Error("Failed to delete order");
+      }
+
       return await response.json();
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["order", { id }] });
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       queryClient.invalidateQueries({ queryKey: ["summary"] });
       toast.success("Order deleted successfully");
@@ -27,6 +30,4 @@ export const useDeleteOrder = (id?: string) => {
       toast.error("Failed to delete order");
     },
   });
-
-  return mutation;
 };
