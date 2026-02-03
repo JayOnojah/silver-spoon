@@ -111,44 +111,42 @@ const app = new Hono()
     const taxAmount = 0;
     const amount = subtotal + taxAmount;
 
-    await db.transaction(async (tx) => {
-      await tx.insert(orders).values({
-        id: orderId,
-        orderId: values.orderId,
-        customerFirstName: values.customerFirstName,
-        customerLastName: values.customerLastName,
-        customerEmail: values.customerEmail || null,
-        customerPhone: values.customerPhone || null,
-        customerAddress: values.customerAddress || null,
-        customerCity: values.customerCity || null,
-        customerPostalCode: values.customerPostalCode || null,
-        customerCountry: values.customerCountry || null,
-        customerLandmark: values.customerLandmark || null,
-        subtotal,
-        taxAmount,
-        amount,
-        orderStatus: "pending",
-        orderSource: "system",
-        paymentMethodEnum: "cash",
-        paymentStatus: "not_paid",
-        userId: user.id,
-        businessId,
-      } as typeof orders.$inferInsert);
+    await db.insert(orders).values({
+      id: orderId,
+      orderId: values.orderId,
+      customerFirstName: values.customerFirstName,
+      customerLastName: values.customerLastName,
+      customerEmail: values.customerEmail || null,
+      customerPhone: values.customerPhone || null,
+      customerAddress: values.customerAddress || null,
+      customerCity: values.customerCity || null,
+      customerPostalCode: values.customerPostalCode || null,
+      customerCountry: values.customerCountry || null,
+      customerLandmark: values.customerLandmark || null,
+      subtotal,
+      taxAmount,
+      amount,
+      orderStatus: "pending",
+      orderSource: "system",
+      paymentMethodEnum: "cash",
+      paymentStatus: "not_paid",
+      userId: user.id,
+      businessId,
+    } as typeof orders.$inferInsert);
 
-      if (values.orderItems && values.orderItems.length > 0) {
-        await tx.insert(orderItems).values(
-          values.orderItems.map((item) => ({
-            id: createId(),
-            orderId,
-            title: item.title,
-            description: item.description,
-            quantity: item.quantity || 1,
-            unitPrice: item.unitPrice,
-            businessId,
-          } as typeof orderItems.$inferInsert)),
-        );
-      }
-    });
+    if (values.orderItems && values.orderItems.length > 0) {
+      await db.insert(orderItems).values(
+        values.orderItems.map((item) => ({
+          id: createId(),
+          orderId,
+          title: item.title,
+          description: item.description,
+          quantity: item.quantity || 1,
+          unitPrice: item.unitPrice,
+          businessId,
+        } as typeof orderItems.$inferInsert)),
+      );
+    }
 
     const [data] = await db
       .select()
@@ -214,6 +212,9 @@ const app = new Hono()
       if (!businessId || businessId === "undefined") {
         return c.json({ error: "Business ID is required" }, 400);
       }
+
+      // Delete order items first (foreign key constraint)
+      await db.delete(orderItems).where(eq(orderItems.orderId, id));
 
       const [data] = await db
         .delete(orders)
