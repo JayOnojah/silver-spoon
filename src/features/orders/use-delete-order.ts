@@ -1,23 +1,19 @@
 import { toast } from "sonner";
 import { client } from "@/src/lib/hono";
-import { InferRequestType, InferResponseType } from "hono";
+import { InferResponseType } from "hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 type ResponseType = InferResponseType<
-  (typeof client.api.orders)[":id"]["$patch"]
+  (typeof client.api.orders)[":id"]["$delete"]
 >;
-type RequestType = InferRequestType<
-  (typeof client.api.orders)[":id"]["$patch"]
->["json"];
 
-export const useUpdateOrder = (id?: string) => {
+export const useDeleteOrder = (id?: string) => {
   const queryClient = useQueryClient();
 
-  const mutation = useMutation<ResponseType, Error, RequestType>({
-    mutationFn: async (json) => {
-      const response = await client.api.orders[":id"].$patch({
+  const mutation = useMutation<ResponseType, Error>({
+    mutationFn: async () => {
+      const response = await client.api.orders[":id"].$delete({
         param: { id },
-        json,
       });
       return await response.json();
     },
@@ -25,10 +21,10 @@ export const useUpdateOrder = (id?: string) => {
       queryClient.invalidateQueries({ queryKey: ["order", { id }] });
       queryClient.invalidateQueries({ queryKey: ["orders"] });
       queryClient.invalidateQueries({ queryKey: ["summary"] });
-      toast.success("Order updated successfully");
+      toast.success("Order deleted successfully");
     },
     onError: () => {
-      toast.error("Failed to update order");
+      toast.error("Failed to delete order");
     },
   });
 
