@@ -34,8 +34,12 @@ export const CustomerMeasurement = () => {
                             <p className="text-[#121926] text-sm font-bold mt-2">{measurement.value}</p>
                         </div>
                         <div className="flex gap-4 text-[#9AA4B2]">
-                            <Copy size={20} />
-                            <Trash />
+                            <button className="cursor-pointer">
+                                <Copy size={20} />
+                            </button>
+                            <button className="cursor-pointer">
+                                <Trash />
+                            </button>
                         </div>
                     </div>
                 ))}

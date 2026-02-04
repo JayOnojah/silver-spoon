@@ -18,6 +18,7 @@ import { MoodboardSuccessModal } from "./moodboard-success";
 
 interface AddMoodboardModalProps {
   btnName: string;
+  btnStyle?: string;
 }
 
 type Step = 1 | 2 | 3;
@@ -25,7 +26,7 @@ type SourceOption = "existing" | "create" | null;
 export type AssociatedWith = "order" | "customer" | "personal";
 export type LayoutStyle = "grid3" | "grid4" | "masonry";
 
-export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
+export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<Step>(1);
 
@@ -72,7 +73,7 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
       }}
     >
       <DialogTrigger asChild>
-        <Button className="bg-[#F74F25] text-white rounded-2xl h-12 font-bold font-sans gap-2">
+        <Button className={`bg-[#F74F25] text-white rounded-2xl h-12 font-bold font-sans gap-2 ${btnStyle}`}>
           <Plus className="h-5 w-5" />
           {btnName}
         </Button>
