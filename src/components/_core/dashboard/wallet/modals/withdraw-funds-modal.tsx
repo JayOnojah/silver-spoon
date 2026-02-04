@@ -11,7 +11,7 @@ import {
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { FormatCurrency } from '../format-currency';
+import { FormatCurrency } from '../../shared/format-currency';
 import EditBankAccountModal from './edit-bank-account';
 import { WithdrawalSuccessModal } from './withdrawal-success-modal';
 import { Edit } from '../../design-operations/svg';

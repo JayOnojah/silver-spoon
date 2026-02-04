@@ -39,10 +39,10 @@ export const Pin = () => {
 
 export const Edit = () => {
     return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M11 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15V13" stroke="#9AA4B2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M16.0399 3.02123L8.15988 10.9012C7.85988 11.2012 7.55988 11.7912 7.49988 12.2212L7.06988 15.2312C6.90988 16.3212 7.67988 17.0812 8.76988 16.9312L11.7799 16.5012C12.1999 16.4412 12.7899 16.1412 13.0999 15.8412L20.9799 7.96123C22.3399 6.60123 22.9799 5.02123 20.9799 3.02123C18.9799 1.02123 17.3999 1.66123 16.0399 3.02123Z" stroke="#9AA4B2" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
-            <path d="M14.9102 4.14844C15.5802 6.53844 17.4502 8.40844 19.8502 9.08844" stroke="#9AA4B2" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11 2H9C4 2 2 4 2 9V15C2 20 4 22 9 22H15C20 22 22 20 22 15V13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M16.0399 3.02123L8.15988 10.9012C7.85988 11.2012 7.55988 11.7912 7.49988 12.2212L7.06988 15.2312C6.90988 16.3212 7.67988 17.0812 8.76988 16.9312L11.7799 16.5012C12.1999 16.4412 12.7899 16.1412 13.0999 15.8412L20.9799 7.96123C22.3399 6.60123 22.9799 5.02123 20.9799 3.02123C18.9799 1.02123 17.3999 1.66123 16.0399 3.02123Z" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M14.9102 4.14844C15.5802 6.53844 17.4502 8.40844 19.8502 9.08844" stroke="currentColor" strokeWidth="1.5" strokeMiterlimit="10" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
 
     )
@@ -50,7 +50,7 @@ export const Edit = () => {
 
 export const Share = () => {
     return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M4.54269 15.6869C6.67293 15.6869 8.39983 13.96 8.39983 11.8298C8.39983 9.69956 6.67293 7.97266 4.54269 7.97266C2.41245 7.97266 0.685547 9.69956 0.685547 11.8298C0.685547 13.96 2.41245 15.6869 4.54269 15.6869Z" stroke="#9AA4B2" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M19.114 22.9721C21.2442 22.9721 22.9711 21.2452 22.9711 19.115C22.9711 16.9847 21.2442 15.2578 19.114 15.2578C16.9837 15.2578 15.2568 16.9847 15.2568 19.115C15.2568 21.2452 16.9837 22.9721 19.114 22.9721Z" stroke="#9AA4B2" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M19.114 8.40179C21.2442 8.40179 22.9711 6.67488 22.9711 4.54464C22.9711 2.4144 21.2442 0.6875 19.114 0.6875C16.9837 0.6875 15.2568 2.4144 15.2568 4.54464C15.2568 6.67488 16.9837 8.40179 19.114 8.40179Z" stroke="#9AA4B2" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
@@ -62,7 +62,7 @@ export const Share = () => {
 
 export const Trash = () => {
     return (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M21 5.98047C17.67 5.65047 14.32 5.48047 10.98 5.48047C9 5.48047 7.02 5.58047 5.04 5.78047L3 5.98047" stroke="#9AA4B2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M8.5 4.97L8.72 3.66C8.88 2.71 9 2 10.69 2H13.31C15 2 15.13 2.75 15.28 3.67L15.5 4.97" stroke="#9AA4B2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             <path d="M18.8499 9.14062L18.1999 19.2106C18.0899 20.7806 17.9999 22.0006 15.2099 22.0006H8.7899C5.9999 22.0006 5.9099 20.7806 5.7999 19.2106L5.1499 9.14062" stroke="#9AA4B2" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

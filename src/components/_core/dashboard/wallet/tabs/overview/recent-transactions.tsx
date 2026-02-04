@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from 'react';
 import { Search, ArrowDownLeft, ArrowUpRight } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
-import { FormatCurrency } from '../../format-currency';
+import { FormatCurrency } from '../../../shared/format-currency';
 
 interface Transaction {
     id: string;

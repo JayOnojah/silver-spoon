@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
-import { FormatCurrency } from '../../format-currency';
+import { FormatCurrency } from '../../../shared/format-currency';
 import {
     Table,
     TableBody,
