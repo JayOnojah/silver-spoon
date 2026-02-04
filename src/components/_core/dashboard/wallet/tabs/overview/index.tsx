@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react"
 import { Wallet } from "../../svg"
-import { FormatCurrency } from "../../format-currency"
+import { FormatCurrency } from "../../../shared/format-currency"
 import { Button } from "@/src/components/ui/button"
 import { RecentTransactions } from "./recent-transactions"
 import { PaymentLinkModal } from "../../modals/payment-link-generator"

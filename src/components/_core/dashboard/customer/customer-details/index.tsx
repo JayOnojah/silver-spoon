@@ -1,20 +1,30 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-import { ArrowLeft } from "lucide-react"
-import { User } from "../svg"
-import { 
+
+import {
+    User,
+    ShoppingBag,
+    Cash,
+    CheckCircle
+} from "../svg"
+
+import {
     Copy,
     Mail,
     Phone,
-    MapPin
- } from "lucide-react"
+    MapPin,
+    ArrowLeft
+} from "lucide-react"
+import { StatsCard } from "./stat-card"
+import { FormatCurrency } from "../../shared/format-currency"
+import { CustomerOperations } from "./tabs/customer-operations"
 
 export const CustomerDetails = () => {
     const router = useRouter();
 
     return (
-        <div>
+        <>
             <button
                 onClick={() => router.back()}
                 className="text-[#0D0D0D] flex gap-2 font-medium items-center rounded-lg cursor-pointer group"
@@ -32,23 +42,46 @@ export const CustomerDetails = () => {
                 <h1 className="text-[#121926] text-2xl font-black mt-4 mb-2">Sarah Jones</h1>
                 <div className="flex items-center gap-2">
                     <span className="text-[#9AA4B2] text-xs">ID: EGD6732</span>
-                    <Copy strokeLinejoin="round" color="#F74F25" size={16}/>
+                    <Copy strokeLinejoin="round" color="#F74F25" size={16} />
                 </div>
                 <div className="flex flex-col gap-3 mt-3">
                     <div className="text-[#9AA4B2] gap-1.5 flex items-center text-xs">
-                        <Mail size={16}/>
+                        <Mail size={16} />
                         <span>einstein.oyakhilome1@gmail.com</span>
                     </div>
                     <div className="text-[#9AA4B2] gap-1.5 flex items-center text-xs">
-                        <Phone size={16}/>
+                        <Phone size={16} />
                         <span>0906847344409</span>
                     </div>
                     <div className="text-[#9AA4B2] gap-1.5 flex items-center text-xs">
-                        <MapPin size={16}/>
+                        <MapPin size={16} />
                         <span>15 Victoria Island, Lagos</span>
                     </div>
                 </div>
             </div>
-        </div>
+            <div className="grid lg:grid-cols-4 md:grid-cols-2 mt-4 gap-6">
+                <StatsCard
+                    icon={<ShoppingBag />}
+                    value={7}
+                    label="Total Orders"
+                />
+                <StatsCard
+                    icon={<Cash />}
+                    value={FormatCurrency(120098)}
+                    label="Total Revenue"
+                />
+                <StatsCard
+                    icon={<Cash />}
+                    value={FormatCurrency(120098)}
+                    label="Total Expenditure"
+                />
+                <StatsCard
+                    icon={<CheckCircle />}
+                    value={12}
+                    label="Total Completed Orders"
+                />
+            </div>
+            <CustomerOperations />
+        </>
     )
 }
