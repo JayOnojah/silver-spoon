@@ -4,6 +4,7 @@ import React from "react";
 import Designs from "./designs";
 import CustomersMeasurement from "./customer-measurement";
 import OrderCost from "./order-cost";
+import MoodBoard from "../moodboard";
 
 const Measurement = () => {
   const [activeTab, setActiveTab] = React.useState("customer-measurements");
@@ -46,10 +47,14 @@ const Measurement = () => {
         {/* Designs Content */}
         {activeTab === "designs" && <Designs />}
 
+        {/* Moodboard Content */}
+        {activeTab === "moodboard" && <MoodBoard />}
+
         {/* Placeholder for other tabs */}
         {activeTab !== "customer-measurements" &&
           activeTab !== "order-cost" &&
-          activeTab !== "designs" && (
+          activeTab !== "designs" &&
+          activeTab !== "moodboard" && (
             <div className="mt-6 text-center py-12 text-[#6B7280]">
               {tabs.find((t) => t.id === activeTab)?.label} content coming
               soon...
