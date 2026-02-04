@@ -23,6 +23,7 @@ import {
   NotificationSvg,
 } from "../svg";
 import { IconChevronDown, IconCircle } from "@tabler/icons-react";
+import CustomCheckBox from "../../shared/custom-checkbox";
 
 const OrderDetailsHeader = () => {
   const [notificationsEnabled, setNotificationsEnabled] = useState(false);
@@ -160,19 +161,7 @@ const OrderDetailsHeader = () => {
                   className="flex items-center justify-between"
                 >
                   <span>{status}</span>
-                  <div
-                    className={cn(
-                      "w-4 h-4 border rounded-full flex items-center justify-center",
-                      `${paymentStatus === status ? "border-primary" : "border-[#9AA4B2]"}`,
-                    )}
-                  >
-                    <div
-                      className={cn(
-                        "w-2 h-2 border  rounded-full",
-                        `${paymentStatus === status ? "border-primary" : "border-transparent"}`,
-                      )}
-                    ></div>
-                  </div>
+                  <CustomCheckBox checked={paymentStatus === status} />
                 </DropdownMenuItem>
                 {status === "Partial Payment" &&
                   paymentStatus === "Partial Payment" && (

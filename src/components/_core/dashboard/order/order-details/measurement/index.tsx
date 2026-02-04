@@ -1,10 +1,8 @@
 "use client";
-import { Button } from "@/src/components/ui/button";
-import { Textarea } from "@/src/components/ui/textarea";
 import { cn } from "@/src/lib/utils";
-import { IconEdit, IconEyeOff } from "@tabler/icons-react";
 import React from "react";
-import CustomersMeasurement from "./customers-measurement";
+import Designs from "./designs";
+import CustomersMeasurement from "./customer-measurement";
 import OrderCost from "./order-cost";
 
 const Measurement = () => {
@@ -21,33 +19,37 @@ const Measurement = () => {
 
   return (
     <div>
-      <div className="bg-white rounded-xl p-6">
-        <div className="flex items-center gap-4 overflow-x-auto border-b border-[#E5E7EB]">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={cn(
-                "relative w-fit pb-3 text-sm font-bold transition-colors whitespace-nowrap",
-                activeTab === tab.id
-                  ? "text-foreground border-b-2 border-primary"
-                  : "text-[#9AA4B2]",
-              )}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+      <div className="flex bg-white rounded-lg mb-2 items-center gap-1 overflow-x-auto">
+        {tabs.map((tab) => (
+          <button
+            key={tab.id}
+            onClick={() => setActiveTab(tab.id)}
+            className={cn(
+              "relative w-fit py-3 px-2 text-sm font-bold transition-colors whitespace-nowrap",
+              activeTab === tab.id
+                ? "text-foreground border-b-2 border-primary"
+                : "text-[#9AA4B2]",
+            )}
+          >
+            {tab.label}
+          </button>
+        ))}
+      </div>
 
-        {/* Customer Measurements Content */}
+      {/* Customer Measurements Content */}
+      <div className="bg-white rounded-xl p-6">
         {activeTab === "customer-measurements" && <CustomersMeasurement />}
 
         {/* Order Cost Content */}
         {activeTab === "order-cost" && <OrderCost />}
 
+        {/* Designs Content */}
+        {activeTab === "designs" && <Designs />}
+
         {/* Placeholder for other tabs */}
         {activeTab !== "customer-measurements" &&
-          activeTab !== "order-cost" && (
+          activeTab !== "order-cost" &&
+          activeTab !== "designs" && (
             <div className="mt-6 text-center py-12 text-[#6B7280]">
               {tabs.find((t) => t.id === activeTab)?.label} content coming
               soon...

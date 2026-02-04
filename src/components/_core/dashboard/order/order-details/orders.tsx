@@ -1,7 +1,12 @@
+"use client";
+
+import { useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { IconPlus, IconTrash } from "@tabler/icons-react";
+import AddItem from "./add-item";
 
 const Orders = () => {
+  const [addItemOpen, setAddItemOpen] = useState(false);
   const orderItems = [
     {
       id: 1,
@@ -21,17 +26,23 @@ const Orders = () => {
     },
   ];
   return (
-    <div className="bg-white rounded-xl p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-lg font-bold text-foreground">Order Item</h2>
-        <Button
-          variant={"ghost"}
-          className=" hover:bg-[#EF4444]/90 hover:text-white text-primary rounded-xl h-10 px-4"
-        >
-          <IconPlus className="size-4" />
-          Add Item
-        </Button>
-      </div>
+    <>
+      <AddItem
+        open={addItemOpen}
+        onOpenChange={setAddItemOpen}
+      />
+      <div className="bg-white rounded-xl p-6">
+        <div className="flex items-center justify-between mb-6">
+          <h2 className="text-lg font-bold text-foreground">Order Item</h2>
+          <Button
+            variant={"ghost"}
+            className=" hover:bg-[#EF4444]/90 hover:text-white text-primary rounded-xl h-10 px-4"
+            onClick={() => setAddItemOpen(true)}
+          >
+            <IconPlus className="size-4" />
+            Add Item
+          </Button>
+        </div>
 
       <div className="space-y-4 mb-6">
         {orderItems.map((item) => (
@@ -81,6 +92,7 @@ const Orders = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

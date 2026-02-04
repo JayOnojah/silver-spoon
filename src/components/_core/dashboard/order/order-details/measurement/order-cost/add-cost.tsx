@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
-import { BinSvg } from "../../svg";
+import { BinSvg } from "../../../svg";
 
 export interface CostEntry {
   id: string;
@@ -77,7 +77,11 @@ const AddCost = ({ open, onOpenChange, onSubmit }: AddCostProps) => {
     }
   }, [open]);
 
-  const updateBlock = (id: string, field: keyof CostBlock, value: string | Date | undefined) => {
+  const updateBlock = (
+    id: string,
+    field: keyof CostBlock,
+    value: string | Date | undefined,
+  ) => {
     setBlocks((prev) =>
       prev.map((b) => (b.id === id ? { ...b, [field]: value } : b)),
     );
@@ -88,7 +92,9 @@ const AddCost = ({ open, onOpenChange, onSubmit }: AddCostProps) => {
   };
 
   const removeBlock = (id: string) => {
-    setBlocks((prev) => (prev.length > 1 ? prev.filter((b) => b.id !== id) : prev));
+    setBlocks((prev) =>
+      prev.length > 1 ? prev.filter((b) => b.id !== id) : prev,
+    );
   };
 
   const getValidEntries = (): CostEntry[] => {
@@ -119,7 +125,7 @@ const AddCost = ({ open, onOpenChange, onSubmit }: AddCostProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-106.25 max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-left font-bold text-foreground">
+          <DialogTitle className="text-left font-black text-[#121926]">
             Add New Cost
           </DialogTitle>
         </DialogHeader>
@@ -148,7 +154,9 @@ const AddCost = ({ open, onOpenChange, onSubmit }: AddCostProps) => {
                 <Input
                   placeholder="e.g., Sleeve_lenght"
                   value={block.costTitle}
-                  onChange={(e) => updateBlock(block.id, "costTitle", e.target.value)}
+                  onChange={(e) =>
+                    updateBlock(block.id, "costTitle", e.target.value)
+                  }
                   className="h-10 rounded-lg border-[#CDD5DF]"
                 />
               </div>
@@ -160,7 +168,9 @@ const AddCost = ({ open, onOpenChange, onSubmit }: AddCostProps) => {
                 <Textarea
                   placeholder="Enter Short Description..."
                   value={block.description}
-                  onChange={(e) => updateBlock(block.id, "description", e.target.value)}
+                  onChange={(e) =>
+                    updateBlock(block.id, "description", e.target.value)
+                  }
                   className="min-h-20 rounded-lg border-[#CDD5DF] resize-none"
                 />
               </div>
@@ -173,7 +183,9 @@ const AddCost = ({ open, onOpenChange, onSubmit }: AddCostProps) => {
                   <Input
                     placeholder="Enter Amount"
                     value={block.amount}
-                    onChange={(e) => updateBlock(block.id, "amount", e.target.value)}
+                    onChange={(e) =>
+                      updateBlock(block.id, "amount", e.target.value)
+                    }
                     className="h-10 rounded-lg border-[#CDD5DF]"
                   />
                 </div>

@@ -2,9 +2,8 @@
 
 import { useState } from "react";
 import { Button } from "@/src/components/ui/button";
-import { Textarea } from "@/src/components/ui/textarea";
-import { IconEdit, IconEyeOff } from "@tabler/icons-react";
-import { EditSvg } from "../../svg";
+import { IconEyeOff } from "@tabler/icons-react";
+import { EditSvg } from "../../../svg";
 import EditMeasurement from "./edit-measurement";
 
 const CustomersMeasurement = () => {
@@ -61,10 +60,7 @@ const CustomersMeasurement = () => {
         </div>
       </div>
 
-      <EditMeasurement
-        open={isDialogOpen}
-        onOpenChange={setIsDialogOpen}
-      />
+      <EditMeasurement open={isDialogOpen} onOpenChange={setIsDialogOpen} />
     </div>
   );
 };

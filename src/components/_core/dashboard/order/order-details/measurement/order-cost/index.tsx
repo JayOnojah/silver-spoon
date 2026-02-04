@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { format } from "date-fns";
 import { Button } from "@/src/components/ui/button";
-import { EditSvg, BinSvg } from "../../svg";
+import { EditSvg, BinSvg } from "../../../svg";
 import { IconPlus } from "@tabler/icons-react";
 import AddCost, { type CostEntry } from "./add-cost";
 
@@ -26,8 +26,20 @@ const toDisplayCost = (c: CostEntry): DisplayCost => ({
 });
 
 const INITIAL_COSTS: DisplayCost[] = [
-  { id: "1", name: "Button", category: "sewing", date: "Dec 20, 2025", amount: "₦120,000" },
-  { id: "2", name: "Thread", category: "sewing", date: "Dec 20, 2025", amount: "₦120,000" },
+  {
+    id: "1",
+    name: "Button",
+    category: "sewing",
+    date: "Dec 20, 2025",
+    amount: "₦120,000",
+  },
+  {
+    id: "2",
+    name: "Thread",
+    category: "sewing",
+    date: "Dec 20, 2025",
+    amount: "₦120,000",
+  },
 ];
 
 const OrderCost = () => {

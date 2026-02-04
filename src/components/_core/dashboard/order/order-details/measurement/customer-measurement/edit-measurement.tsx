@@ -73,7 +73,9 @@ const EditMeasurement = ({ open, onOpenChange }: EditMeasurementProps) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle>Edit Customer Measurement</DialogTitle>
+          <DialogTitle className="font-black text-[#121926]">
+            Edit Customer Measurement
+          </DialogTitle>
         </DialogHeader>
 
         <div className="space-y-6 mt-4">
@@ -175,7 +177,8 @@ const EditMeasurement = ({ open, onOpenChange }: EditMeasurementProps) => {
           {/* Notes Section */}
           <div className="space-y-2">
             <label className="text-sm font-semibold mb-1 block text-[#4B5565]">
-              Notes <span className="text-[#9AA4B2] font-normal">(Optional)</span>
+              Notes{" "}
+              <span className="text-[#9AA4B2] font-normal">(Optional)</span>
             </label>
             <Textarea
               placeholder="e.g., Customer prefers slightly loose fit around waist area"
