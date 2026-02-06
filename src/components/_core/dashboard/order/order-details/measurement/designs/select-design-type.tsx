@@ -51,7 +51,7 @@ const SelectDesignType = ({
     onOpenChange(false);
     setSearchQuery("");
     setSource("existing");
-    setSelectedId(MOCK_CATALOGUE[0]?.id ?? null);
+    setSelectedId(DUMMY_CATALOGUE[0]?.id ?? null);
   };
 
   const canProceed =
