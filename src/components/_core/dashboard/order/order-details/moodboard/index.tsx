@@ -4,6 +4,9 @@ import { useState } from "react";
 import { Button } from "@/src/components/ui/button";
 import { IconPalette, IconPlus, IconTrash, IconEye } from "@tabler/icons-react";
 import MoodboardPreview from "./moodboard-preview";
+import AddNewMoodboard from "./add-new-moodboard";
+import CreateNew from "./create-new";
+import type { CreateMoodboardData } from "./create-new";
 
 export interface MoodboardItem {
   id: string;
@@ -47,9 +50,44 @@ const MoodBoard = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewMoodboard, setPreviewMoodboard] =
     useState<MoodboardItem | null>(null);
+  const [addMoodboardOpen, setAddMoodboardOpen] = useState(false);
+  const [createNewOpen, setCreateNewOpen] = useState(false);
 
   const handleAddMoodboard = () => {
-    // TODO: open add moodboard dialog
+    setAddMoodboardOpen(true);
+  };
+
+  const handleAddMoodboardSelect = (source: "existing" | "new") => {
+    setAddMoodboardOpen(false);
+    if (source === "new") {
+      setCreateNewOpen(true);
+      return;
+    }
+    setMoodboards((prev) => [
+      ...prev,
+      {
+        id: `mb-${Date.now()}`,
+        title: "New Moodboard",
+        description: "Description",
+        designCount: 0,
+        lastUpdated: "Just now",
+        type: "3",
+      },
+    ]);
+  };
+
+  const handleCreateMoodboard = (data: CreateMoodboardData) => {
+    setMoodboards((prev) => [
+      ...prev,
+      {
+        id: `mb-${Date.now()}`,
+        title: data.title,
+        description: data.description,
+        designCount: 0,
+        lastUpdated: "Just now",
+        type: data.layoutStyle,
+      },
+    ]);
   };
 
   const handleRemove = (id: string) => {
@@ -63,6 +101,16 @@ const MoodBoard = () => {
 
   return (
     <div>
+      <AddNewMoodboard
+        open={addMoodboardOpen}
+        onOpenChange={setAddMoodboardOpen}
+        onSelect={handleAddMoodboardSelect}
+      />
+      <CreateNew
+        open={createNewOpen}
+        onOpenChange={setCreateNewOpen}
+        onCreate={handleCreateMoodboard}
+      />
       <MoodboardPreview
         open={previewOpen}
         onOpenChange={setPreviewOpen}
