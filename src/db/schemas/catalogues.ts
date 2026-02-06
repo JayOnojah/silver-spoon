@@ -48,5 +48,5 @@ export const catalogueDesignImages = pgTable("catalogue_design_images", {
 });
 
 export const insertCatalogueDesignImagesSchema = createInsertSchema(
-  catalogueDesignImages
+  catalogueDesignImages,
 );

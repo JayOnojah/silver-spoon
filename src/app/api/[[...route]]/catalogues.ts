@@ -1,21 +1,18 @@
-import { z } from "zod";
-import { Hono } from "hono";
-import { db } from "@/src/db/drizzle";
-import { getCookie } from "hono/cookie";
-import { currentUser } from "@/src/lib/auth";
-import { and, eq, desc, count } from "drizzle-orm";
-import { createId } from "@paralleldrive/cuid2";
-import { zValidator } from "@hono/zod-validator";
-import {
-  CatalogueSchema,
-  CatalogueDesignSchema,
-  CatalogueDesignImageSchema,
-} from "@/src/schemas/catalogue";
 import {
   catalogues,
   catalogueDesigns,
   catalogueDesignImages,
 } from "@/src/db/schemas/catalogues";
+
+import { z } from "zod";
+import { Hono } from "hono";
+import { db } from "@/src/db/drizzle";
+import { getCookie } from "hono/cookie";
+import { currentUser } from "@/src/lib/auth";
+import { createId } from "@paralleldrive/cuid2";
+import { zValidator } from "@hono/zod-validator";
+import { and, eq, desc, count } from "drizzle-orm";
+import { CatalogueSchema } from "@/src/schemas/catalogue";
 
 const app = new Hono()
   // Get all catalogues
@@ -56,7 +53,7 @@ const app = new Hono()
           ...catalogue,
           designsCount: designCount?.count || 0,
         };
-      })
+      }),
     );
 
     return c.json({ data: cataloguesWithCounts });
@@ -86,7 +83,9 @@ const app = new Hono()
       const [catalogue] = await db
         .select()
         .from(catalogues)
-        .where(and(eq(catalogues.id, id), eq(catalogues.businessId, businessId)));
+        .where(
+          and(eq(catalogues.id, id), eq(catalogues.businessId, businessId)),
+        );
 
       if (!catalogue) {
         return c.json({ error: "Catalogue not found" }, 404);
@@ -111,11 +110,11 @@ const app = new Hono()
             ...design,
             images,
           };
-        })
+        }),
       );
 
       return c.json({ data: { ...catalogue, designs: designsWithImages } });
-    }
+    },
   )
   // Create catalogue
   .post("/", zValidator("json", CatalogueSchema), async (c) => {
@@ -158,7 +157,7 @@ const app = new Hono()
       z.object({
         name: z.string().optional(),
         description: z.string().optional(),
-      })
+      }),
     ),
     async (c) => {
       const user = await currentUser();
@@ -181,7 +180,9 @@ const app = new Hono()
           ...values,
           updatedAt: new Date(),
         })
-        .where(and(eq(catalogues.id, id), eq(catalogues.businessId, businessId)))
+        .where(
+          and(eq(catalogues.id, id), eq(catalogues.businessId, businessId)),
+        )
         .returning();
 
       if (!data) {
@@ -189,7 +190,7 @@ const app = new Hono()
       }
 
       return c.json({ data });
-    }
+    },
   )
   // Delete catalogue
   .delete(
@@ -222,12 +223,16 @@ const app = new Hono()
       }
 
       // Delete designs
-      await db.delete(catalogueDesigns).where(eq(catalogueDesigns.catalogueId, id));
+      await db
+        .delete(catalogueDesigns)
+        .where(eq(catalogueDesigns.catalogueId, id));
 
       // Delete catalogue
       const [data] = await db
         .delete(catalogues)
-        .where(and(eq(catalogues.id, id), eq(catalogues.businessId, businessId)))
+        .where(
+          and(eq(catalogues.id, id), eq(catalogues.businessId, businessId)),
+        )
         .returning({ id: catalogues.id });
 
       if (!data) {
@@ -235,7 +240,7 @@ const app = new Hono()
       }
 
       return c.json({ data });
-    }
+    },
   )
   // Add design to catalogue
   .post(
@@ -246,7 +251,7 @@ const app = new Hono()
       z.object({
         title: z.string().min(1, "Title is required"),
         description: z.string().optional(),
-      })
+      }),
     ),
     async (c) => {
       const user = await currentUser();
@@ -267,7 +272,12 @@ const app = new Hono()
       const [catalogue] = await db
         .select()
         .from(catalogues)
-        .where(and(eq(catalogues.id, catalogueId), eq(catalogues.businessId, businessId)));
+        .where(
+          and(
+            eq(catalogues.id, catalogueId),
+            eq(catalogues.businessId, businessId),
+          ),
+        );
 
       if (!catalogue) {
         return c.json({ error: "Catalogue not found" }, 404);
@@ -289,7 +299,7 @@ const app = new Hono()
         .where(eq(catalogueDesigns.id, id));
 
       return c.json({ data });
-    }
+    },
   )
   // Delete design
   .delete(
@@ -317,7 +327,12 @@ const app = new Hono()
       // Delete design
       const [data] = await db
         .delete(catalogueDesigns)
-        .where(and(eq(catalogueDesigns.id, designId), eq(catalogueDesigns.businessId, businessId)))
+        .where(
+          and(
+            eq(catalogueDesigns.id, designId),
+            eq(catalogueDesigns.businessId, businessId),
+          ),
+        )
         .returning({ id: catalogueDesigns.id });
 
       if (!data) {
@@ -325,7 +340,7 @@ const app = new Hono()
       }
 
       return c.json({ data });
-    }
+    },
   )
   // Add image to design
   .post(
@@ -336,7 +351,7 @@ const app = new Hono()
       z.object({
         imageUrl: z.string(),
         imageKey: z.string(),
-      })
+      }),
     ),
     async (c) => {
       const user = await currentUser();
@@ -357,7 +372,12 @@ const app = new Hono()
       const [design] = await db
         .select()
         .from(catalogueDesigns)
-        .where(and(eq(catalogueDesigns.id, designId), eq(catalogueDesigns.businessId, businessId)));
+        .where(
+          and(
+            eq(catalogueDesigns.id, designId),
+            eq(catalogueDesigns.businessId, businessId),
+          ),
+        );
 
       if (!design) {
         return c.json({ error: "Design not found" }, 404);
@@ -379,14 +399,14 @@ const app = new Hono()
         .where(eq(catalogueDesignImages.id, id));
 
       return c.json({ data });
-    }
+    },
   )
   // Delete image
   .delete(
     "/:id/designs/:designId/images/:imageId",
     zValidator(
       "param",
-      z.object({ id: z.string(), designId: z.string(), imageId: z.string() })
+      z.object({ id: z.string(), designId: z.string(), imageId: z.string() }),
     ),
     async (c) => {
       const user = await currentUser();
@@ -407,8 +427,8 @@ const app = new Hono()
         .where(
           and(
             eq(catalogueDesignImages.id, imageId),
-            eq(catalogueDesignImages.businessId, businessId)
-          )
+            eq(catalogueDesignImages.businessId, businessId),
+          ),
         )
         .returning({ id: catalogueDesignImages.id });
 
@@ -417,7 +437,7 @@ const app = new Hono()
       }
 
       return c.json({ data });
-    }
+    },
   );
 
 export default app;
