@@ -6,6 +6,7 @@ import { Button } from "@/src/components/ui/button";
 import React from "react";
 
 const Dashboard = () => {
+  const [isFilled, setIsFilled] = React.useState(false);
   return (
     <>
       {/* Header Section */}
