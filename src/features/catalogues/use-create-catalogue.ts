@@ -3,31 +3,23 @@ import { client } from "@/src/lib/hono";
 import { InferRequestType, InferResponseType } from "hono";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-type ResponseType = InferResponseType<
-  (typeof client.api.catalogues)[":id"]["$patch"]
->;
-type RequestType = InferRequestType<
-  (typeof client.api.catalogues)[":id"]["$patch"]
->["json"];
+type ResponseType = InferResponseType<typeof client.api.catalogues.$post>;
+type RequestType = InferRequestType<typeof client.api.catalogues.$post>["json"];
 
-export const useEditCatalogue = (id: string) => {
+export const useCreateCatalogue = () => {
   const queryClient = useQueryClient();
 
   const mutation = useMutation<ResponseType, Error, RequestType>({
     mutationFn: async (json) => {
-      const response = await client.api.catalogues[":id"].$patch({
-        param: { id },
-        json,
-      });
+      const response = await client.api.catalogues.$post({ json });
       return await response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["catalogues"] });
-      queryClient.invalidateQueries({ queryKey: ["catalogue", { id }] });
-      toast.success("Catalogue updated successfully");
+      toast.success("Catalogue created successfully");
     },
     onError: () => {
-      toast.error("Failed to update catalogue");
+      toast.error("Failed to create catalogue");
     },
   });
 
