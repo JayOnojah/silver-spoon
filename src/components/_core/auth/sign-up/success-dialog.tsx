@@ -1,28 +1,29 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { IconCheck, IconWorld } from "@tabler/icons-react";
-import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
+import {
+  CartSvg,
+  NoteSvg,
+  PlaySvg,
+  CatalogueSvg,
+  MoodBoardsSvg,
+  MultipleUserSvg,
+} from "./svg";
+
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   type CarouselApi,
 } from "@/components/ui/carousel";
-import {
-  CartSvg,
-  CatalogueSvg,
-  MoodBoardsSvg,
-  MultipleUserSvg,
-  NoteSvg,
-  PlaySvg,
-} from "./svg";
+
+import { useState, useEffect } from "react";
+import { IconCheck, IconWorld } from "@tabler/icons-react";
+import { Dialog, DialogContent, DialogHeader } from "@/components/ui/dialog";
 
 interface SuccessDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onGoToDashboard?: () => void;
+  onAccountSignIn?: () => void;
 }
 
 const features = [
@@ -61,7 +62,7 @@ const features = [
 const SuccessDialog = ({
   open,
   onOpenChange,
-  onGoToDashboard,
+  onAccountSignIn,
 }: SuccessDialogProps) => {
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
@@ -80,8 +81,8 @@ const SuccessDialog = ({
     });
   }, [api]);
 
-  const handleGoToDashboard = () => {
-    onGoToDashboard?.();
+  const handleAccountSignIn = () => {
+    onAccountSignIn?.();
     onOpenChange(false);
   };
 
@@ -89,8 +90,7 @@ const SuccessDialog = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent
         showCloseButton={true}
-        className="max-w-200! rounded-xl p-4 sm:p-6 overflow-y-auto overflow-x-hidden max-h-[90vh] bg-[linear-gradient(180deg,#EBFAED_0%,#FFFFFF_44%)]"
-      >
+        className="max-w-200! rounded-xl p-4 sm:p-6 overflow-y-auto overflow-x-hidden max-h-[90vh] bg-[linear-gradient(180deg,#EBFAED_0%,#FFFFFF_44%)]">
         <DialogHeader className="space-y-6 mt-6 w-full overflow-x-hidden">
           <div className="flex justify-center">
             <div className="relative">
@@ -117,12 +117,17 @@ const SuccessDialog = ({
         <div className="mt-6 w-full overflow-x-hidden">
           {/* Mobile Carousel */}
           <div className="block sm:hidden w-full overflow-hidden">
-            <Carousel setApi={setApi} opts={{ align: "start", loop: false }} className="w-full max-w-full">
+            <Carousel
+              setApi={setApi}
+              opts={{ align: "start", loop: false }}
+              className="w-full max-w-full">
               <CarouselContent className="">
                 {features.map((feature, index) => {
                   const IconComponent = feature.icon;
                   return (
-                    <CarouselItem key={index} className="pl-0! basis-full min-w-0 shrink-0 max-w-full">
+                    <CarouselItem
+                      key={index}
+                      className="pl-0! basis-full min-w-0 shrink-0 max-w-full">
                       <div className="w-full max-w-full border border-[#CDD5DF] rounded-md p-3 bg-[#F8FAFC] hover:border-primary/50 transition-colors box-border">
                         <div className="flex items-start justify-between mb-3">
                           <div className="text-primary">
@@ -152,11 +157,7 @@ const SuccessDialog = ({
                   onClick={() => api?.scrollTo(index)}
                   className={`
                     w-2 h-2 rounded-full transition-all
-                    ${
-                      index + 1 === current
-                        ? "bg-primary w-6"
-                        : "bg-[#CDD5DF]"
-                    }
+                    ${index + 1 === current ? "bg-primary w-6" : "bg-[#CDD5DF]"}
                   `}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -171,8 +172,7 @@ const SuccessDialog = ({
               return (
                 <div
                   key={index}
-                  className="border border-[#CDD5DF] rounded-md p-3 bg-[#F8FAFC] hover:border-primary/50 transition-colors"
-                >
+                  className="border border-[#CDD5DF] rounded-md p-3 bg-[#F8FAFC] hover:border-primary/50 transition-colors">
                   <div className="flex items-start justify-between mb-3">
                     <div className="text-primary">
                       <IconComponent className="size-6 text-primary" />
@@ -197,9 +197,8 @@ const SuccessDialog = ({
         {/* Footer Link */}
         <div className="text-center pt-4">
           <button
-            onClick={handleGoToDashboard}
-            className="text-primary hover:underline font-medium text-sm"
-          >
+            onClick={handleAccountSignIn}
+            className="text-primary hover:underline font-medium text-sm">
             I'll watch this later, take me to the dashboard
           </button>
         </div>

@@ -1,47 +1,67 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import {
-  IconArrowLeft,
-  IconMail,
-  IconLock,
-} from "@tabler/icons-react";
-import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useState, useTransition } from "react";
+import { accountLogin } from "@/src/actions/account-login";
+import { IconMail, IconLock, IconArrowLeft } from "@tabler/icons-react";
 
 const SignInForm = () => {
-  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+  const [error, setError] = useState<string | null>(null);
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
-  // Validate that both fields are filled
   const isFormValid = email.trim().length > 0 && password.trim().length > 0;
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    setError(null);
+
+    startTransition(async () => {
+      const result = await accountLogin({ email, password });
+
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
+
+      if (result.success && result.redirectTo) {
+        router.push(result.redirectTo);
+        router.refresh();
+      }
+    });
+  }
 
   return (
     <div className="flex flex-col h-full justify-center max-w-163.5 mx-auto px-6">
-      {/* Back Link */}
       <Link
         href="/"
-        className="flex items-center gap-2 text-[#0D0D0D] hover:text-foreground mb-2 w-fit transition-colors"
-      >
+        className="flex items-center gap-2 text-[#0D0D0D] hover:text-foreground mb-2 w-fit transition-colors">
         <IconArrowLeft className="size-4" />
         <span className="text-sm">Back</span>
       </Link>
 
-      {/* Welcome Heading */}
       <h1 className="text-3xl font-bold text-foreground mb-4">
         Welcome Back, Creative! 👋
       </h1>
 
-      {/* Form */}
-      <form className="space-y-6">
-        {/* Email Input */}
+      {/* ← Add error display */}
+      {error && (
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl mb-6 text-sm">
+          {error}
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        {/* Email */}
         <div className="space-y-2">
-          <label
-            htmlFor="email"
-            className="text-sm font-medium text-[#4B5565]"
-          >
+          <label htmlFor="email" className="text-sm font-medium text-[#4B5565]">
             Your email *
           </label>
           <div className="relative">
@@ -53,23 +73,22 @@ const SignInForm = () => {
               className="pl-10 h-12 rounded-2xl"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              disabled={isPending}
             />
           </div>
         </div>
 
-        {/* Password Input */}
+        {/* Password */}
         <div className="space-y-2">
           <div className="flex items-center justify-between">
             <label
               htmlFor="password"
-              className="text-sm font-medium text-[#4B5565]"
-            >
+              className="text-sm font-medium text-[#4B5565]">
               Your password *
             </label>
             <Link
               href="/forgot-password"
-              className="text-sm text-primary font-medium hover:scale-95 transition-all duration-300 underline"
-            >
+              className="text-sm text-primary font-medium hover:scale-95 transition-all duration-300 underline">
               Forgot password?
             </Link>
           </div>
@@ -82,27 +101,25 @@ const SignInForm = () => {
               className="pl-10 pr-20 h-12 rounded-2xl"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              disabled={isPending}
             />
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-[#9AA4B2] hover:text-foreground"
-            >
+              disabled={isPending}>
               {showPassword ? "Hide" : "Show"}
             </button>
           </div>
         </div>
 
-        {/* Login Button */}
-        <Link href={"/dashboard"}>
-          <Button
-            type="button"
-            className="w-full h-12 text-base font-medium rounded-2xl"
-            disabled={!isFormValid}
-          >
-            Login
-          </Button>
-        </Link>
+        {/* Login Button – now type="submit" */}
+        <Button
+          type="submit"
+          className="w-full h-12 text-base font-medium rounded-2xl"
+          disabled={!isFormValid || isPending}>
+          {isPending ? "Logging in..." : "Login"}
+        </Button>
       </form>
 
       {/* OR Separator */}
@@ -115,8 +132,7 @@ const SignInForm = () => {
       {/* Google Login Button */}
       <Button
         variant="outline"
-        className="w-full h-12 text-base font-medium border-[#CDD5DF]"
-      >
+        className="w-full h-12 text-base font-medium border-[#CDD5DF]">
         <svg className="size-5 mr-2" viewBox="0 0 24 24">
           <path
             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -143,8 +159,7 @@ const SignInForm = () => {
         Don't have an account?{" "}
         <Link
           href="/auth/sign-up"
-          className="text-primary hover:underline font-medium"
-        >
+          className="text-primary hover:underline font-medium">
           Sign Up
         </Link>
       </p>

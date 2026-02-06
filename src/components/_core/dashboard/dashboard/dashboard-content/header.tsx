@@ -5,7 +5,7 @@ import React from "react";
 const Header = () => {
   return (
     <div>
-      <div className="flex gap-4 flex-col sm:flex-row items-start justify-between mb-5">
+      <div className="flex gap-5 flex-col sm:flex-row items-start justify-between mb-5">
         <div>
           <h1 className="text-3xl font-extrabold text-foreground mb-2">
             Dashboard

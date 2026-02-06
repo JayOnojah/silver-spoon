@@ -9,7 +9,7 @@ export const accountLogout = async () => {
 
     // Delete cookies safely
     [
-      "tenant_id",
+      "business_id",
       "authjs.session-token",
       "__Secure-authjs.session-token",
     ].forEach((name) => cookieStore.delete({ name, path: "/" }));
@@ -26,12 +26,12 @@ export const accountLogout = async () => {
     // Ignore the NEXT_REDIRECT error thrown by Next.js
     if (error?.digest?.startsWith("NEXT_REDIRECT")) return;
 
-    console.error("Logout error: ", error);
+    console.error("Logout Error: ", error);
 
     // Fallback redirect in case of a real error
     await signOut({
       redirect: true,
-      redirectTo: "/login",
+      redirectTo: "/sign-in",
     });
   }
 };

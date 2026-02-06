@@ -17,7 +17,7 @@ export const businessUsers = pgTable(
     role: businessUserRoleEnum("role").notNull(),
     isActive: boolean("is_active").notNull().default(true),
   },
-  (t) => [primaryKey({ columns: [t.userId, t.businessId] })],
+  (t) => [primaryKey({ columns: [t.userId, t.businessId] })]
 );
 
 export const insertBusinessUserSchema = createInsertSchema(businessUsers);

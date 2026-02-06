@@ -1,16 +1,16 @@
 import {
-  businessTypeEnum,
-  subscriptionPlanEnum,
-  subscriptionStatusEnum,
-} from "../enums";
-
-import {
   text,
   boolean,
   integer,
   pgTable,
   timestamp,
 } from "drizzle-orm/pg-core";
+
+import {
+  businessTypeEnum,
+  subscriptionPlanEnum,
+  subscriptionStatusEnum,
+} from "../enums";
 
 import { users } from "./users";
 import { timestamps } from "../utils";

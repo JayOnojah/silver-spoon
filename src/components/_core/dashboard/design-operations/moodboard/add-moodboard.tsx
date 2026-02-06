@@ -12,25 +12,28 @@ import {
 
 import { Button } from "@/src/components/ui/button";
 import { Plus, UploadCloud, X } from "lucide-react";
+
 import { CreateNewMoodboard } from "./create-new-moodboard";
+import { MoodboardSuccessModal } from "./moodboard-success";
 
 interface AddMoodboardModalProps {
   btnName: string;
+  btnStyle?: string;
 }
 
-type Step = 1 | 2;
+type Step = 1 | 2 | 3;
 type SourceOption = "existing" | "create" | null;
 export type AssociatedWith = "order" | "customer" | "personal";
 export type LayoutStyle = "grid3" | "grid4" | "masonry";
 
-export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
+export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState<Step>(1);
 
   // Step 1
   const [selectedSource, setSelectedSource] = useState<SourceOption>(null);
 
-  // Step 2 (Create New) state kept here so it persists if user goes back
+  // Step 2 state kept here so it persists if user goes back
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [associatedWith, setAssociatedWith] = useState<AssociatedWith>("order");
@@ -45,10 +48,7 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
     return baseOk && assocOk;
   }, [title, description, associatedWith, orderValue]);
 
-  const resetAll = () => {
-    setStep(1);
-    setSelectedSource(null);
-
+  const resetCreateForm = () => {
     setTitle("");
     setDescription("");
     setAssociatedWith("order");
@@ -56,6 +56,12 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
     setPrimaryHex("#FFFFFF");
     setSecondaryHex("#F9F0EE");
     setLayoutStyle("grid3");
+  };
+
+  const resetAll = () => {
+    setStep(1);
+    setSelectedSource(null);
+    resetCreateForm();
   };
 
   return (
@@ -67,7 +73,7 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
       }}
     >
       <DialogTrigger asChild>
-        <Button className="bg-[#F74F25] text-white rounded-2xl h-12 font-bold font-sans gap-2">
+        <Button className={`bg-[#F74F25] text-white rounded-2xl h-12 font-bold font-sans gap-2 ${btnStyle}`}>
           <Plus className="h-5 w-5" />
           {btnName}
         </Button>
@@ -75,15 +81,18 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
 
       <DialogContent className="w-[92vw] max-w-180 p-0 gap-0 rounded-4xl border font-sans">
         <div className="relative max-h-[85vh] overflow-y-auto">
-          {/* Close X */}
-          <DialogClose asChild>
-            <button
-              type="button"
-              aria-label="Close"
-              className="absolute right-4 top-4 md:right-6 md:top-6 inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-black/5"
-            >
-            </button>
-          </DialogClose>
+          {/* Close X  */}
+          {step !== 3 && (
+            <DialogClose asChild>
+              <button
+                type="button"
+                aria-label="Close"
+                className="absolute right-4 top-4 md:right-6 md:top-6 inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-black/5 z-10"
+              >
+                {/* <X className="h-5 w-5 text-[#121926]" /> */}
+              </button>
+            </DialogClose>
+          )}
 
           {/* ===================== STEP 1 ===================== */}
           {step === 1 && (
@@ -106,7 +115,7 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
                     // later: set for "existing designs" flow
                   }}
                   className={[
-                    "w-[full] rounded-2xl border bg-white px-3 py-3 transition",
+                    "w-full rounded-2xl border bg-white px-3 py-3 transition",
                     "hover:border-[#B9C0CA]",
                     selectedSource === "existing"
                       ? "border-[#F74F25] ring-2 ring-[#F74F25]/20"
@@ -152,7 +161,7 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
             </div>
           )}
 
-          {/* ===================== STEP 2 (moved out) ===================== */}
+          {/* ===================== STEP 2 ===================== */}
           {step === 2 && (
             <CreateNewMoodboard
               title={title}
@@ -172,7 +181,7 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
               canCreate={canCreate}
               onBack={() => setStep(1)}
               onCreate={() => {
-                // later: submit/create + go to next step
+                // later: API call
                 console.log({
                   title,
                   description,
@@ -182,6 +191,25 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
                   secondaryHex,
                   layoutStyle,
                 });
+
+                setStep(3); // ✅ move to success modal
+              }}
+            />
+          )}
+
+          {/* ===================== STEP 3 (SUCCESS) ===================== */}
+          {step === 3 && (
+            <MoodboardSuccessModal
+              onClose={() => setOpen(false)}
+              onAddDesigns={() => {
+                // later: route to add designs flow
+                setOpen(false);
+              }}
+              onCreateAnother={() => {
+                // reset form but keep dialog open and go straight to create step
+                resetCreateForm();
+                setSelectedSource("create");
+                setStep(2);
               }}
             />
           )}
@@ -190,5 +218,3 @@ export const AddMoodboard = ({ btnName }: AddMoodboardModalProps) => {
     </Dialog>
   );
 };
-
-

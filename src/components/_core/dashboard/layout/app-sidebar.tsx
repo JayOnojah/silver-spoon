@@ -1,16 +1,20 @@
 "use client";
 
-import * as React from "react";
-import { IconChevronDown, IconHome, IconSquare } from "@tabler/icons-react";
-
-import { NavMain } from "./nav-main";
 import {
   Sidebar,
-  SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarContent,
 } from "@/components/ui/sidebar";
+
+import * as React from "react";
+import { NavMain } from "./nav-main";
+import { LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useConfirm } from "@/src/hooks/use-confirm";
+import { accountLogout } from "@/src/actions/account-logout";
+import { IconChevronDown, IconHome } from "@tabler/icons-react";
+
 import {
   AnalyticsIcon,
   CustomerIcon,
@@ -161,12 +165,27 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [ConfirmationDialog, confirm] = useConfirm(
+    "Confirm Logout",
+    "You are about to log out of your account. Confirm to proceed.",
+  );
+
+  const handleLogout = async () => {
+    const isConfirmed = await confirm();
+
+    if (isConfirmed) {
+      await accountLogout();
+      console.log("User confirmed logout");
+      window.location.href = "/sign-in";
+    }
+  };
+
   return (
     <Sidebar
       collapsible="offcanvas"
       {...props}
-      className="text-white fixed left-0 top-0 h-screen"
-    >
+      className="text-white fixed left-0 top-0 h-screen">
+      <ConfirmationDialog />
       <SidebarHeader className="border-b border-[#374151] py-1">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -178,8 +197,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <div className="mt-1 mb-3">
           <Button
             variant="ghost"
-            className="w-full justify-between bg-[#111827] hover:bg-[#111827] text-white hover:text-white border border-[#374151] h-auto py-2.5 px-3"
-          >
+            className="w-full justify-between bg-[#111827] hover:bg-[#111827] text-white hover:text-white border border-[#374151] h-auto py-2.5 px-3">
             <div className="flex items-center gap-2">
               <IconHome className="size-4" />
               <span className="text-sm">John Stiches</span>
@@ -190,6 +208,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent className="py-2">
         <NavMain items={data.navMain} />
+        <p
+          className="text-sm text-[#9CA3AF] px-4 py-2 cursor-pointer"
+          onClick={handleLogout}>
+          <LogOut className="size-4 inline mr-2" /> Logout
+        </p>
       </SidebarContent>
       <SidebarFooter className="border-t border-[#374151]">
         <div className="space-y-4">
@@ -201,8 +224,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <svg
                     className="size-6 text-white ml-1"
                     fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
+                    viewBox="0 0 20 20">
                     <path d="M6.3 2.841A1.5 1.5 0 004 4.11V15.89a1.5 1.5 0 002.3 1.269l9.344-5.89a1.5 1.5 0 000-2.538L6.3 2.84z" />
                   </svg>
                 </div>

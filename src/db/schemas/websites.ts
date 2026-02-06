@@ -26,10 +26,10 @@ export const websites = pgTable("websites", {
   buttonPrimaryTextColor: text("button_primary_text_color").default("FFFFFF"),
   buttonSecondaryColor: text("button_secondary_color").default("ECF0FE"),
   buttonSecondaryTextColor: text("button_secondary_text_color").default(
-    "406CF4",
+    "406CF4"
   ),
   userId: text("user_id"),
-  tenantId: text("tenant_id")
+  businessId: text("business_id")
     .notNull()
     .references(() => businesses.id, { onDelete: "cascade" }),
   ...timestamps,
@@ -54,7 +54,7 @@ export const websiteBlocks = pgTable("website_blocks", {
   websiteId: text("website_id")
     .notNull()
     .references(() => websites.id, { onDelete: "cascade" }),
-  tenantId: text("tenant_id")
+  businessId: text("business_id")
     .notNull()
     .references(() => businesses.id, { onDelete: "cascade" }),
   ...timestamps,

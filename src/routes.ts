@@ -5,13 +5,13 @@
  */
 export const publicRoutes = [
   "/",
-  "/fashion-designers",
+  "/blog",
   "/cobblers",
   "/pricing",
   "/features",
   "/academy",
   "/about-us",
-  "/blog",
+  "/fashion-designers",
 ];
 
 /**
@@ -42,12 +42,10 @@ export const isPublicPath = (pathname: string) =>
  * Authentication routes
  */
 export const authRoutes = [
-  "/auth/error",
-  "/auth/login",
-  "/auth/reset",
-  "/auth/sign-up",
-  "/auth/reset-password",
-  "/auth/forgot-password",
+  "/sign-in",
+  "/sign-up",
+  "/reset-password",
+  "/forgot-password",
 ];
 
 /**

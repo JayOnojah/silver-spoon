@@ -1,17 +1,21 @@
 import { Resend } from "resend";
+import { v4 as uuidv4 } from "uuid";
 import { VerifyEmail } from "@/src/components/emails/verify-email";
 import { SetPassword } from "@/src/components/emails/set-password";
 import { ResetPassword } from "@/src/components/emails/reset-password";
 
-const sender = "KeepOS <no-reply@mail.keep-os.com>";
+const generateUniqueRefId = () => uuidv4();
 const resend = new Resend(process.env.RESEND_API_KEY);
-const domain = process.env.NEXT_PUBLIC_RESEND_DOMAIN || "keep-os.com";
+const sender = "SilverSpoon <no-reply@mail.usesilverspoon.com>";
+const domain = process.env.NEXT_PUBLIC_RESEND_DOMAIN || "usesilverspoon.com";
 
 export const sendVerificationEmail = async (
   email: string,
   token: string,
   name: string,
 ) => {
+  const uniqueRef = generateUniqueRefId();
+
   const { data, error } = await resend.emails.send({
     from: sender,
     to: email,
@@ -20,13 +24,16 @@ export const sendVerificationEmail = async (
       name,
       code: token,
     }),
+    headers: {
+      "X-Entity-Ref-ID": uniqueRef,
+    },
   });
 
   if (error) {
     throw new Error(`Failed to send verification email: ${error.message}`);
   }
 
-  console.log("Verification email sent successfully:", data);
+  console.log("Verification email sent successfully: ", data);
 };
 
 export const sendPasswordResetEmail = async (
@@ -34,7 +41,8 @@ export const sendPasswordResetEmail = async (
   token: string,
   name: string,
 ) => {
-  const resetLink = `https://${domain}/auth/reset-password?token=${token}`;
+  const uniqueRef = generateUniqueRefId();
+  const resetLink = `https://${domain}/reset-password?token=${token}`;
   const { data, error } = await resend.emails.send({
     from: sender,
     to: email,
@@ -43,13 +51,16 @@ export const sendPasswordResetEmail = async (
       name,
       resetLink: resetLink,
     }),
+    headers: {
+      "X-Entity-Ref-ID": uniqueRef,
+    },
   });
 
   if (error) {
     throw new Error(`Failed to send password reset email: ${error.message}`);
   }
 
-  console.log("Password reset email sent successfully:", data);
+  console.log("Password reset email sent successfully: ", data);
 };
 
 export const sendSetPasswordEmail = async (
@@ -59,38 +70,27 @@ export const sendSetPasswordEmail = async (
   business: string,
   position: string,
 ) => {
-  console.log("\n--- sendSetPasswordEmail function called ---");
-  console.log("Parameters:", {
-    email,
-    token: token.substring(0, 10) + "...",
-    name,
-    business,
-    position,
-  });
-
-  const resetLink = `https://${domain}/auth/reset-password?token=${token}`;
-  console.log("Reset link:", resetLink);
-  console.log("Sender:", sender);
-  console.log("Calling resend.emails.send...");
+  const uniqueRef = generateUniqueRefId();
+  const resetLink = `https://${domain}/reset-password?token=${token}`;
 
   const { data, error } = await resend.emails.send({
     from: sender,
     to: email,
-    subject: "Reset Your Account Password",
+    subject: "Set Your Account Password",
     react: SetPassword({
       name,
       business,
       position,
       resetLink: resetLink,
     }),
+    headers: {
+      "X-Entity-Ref-ID": uniqueRef,
+    },
   });
 
   if (error) {
-    console.error("❌ Resend API error:", error);
     throw new Error(`Failed to send password reset email: ${error.message}`);
   }
 
-  console.log("✓ Password reset email sent successfully!");
-  console.log("Resend response data:", data);
-  console.log("--- sendSetPasswordEmail completed ---\n");
+  console.log("Set password email sent successfully: ", data);
 };
