@@ -22,9 +22,9 @@ export const catalogueDesigns = pgTable("catalogue_designs", {
   id: text("id").primaryKey(),
   catalogueId: text("catalogue_id")
     .notNull()
-    .references(() => catalogues.id),
-  title: text("name").notNull(),
-  description: text("name").notNull(),
+    .references(() => catalogues.id, { onDelete: "cascade" }),
+  title: text("title").notNull(),
+  description: text("description"),
   businessId: text("business_id")
     .notNull()
     .references(() => businesses.id, { onDelete: "cascade" }),

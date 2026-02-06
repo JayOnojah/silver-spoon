@@ -5,7 +5,7 @@ import orders from "./orders";
 import websites from "./websites";
 import customers from "./customers";
 import businesses from "./businesses";
-// import catalogues from "./catalogues";
+import catalogues from "./catalogues";
 
 export const runtime = "edge";
 
@@ -15,8 +15,8 @@ const routes = app
   .route("/orders", orders)
   .route("/websites", websites)
   .route("/customers", customers)
-  .route("/businesses", businesses);
-// .route("/catalogues", catalogues); --- IGNORE ---
+  .route("/businesses", businesses)
+  .route("/catalogues", catalogues);
 
 export const GET = handle(app);
 export const POST = handle(app);
