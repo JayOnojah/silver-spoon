@@ -11,7 +11,7 @@ const Dashboard = () => {
     <>
       {/* Header Section */}
       <Header />
-      {isFilled && <Setup />}
+      {!isFilled && <Setup />}
       <DashboardContent isFilled={isFilled} />
       <Button onClick={() => setIsFilled(!isFilled)} className="fixed bottom-6 right-6 rounded shadow-lg hover:shadow-xl">
         show {!isFilled ? "Data " : "Empty "} State
