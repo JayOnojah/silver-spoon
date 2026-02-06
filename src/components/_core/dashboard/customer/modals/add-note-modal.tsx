@@ -164,7 +164,7 @@ export default function AddNoteModal({ triggerText }: { triggerText: string }) {
           <div className="flex items-start justify-between">
             <div>
               <DialogTitle className="text-2xl font-black text-[#121926]">
-                Edit Note
+                Add Note
               </DialogTitle>
             </div>
           </div>
