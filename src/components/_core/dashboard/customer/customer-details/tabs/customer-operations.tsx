@@ -6,6 +6,8 @@ import { CustomerOrders } from './orders';
 import { Appointments } from './appointments';
 import { CustomerMeasurement } from './customer-measurement';
 import { Moodboard } from './moodboard.tsx';
+import { Notes } from './notes';
+import { Properties} from './properties';
 
 export const CustomerOperations = () => {
     const [activeTab, setActiveTab] = useState('orders');
@@ -17,6 +19,8 @@ export const CustomerOperations = () => {
                 {activeTab === 'orders' && <CustomerOrders />}
                 {activeTab === 'customer-measurements' && <CustomerMeasurement />}
                 {activeTab === 'moodboard' && <Moodboard />}
+                {activeTab === 'notes' && <Notes />}
+                {activeTab === 'properties' && <Properties />}
             </div>
             <Appointments />
         </div>
