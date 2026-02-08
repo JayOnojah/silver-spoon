@@ -1,54 +1,97 @@
 "use client";
 
-import React from "react";
+import { useEffect, useRef, useState } from "react";
 
 export type TabItem = {
   id: string;
   label: string;
-  count?: number; 
+  count?: number;
 };
 
 type MoodboardTabsProps = {
   tabs: TabItem[];
-  defaultActiveId?: string;
+  activeTab: string;
+  setActiveTab: (id: string) => void;
 };
 
-export function MoodboardTabs({ tabs, defaultActiveId }: MoodboardTabsProps) {
-  const firstId = tabs[0]?.id ?? "";
-  const [activeId, setActiveId] = React.useState<string>(defaultActiveId ?? firstId);
+export function MoodboardTabs({ tabs, activeTab, setActiveTab }: MoodboardTabsProps) {
+  const [indicatorStyle, setIndicatorStyle] = useState({ left: 0, width: 0 });
+
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const updateIndicator = () => {
+    const activeIndex = tabs.findIndex((tab) => tab.id === activeTab);
+    const activeEl = tabRefs.current[activeIndex];
+    const containerEl = containerRef.current;
+
+    if (!activeEl || !containerEl) return;
+
+    setIndicatorStyle({
+      left: activeEl.offsetLeft - containerEl.scrollLeft,
+      width: activeEl.offsetWidth,
+    });
+  };
+
+  useEffect(() => {
+    updateIndicator();
+
+    // keep active tab visible when overflow-x-auto
+    const activeIndex = tabs.findIndex((tab) => tab.id === activeTab);
+    tabRefs.current[activeIndex]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
+  }, [activeTab, tabs]);
+
+  useEffect(() => {
+    const containerEl = containerRef.current;
+    if (!containerEl) return;
+
+    const onScroll = () => updateIndicator();
+    containerEl.addEventListener("scroll", onScroll, { passive: true });
+
+    const ro = new ResizeObserver(() => updateIndicator());
+    ro.observe(containerEl);
+
+    return () => {
+      containerEl.removeEventListener("scroll", onScroll);
+      ro.disconnect();
+    };
+  }, [tabs, activeTab]);
 
   return (
-    <div className="w-full rounded-lg bg-white shadow-sm overflow-x-auto md:overflow-x-visible py-2 mb-4">
-      <div className="flex min-w-max md:min-w-0 items-center gap-8 px-5 md:gap-12 md:flex-wrap">
-        {tabs.map((t) => {
-          const isActive = t.id === activeId;
-
-          return (
+    <div className="w-full bg-white rounded-xl pr-6 mb-4">
+      <div ref={containerRef} className="relative overflow-x-auto">
+        <div className="flex gap-8 px-6 whitespace-nowrap">
+          {tabs.map((tab, index) => (
             <button
-              key={t.id}
+              key={tab.id}
+              ref={(el) => {
+                tabRefs.current[index] = el;
+              }}
               type="button"
-              onClick={() => setActiveId(t.id)}
+              onClick={() => setActiveTab(tab.id)}
               className={[
-                "relative whitespace-nowrap pb-3 text-sm transition",
-                isActive
-                  ? "font-bold text-[#121926]"
-                  : "font-semibold text-[#9AA4B2] hover:text-[#121926]/70",
+                "relative py-4 text-sm cursor-pointer font-bold transition-colors duration-200",
+                activeTab === tab.id ? "text-[#121926]" : "text-[#9AA4B2] hover:text-gray-600",
               ].join(" ")}
             >
-              <span>
-                {t.label}
-                {typeof t.count === "number" ? ` (${t.count})` : ""}
-              </span>
-
-              <span
-                className={[
-                  "absolute left-0 right-0 -bottom-0.5 h-1 rounded-full transition-opacity",
-                  isActive ? "bg-[#F74F25] opacity-100" : "opacity-0",
-                ].join(" ")}
-              />
+              {tab.label}
+              {typeof tab.count === "number" ? ` (${tab.count})` : ""}
             </button>
-          );
-        })}
+          ))}
+        </div>
+
+        {/* Animated underline indicator */}
+        <div
+          className="absolute bottom-0 h-1 bg-[#F74F25] transition-all duration-300 ease-out"
+          style={{
+            left: `${indicatorStyle.left}px`,
+            width: `${indicatorStyle.width}px`,
+          }}
+        />
       </div>
     </div>
   );

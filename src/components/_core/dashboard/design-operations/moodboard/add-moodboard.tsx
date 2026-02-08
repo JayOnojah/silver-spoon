@@ -3,7 +3,6 @@
 import { useMemo, useState } from "react";
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -11,18 +10,21 @@ import {
 } from "@/components/ui/dialog";
 
 import { Button } from "@/src/components/ui/button";
-import { Plus, UploadCloud, X } from "lucide-react";
+import { Plus, UploadCloud } from "lucide-react";
 
 import { CreateNewMoodboard } from "./create-new-moodboard";
 import { MoodboardSuccessModal } from "./moodboard-success";
+import { PreviewMoodboardStep } from "./preview-moodboard";
+import { AddMoodboardDetailsStep } from "./add-details";
 
 interface AddMoodboardModalProps {
   btnName: string;
   btnStyle?: string;
 }
 
-type Step = 1 | 2 | 3;
+type Step = 1 | 2 | 3 | 4 | 5;
 type SourceOption = "existing" | "create" | null;
+
 export type AssociatedWith = "order" | "customer" | "personal";
 export type LayoutStyle = "grid3" | "grid4" | "masonry";
 
@@ -33,14 +35,24 @@ export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
   // Step 1
   const [selectedSource, setSelectedSource] = useState<SourceOption>(null);
 
-  // Step 2 state kept here so it persists if user goes back
+  // Shared form state (used by CreateNew + AddDetails)
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [associatedWith, setAssociatedWith] = useState<AssociatedWith>("order");
   const [orderValue, setOrderValue] = useState<string>("");
+
+  // CreateNew-only state
   const [primaryHex, setPrimaryHex] = useState("#FFFFFF");
   const [secondaryHex, setSecondaryHex] = useState("#F9F0EE");
   const [layoutStyle, setLayoutStyle] = useState<LayoutStyle>("grid3");
+
+  // Dummy preview images (same pattern as details page)
+  const previewImages = Array(6)
+    .fill(null)
+    .map((_, i) => ({
+      id: `preview-${i + 1}`,
+      imageUrl: "/images/pngs/catalogue-detail-img.png",
+    }));
 
   const canCreate = useMemo(() => {
     const baseOk = title.trim().length > 0 && description.trim().length > 0;
@@ -48,11 +60,14 @@ export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
     return baseOk && assocOk;
   }, [title, description, associatedWith, orderValue]);
 
-  const resetCreateForm = () => {
+  const resetSharedForm = () => {
     setTitle("");
     setDescription("");
     setAssociatedWith("order");
     setOrderValue("");
+  };
+
+  const resetCreateOnly = () => {
     setPrimaryHex("#FFFFFF");
     setSecondaryHex("#F9F0EE");
     setLayoutStyle("grid3");
@@ -61,7 +76,8 @@ export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
   const resetAll = () => {
     setStep(1);
     setSelectedSource(null);
-    resetCreateForm();
+    resetSharedForm();
+    resetCreateOnly();
   };
 
   return (
@@ -73,26 +89,18 @@ export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
       }}
     >
       <DialogTrigger asChild>
-        <Button className={`bg-[#F74F25] text-white rounded-2xl h-12 font-bold font-sans gap-2 ${btnStyle}`}>
+        <Button
+          className={`bg-[#F74F25] text-white rounded-2xl h-12 font-bold font-sans gap-2 ${btnStyle ?? ""}`}
+        >
           <Plus className="h-5 w-5" />
           {btnName}
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="w-[92vw] max-w-180 p-0 gap-0 rounded-4xl border font-sans">
+      <DialogContent 
+      showCloseButton={step !== 4}
+      className="w-[92vw] max-w-180 p-0 gap-0 rounded-4xl border font-sans">
         <div className="relative max-h-[85vh] overflow-y-auto">
-          {/* Close X  */}
-          {step !== 3 && (
-            <DialogClose asChild>
-              <button
-                type="button"
-                aria-label="Close"
-                className="absolute right-4 top-4 md:right-6 md:top-6 inline-flex h-9 w-9 items-center justify-center rounded-full hover:bg-black/5 z-10"
-              >
-                {/* <X className="h-5 w-5 text-[#121926]" /> */}
-              </button>
-            </DialogClose>
-          )}
 
           {/* ===================== STEP 1 ===================== */}
           {step === 1 && (
@@ -112,7 +120,7 @@ export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
                   type="button"
                   onClick={() => {
                     setSelectedSource("existing");
-                    // later: set for "existing designs" flow
+                    setStep(3); // ✅ go to preview step
                   }}
                   className={[
                     "w-full rounded-2xl border bg-white px-3 py-3 transition",
@@ -137,7 +145,7 @@ export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
                   type="button"
                   onClick={() => {
                     setSelectedSource("create");
-                    setStep(2);
+                    setStep(2); // ✅ create new flow
                   }}
                   className={[
                     "w-full rounded-2xl border bg-white px-3 py-3 transition",
@@ -161,7 +169,7 @@ export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
             </div>
           )}
 
-          {/* ===================== STEP 2 ===================== */}
+          {/* ===================== STEP 2 (Create New) ===================== */}
           {step === 2 && (
             <CreateNewMoodboard
               title={title}
@@ -192,13 +200,55 @@ export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
                   layoutStyle,
                 });
 
-                setStep(3); // ✅ move to success modal
+                setStep(5); // success
               }}
             />
           )}
 
-          {/* ===================== STEP 3 (SUCCESS) ===================== */}
+          {/* ===================== STEP 3 (Preview Existing) ===================== */}
           {step === 3 && (
+            <PreviewMoodboardStep
+              designs={previewImages}
+              onBack={() => setStep(1)} // previous step 
+              onChange={() => {
+                // later: change selected images / upload flow
+                console.log("change preview images");
+              }}
+              onProceed={() => setStep(4)} //proceed to add details step
+            />
+
+          )}
+
+          {/* ===================== STEP 4 (Add Details) ===================== */}
+          {step === 4 && (
+            <AddMoodboardDetailsStep
+              title={title}
+              setTitle={setTitle}
+              description={description}
+              setDescription={setDescription}
+              associatedWith={associatedWith}
+              setAssociatedWith={setAssociatedWith}
+              orderValue={orderValue}
+              setOrderValue={setOrderValue}
+              canCreate={canCreate}
+              onBack={() => setStep(3)}
+              onCreate={() => {
+                // later: API call
+                console.log({
+                  title,
+                  description,
+                  associatedWith,
+                  orderValue,
+                  source: "existing",
+                });
+
+                setStep(5);
+              }}
+            />
+          )}
+
+          {/* ===================== STEP 5 (SUCCESS) ===================== */}
+          {step === 5 && (
             <MoodboardSuccessModal
               onClose={() => setOpen(false)}
               onAddDesigns={() => {
@@ -206,8 +256,7 @@ export const AddMoodboard = ({ btnName, btnStyle }: AddMoodboardModalProps) => {
                 setOpen(false);
               }}
               onCreateAnother={() => {
-                // reset form but keep dialog open and go straight to create step
-                resetCreateForm();
+                resetAll();
                 setSelectedSource("create");
                 setStep(2);
               }}
