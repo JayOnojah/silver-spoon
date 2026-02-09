@@ -130,13 +130,16 @@ export const TodosAndTask = () => {
   };
 
   const handleCreateGroupedSubmit = (data: CreateGroupedTodoFormData) => {
+    const initials = data.assignStaff
+      .slice(0, 4)
+      .map((m) => m.name.trim()[0]?.toUpperCase() ?? "?");
     setGroupedTasks((prev) => [
       ...prev,
       {
         id: `g-${Date.now()}`,
         groupTitle: data.groupName,
-        teamMemberInitials: ["S", "S", "S", "S"],
-        teamMemberCount: 8,
+        teamMemberInitials: initials.length ? initials : ["S", "S", "S", "S"],
+        teamMemberCount: data.assignStaff.length,
         subTitle: data.title,
         description: data.description,
         completed: false,

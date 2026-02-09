@@ -98,28 +98,28 @@ export const DocSvg = () => (
   >
     <path
       d="M18.3332 8.33366V12.5003C18.3332 16.667 16.6665 18.3337 12.4998 18.3337H7.49984C3.33317 18.3337 1.6665 16.667 1.6665 12.5003V7.50033C1.6665 3.33366 3.33317 1.66699 7.49984 1.66699H11.6665"
-      stroke="#9AA4B2"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M18.3332 8.33366H14.9998C12.4998 8.33366 11.6665 7.50033 11.6665 5.00033V1.66699L18.3332 8.33366Z"
-      stroke="#9AA4B2"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M5.8335 10.833H10.8335"
-      stroke="#9AA4B2"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
     />
     <path
       d="M5.8335 14.167H9.16683"
-      stroke="#9AA4B2"
+      stroke="currentColor"
       strokeWidth="1.5"
       strokeLinecap="round"
       strokeLinejoin="round"
