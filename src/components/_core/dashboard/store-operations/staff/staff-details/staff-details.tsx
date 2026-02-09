@@ -1,14 +1,14 @@
 'use client'
 
 import { useRouter } from "next/navigation"
-
+import { StaffOperations } from "./staff-operations"
 import {
     User,
     ShoppingBag,
     Cash,
     CheckCircle,
     More
-} from "../svg"
+} from "../../../customer/svg"
 
 import {
     Copy,
@@ -25,12 +25,11 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { StatsCard } from "./stat-card"
-import { FormatCurrency } from "../../shared/format-currency"
-import { CustomerOperations } from "./tabs/customer-operations"
-import { Edit, Trash } from "../../design-operations/svg"
+import { StatsCard } from "./static-card"
+import { FormatCurrency } from "../../../shared/format-currency"
+import { Edit, Trash } from "../../../design-operations/svg"
 
-export const CustomerDetails = () => {
+export const StaffDetails = () => {
     const router = useRouter();
 
     return (
@@ -111,7 +110,7 @@ export const CustomerDetails = () => {
                     label="Total Completed Orders"
                 />
             </div>
-            <CustomerOperations />
+            <StaffOperations />
         </>
     )
 }
