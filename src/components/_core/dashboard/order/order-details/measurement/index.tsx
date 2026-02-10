@@ -4,6 +4,7 @@ import React from "react";
 import Designs from "./designs";
 import CustomersMeasurement from "./customer-measurement";
 import OrderCost from "./order-cost";
+import PaymentHistory from "./payment-history";
 import MoodBoard from "../moodboard";
 import { TodosAndTask } from "./todos-and-task";
 import Notes from "./note";
@@ -18,6 +19,7 @@ const Measurement = () => {
     { id: "moodboard", label: "Moodboard" },
     { id: "todos-tasks", label: "Todos & Tasks" },
     { id: "notes", label: "Notes" },
+    { id: "payment-history", label: "Payment History" },
   ];
 
   return (
@@ -46,6 +48,9 @@ const Measurement = () => {
         {/* Order Cost Content */}
         {activeTab === "order-cost" && <OrderCost />}
 
+        {/* Payment History Content */}
+        {activeTab === "payment-history" && <PaymentHistory />}
+
         {/* Designs Content */}
         {activeTab === "designs" && <Designs />}
 
@@ -61,6 +66,7 @@ const Measurement = () => {
         {/* Placeholder for other tabs */}
         {activeTab !== "customer-measurements" &&
           activeTab !== "order-cost" &&
+          activeTab !== "payment-history" &&
           activeTab !== "designs" &&
           activeTab !== "moodboard" &&
           activeTab !== "todos-tasks" &&
