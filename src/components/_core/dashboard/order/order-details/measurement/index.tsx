@@ -4,7 +4,10 @@ import React from "react";
 import Designs from "./designs";
 import CustomersMeasurement from "./customer-measurement";
 import OrderCost from "./order-cost";
+import PaymentHistory from "./payment-history";
 import MoodBoard from "../moodboard";
+import { TodosAndTask } from "./todos-and-task";
+import Notes from "./note";
 
 const Measurement = () => {
   const [activeTab, setActiveTab] = React.useState("customer-measurements");
@@ -16,6 +19,7 @@ const Measurement = () => {
     { id: "moodboard", label: "Moodboard" },
     { id: "todos-tasks", label: "Todos & Tasks" },
     { id: "notes", label: "Notes" },
+    { id: "payment-history", label: "Payment History" },
   ];
 
   return (
@@ -44,17 +48,29 @@ const Measurement = () => {
         {/* Order Cost Content */}
         {activeTab === "order-cost" && <OrderCost />}
 
+        {/* Payment History Content */}
+        {activeTab === "payment-history" && <PaymentHistory />}
+
         {/* Designs Content */}
         {activeTab === "designs" && <Designs />}
 
         {/* Moodboard Content */}
         {activeTab === "moodboard" && <MoodBoard />}
 
+        {/* Todos & Tasks Content */}
+        {activeTab === "todos-tasks" && <TodosAndTask />}
+
+        {/* Notes Content */}
+        {activeTab === "notes" && <Notes />}
+
         {/* Placeholder for other tabs */}
         {activeTab !== "customer-measurements" &&
           activeTab !== "order-cost" &&
+          activeTab !== "payment-history" &&
           activeTab !== "designs" &&
-          activeTab !== "moodboard" && (
+          activeTab !== "moodboard" &&
+          activeTab !== "todos-tasks" &&
+          activeTab !== "notes" && (
             <div className="mt-6 text-center py-12 text-[#6B7280]">
               {tabs.find((t) => t.id === activeTab)?.label} content coming
               soon...
