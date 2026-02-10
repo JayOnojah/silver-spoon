@@ -36,7 +36,7 @@ export const NoteCard = ({ note, onView, onEdit, onDelete }: NoteCardProps) => {
               className="p-2 text-[#9AA4B2] hover:text-foreground rounded-md transition-colors"
               aria-label="View discussion"
             >
-              <IconEye className="size-4" />
+              <IconEye className="size-6" />
             </button>
           )}
           <button

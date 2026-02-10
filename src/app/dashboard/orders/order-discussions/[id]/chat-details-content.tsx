@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,7 +10,6 @@ import {
   FileText,
   MessageSquareMore,
   Send,
-  Paperclip,
   Copy,
 } from "lucide-react";
 import {
@@ -18,6 +17,16 @@ import {
   Share,
   Trash,
 } from "@/src/components/_core/dashboard/design-operations/svg";
+import { MentionPopover } from "@/src/components/_core/dashboard/order/order-details/measurement/note/mention-popover";
+
+const MENTION_STAFF = [
+  { id: "s1", name: "Sarah Jones" },
+  { id: "s2", name: "John Doe" },
+  { id: "s3", name: "Einstein Oyakhilome" },
+  { id: "s4", name: "Jane Smith" },
+  { id: "s5", name: "Mike Johnson" },
+  { id: "s6", name: "Anna Lee" },
+];
 
 export interface Comment {
   id: number;
@@ -104,10 +113,69 @@ interface ChatDetailsContentProps {
   discussionId?: string;
 }
 
-export default function ChatDetailsContent({ discussionId }: ChatDetailsContentProps) {
+export default function ChatDetailsContent({
+  discussionId,
+}: ChatDetailsContentProps) {
   const router = useRouter();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const cursorAfterMentionRef = useRef<number | null>(null);
+
   const [newComment, setNewComment] = useState("");
   const [comments] = useState<Comment[]>(DUMMY_COMMENTS);
+  const [mentionPopoverOpen, setMentionPopoverOpen] = useState(false);
+  const [mentionStartIndex, setMentionStartIndex] = useState(0);
+  const [mentionQuery, setMentionQuery] = useState("");
+  const [mentionPopoverSearch, setMentionPopoverSearch] = useState("");
+
+  const filteredMentionStaff = MENTION_STAFF.filter((s) =>
+    s.name.toLowerCase().includes(mentionPopoverSearch.toLowerCase()),
+  );
+
+  const handleCommentChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    const cursor = e.target.selectionStart ?? value.length;
+    setNewComment(value);
+
+    const textBeforeCursor = value.slice(0, cursor);
+    const lastAt = textBeforeCursor.lastIndexOf("@");
+    if (lastAt === -1) {
+      setMentionPopoverOpen(false);
+      return;
+    }
+    const fromAtToCursor = textBeforeCursor.slice(lastAt + 1);
+    if (fromAtToCursor.includes(" ") || fromAtToCursor.includes("\n")) {
+      setMentionPopoverOpen(false);
+      return;
+    }
+    setMentionStartIndex(lastAt);
+    setMentionQuery(fromAtToCursor);
+    setMentionPopoverSearch(fromAtToCursor);
+    setMentionPopoverOpen(true);
+    cursorAfterMentionRef.current = cursor;
+  };
+
+  const handleSelectMention = (staff: { id: string; name: string }) => {
+    const cursor = cursorAfterMentionRef.current ?? mentionStartIndex + 1;
+    const before = newComment.slice(0, mentionStartIndex);
+    const after = newComment.slice(cursor);
+    const insertion = `@${staff.name} `;
+    const newValue = before + insertion + after;
+    setNewComment(newValue);
+    setMentionPopoverOpen(false);
+    cursorAfterMentionRef.current = null;
+    const newCursor = mentionStartIndex + insertion.length;
+    setTimeout(() => {
+      textareaRef.current?.focus();
+      textareaRef.current?.setSelectionRange(newCursor, newCursor);
+    }, 0);
+  };
+
+  useEffect(() => {
+    if (!mentionPopoverOpen) {
+      cursorAfterMentionRef.current = null;
+      setMentionPopoverSearch("");
+    }
+  }, [mentionPopoverOpen]);
 
   const yesterdayComments = comments.filter((c) => c.date === "Yesterday");
   const todayComments = comments.filter((c) => c.date === "Today");
@@ -208,8 +276,8 @@ export default function ChatDetailsContent({ discussionId }: ChatDetailsContentP
                 Discussion About Sarah&apos;s Design
               </h1>
               <p className="text-[#9AA4B2] text-sm">
-                Brainstorming on possible ideas and concept regarding sarah&apos;s
-                red carpet event
+                Brainstorming on possible ideas and concept regarding
+                sarah&apos;s red carpet event
               </p>
             </div>
           </div>
@@ -241,7 +309,7 @@ export default function ChatDetailsContent({ discussionId }: ChatDetailsContentP
       </div>
 
       {/* Comments section */}
-      <div className="rounded-2xl bg-white border border-[#E5E7EB]/50 shadow-sm overflow-hidden">
+      <div className="overflow-hidden">
         <div className="px-4 pt-4 pb-2 border-b border-[#E5E7EB]">
           <div className="flex items-center gap-2">
             <MessageSquareMore size={20} className="text-[#4B5565]" />
@@ -251,7 +319,7 @@ export default function ChatDetailsContent({ discussionId }: ChatDetailsContentP
           </div>
         </div>
 
-        <div className="px-4">
+        <div className="px-4 pb-16">
           {yesterdayComments.length > 0 && (
             <>
               <div className="py-3 flex items-center gap-2">
@@ -279,15 +347,32 @@ export default function ChatDetailsContent({ discussionId }: ChatDetailsContentP
         </div>
 
         {/* Comment input (fixed at bottom of section) */}
-        <div className="p-4 border-t border-[#E5E7EB] bg-white">
+        <div className="p-4 fixed bottom-0 w-full md:w-[calc(100%-260px)] -translate-x-4 border-t border-[#E5E7EB] bg-white">
           <div className="flex gap-3 items-end">
-            <Textarea
-              placeholder="Add a comment...Use @ to mention teams"
-              value={newComment}
-              onChange={(e) => setNewComment(e.target.value)}
-              className="flex-1 min-h-11 rounded-xl max-h-32 text-sm resize-none border-[#D0D5DD] focus:border-[#F74F25] focus-visible:ring-[#F74F25]"
-              rows={1}
-            />
+            <MentionPopover
+              open={mentionPopoverOpen}
+              onOpenChange={setMentionPopoverOpen}
+              searchValue={mentionPopoverSearch}
+              onSearchValueChange={setMentionPopoverSearch}
+              items={filteredMentionStaff}
+              onSelect={handleSelectMention}
+            >
+              <div className="flex-1 relative">
+                <Textarea
+                  ref={textareaRef}
+                  placeholder="Add a comment...Use @ to mention teams"
+                  value={newComment}
+                  onChange={handleCommentChange}
+                  onSelect={(e) => {
+                    const cursor = (e.target as HTMLTextAreaElement)
+                      .selectionStart;
+                    cursorAfterMentionRef.current = cursor;
+                  }}
+                  className="w-full min-h-11 rounded-xl max-h-32 text-sm resize-none border-[#D0D5DD] focus:border-[#F74F25] focus-visible:ring-[#F74F25]"
+                  rows={1}
+                />
+              </div>
+            </MentionPopover>
             <Button
               type="button"
               size="icon"
@@ -295,15 +380,6 @@ export default function ChatDetailsContent({ discussionId }: ChatDetailsContentP
               aria-label="Send"
             >
               <Send size={18} />
-            </Button>
-            <Button
-              type="button"
-              size="icon"
-              variant="outline"
-              className="rounded-full h-11 w-11 shrink-0 bg-[#F74F25] border-[#F74F25] hover:bg-[#F74F25]/90 hover:border-[#F74F25]/90 text-white"
-              aria-label="Attach"
-            >
-              <Paperclip size={18} />
             </Button>
           </div>
         </div>
