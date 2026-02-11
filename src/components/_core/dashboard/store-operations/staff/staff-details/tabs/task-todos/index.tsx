@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import { Input } from '@/src/components/ui/input';
+import { Checkbox } from '@/src/components/ui/checkbox';
+import { Alarm } from '../../../../svg';
 import { Search } from 'lucide-react';
-import { CartSvg } from '@/src/components/_core/auth/sign-up/svg';
 import {
     Table,
     TableBody,
@@ -20,64 +21,63 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Button } from '@/src/components/ui/button';
 
-interface Activities {
+interface TaskTodos {
     id: string;
+    title: string;
     description: string;
-    date: string;
 }
 
-const activities: Activities[] = [
+const taskTodos: TaskTodos[] = [
     {
         id: '1',
-        description: 'Created an order 46463',
-        date: '25 Dec, 20205',
+        title: 'Obi’s Cap',
+        description: 'Create the dimensions for the Mr Obi’s Cap. And confirm with the Vendor and can extend to the next line',
     },
     {
         id: '2',
-        description: 'Added a new inventory item',
-        date: '25 Dec, 20205',
+        title: 'Obi’s Cap',
+        description: 'Create the dimensions for the Mr Obi’s Cap. And confirm with the Vendor and can extend to the next line',
     },
     {
         id: '3',
-        description: 'Added a new customer',
-        date: '25 Dec, 20205',
+        title: 'Obi’s Cap',
+        description: 'Create the dimensions for the Mr Obi’s Cap. And confirm with the Vendor and can extend to the next line',
     },
     {
         id: '4',
-        description: 'Added a new customer',
-        date: '25 Dec, 20205',
+        title: 'Obi’s Cap',
+        description: 'Create the dimensions for the Mr Obi’s Cap. And confirm with the Vendor and can extend to the next line',
     },
     {
         id: '5',
-        description: 'Updated customer information',
-        date: '25 Dec, 20205',
+        title: 'Obi’s Cap',
+        description: 'Create the dimensions for the Mr Obi’s Cap. And confirm with the Vendor and can extend to the next line',
     },
     {
         id: '6',
-        description: 'Generated Payment link for Order 3442',
-        date: '25 Dec, 20205',
+        title: 'Obi’s Cap',
+        description: 'Create the dimensions for the Mr Obi’s Cap. And confirm with the Vendor and can extend to the next line',
     },
 ];
 
 
 
-export const RecentActivities = () => {
+export const TaskTodos = () => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [isEmptyActivities, setIsEmptyActivities] = useState(false);
+    const [isEmptyTodo, setIsEmptyTodo] = useState(false);
     const totalPages = 10; // Example total pages
 
     return (
         <div className="w-full lg:bg-white rounded-2xl my-6 font-sans p-6">
             {/* Header */}
-            <div className='mb-4'>
-                <h1 className="font-bold text-[#000000] mb-6">All Activities(6)</h1>
-                <div className="relative">
+            <div className='flex items-center mb-6 justify-between'>
+                <h1 className="font-bold text-[#000000]">Task & Todos (5)</h1>
+                <div className="relative md:w-100 w-full">
                     <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-[#9AA4B2]" />
                     <Input
                         type="text"
-                        placeholder="Search..."
+                        placeholder="Search Task & Todos..."
                         className="w-full pl-12 pr-4 py-3 rounded-lg border h-12 text-gray-600 placeholder:text-[#9AA4B2]"
                     />
                 </div>
@@ -87,33 +87,27 @@ export const RecentActivities = () => {
                 <Table>
                     <TableHeader>
                         <TableRow className="bg-[#FFF1EC]/50 hover:bg-[#FFF1EC]/40 border-none">
-                            <TableHead className="text-[#9AA4B2] font-bold text-sm py-2 pl-4 rounded-l-4xl">
-                                Description
+                            <TableHead className="text-[#9AA4B2] flex items-end! gap-3 font-bold text-sm py-2 rounded-l-xl">
+                                <Checkbox className='size-6' />
+                                Task Title
                             </TableHead>
-                            <TableHead className="text-[#9AA4B2] font-bold text-sm py-2">
-                                Date
-                            </TableHead>
-                            <TableHead className="text-[#9AA4B2] font-bold text-sm py-2 rounded-r-4xl">
-                                Action
+                            <TableHead className="text-[#9AA4B2] font-bold text-sm py-2 rounded-r-xl">
+                                Task Description
                             </TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {activities.map((activity) => (
+                        {taskTodos.map((todo) => (
                             <TableRow
-                                key={activity.id}
+                                key={todo.id}
                                 className="border-b border-[#CDD5DF] hover:bg-gray-50"
                             >
-                                <TableCell className="font-medium text-[#121926] py-4">
-                                    {activity.description}
+                                <TableCell className="font-medium text-[#121926] py-4 flex items-end gap-3">
+                                    <Checkbox className='size-6' />
+                                    {todo.title}
                                 </TableCell>
-                                <TableCell className="text-[#121926] py-4">
-                                    {activity.date}
-                                </TableCell>
-                                <TableCell className="py-4">
-                                    <Button variant={'outline'} className='w-full flex-1 border-[#CDD5DF] border h-11 text-[#9AA4B2]'>
-                                        View Details
-                                    </Button>
+                                <TableCell className="text-[#121926] wrap-break-words whitespace-normal max-w-xs">
+                                    {todo.description}
                                 </TableCell>
                             </TableRow>
                         ))}
@@ -122,21 +116,17 @@ export const RecentActivities = () => {
             </div>
             {/* Mobile Table */}
             <div className='lg:hidden flex flex-col gap-4'>
-                {activities.map((activity) => (
-                    <div className='bg-white p-4 rounded-2xl w-full border' key={activity.id}>
-                        <div className='flex justify-between items-center mb-2'>
-                            <p className='text-[#9AA4B2]'>Description</p>
-                            <p className='text-[#121926] text-sm font-bold'>{activity.description}</p>
+                {taskTodos.map((todo) => (
+                    <div className='bg-white p-4 rounded-2xl w-full border' key={todo.id}>
+                        <div className='mb-4'>
+                            <Checkbox className='size-6' />
+                            <p className='text-[#9AA4B2]'>Task Title</p>
+                            <p className='text-[#121926] text-sm font-bold'>{todo.title}</p>
                         </div>
-                        <div className='flex justify-between items-center mb-2'>
-                            <p className='text-[#9AA4B2]'>Date</p>
-                            <p className='text-[#121926] text-sm font-bold'>{activity.date}</p>
-                        </div>
-                        <div className='flex justify-between items-center mb-2'>
-                            <p className='text-[#9AA4B2]'>Action</p>
-                            <Button variant={'outline'} className='w-full flex-1 border-[#CDD5DF] border h-11 text-[#9AA4B2]'>
-                                View Details
-                            </Button>
+                        <div className='mb-2'>
+                            <Checkbox className='size-6' />
+                            <p className='text-[#9AA4B2]'>Task Description</p>
+                            <p className='text-[#121926] text-sm font-bold'>{todo.description}</p>
                         </div>
                     </div>
                 ))}
@@ -192,11 +182,11 @@ export const RecentActivities = () => {
                     </PaginationContent>
                 </Pagination>
             </div>
-            {isEmptyActivities && (
+            {isEmptyTodo && (
                 <div className="flex flex-col justify-center items-center py-40">
-                    <CartSvg />
-                    <h1 className="text-[18px] font-bold text-black pt-4 pb-2">No Orders Created Yet!</h1>
-                    <p className="text-[#9AA4B2] text-sm">All orders created by this staff will be displayed here</p>
+                    <Alarm />
+                    <h1 className="text-[18px] font-bold text-black pt-4 pb-2">No Tasks Assigned Yet!</h1>
+                    <p className="text-[#9AA4B2] text-sm">All tasks assigned to this staff will be displayed here</p>
                 </div>
             )}
         </div>
