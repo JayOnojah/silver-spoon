@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/select";
 
 export default function AddStaffModal({
-   
+
 }) {
     const [open, onOpenChange] = useState(false)
     const [formData, setFormData] = useState({
@@ -69,17 +69,18 @@ export default function AddStaffModal({
                     New Staff
                 </Button>
             </DialogTrigger>
-            <DialogContent className="sm:max-w-150 p-0 gap-0 rounded-3xl py-3">
+            <DialogContent className="sm:max-w-150 p-0 gap-0 rounded-3xl py-3 
+                          max-h-[90vh] overflow-y-auto">
                 <DialogHeader className="px-6 pt-6 pb-4">
                     <DialogTitle className="text-2xl font-black text-[#121926]">
                         Add New Staff Member
                     </DialogTitle>
                 </DialogHeader>
 
-                <form onSubmit={handleSubmit} className="px-6 pb-6">
+                <form onSubmit={handleSubmit} className="max-h-[70vh] overflow-y-auto px-6 pb-6">
                     <div className="space-y-4">
                         {/* First Name and Last Name */}
-                        <div className="grid grid-cols-2 gap-4">
+                        <div className="grid md:grid-cols-2 gap-4">
                             <div className="space-y-2">
                                 <Label htmlFor="firstName">
                                     First Name <span className="text-red-500">*</span>
@@ -174,12 +175,13 @@ export default function AddStaffModal({
                             <Label>
                                 Permissions<span className="text-red-500">*</span>
                             </Label>
-                            <div className="grid grid-cols-3 gap-4">
+                            <div className="grid md:grid-cols-3 gap-4">
                                 <div className="flex items-center space-x-2">
                                     <Checkbox
                                         id="customers"
                                         checked={formData.permissions.customers}
                                         onCheckedChange={() => handlePermissionChange("customers")}
+                                        className="rounded-full"
                                     />
                                     <label
                                         htmlFor="customers"
@@ -193,6 +195,7 @@ export default function AddStaffModal({
                                         id="orders"
                                         checked={formData.permissions.orders}
                                         onCheckedChange={() => handlePermissionChange("orders")}
+                                        className="rounded-full"
                                     />
                                     <label
                                         htmlFor="orders"
@@ -208,6 +211,7 @@ export default function AddStaffModal({
                                         onCheckedChange={() =>
                                             handlePermissionChange("designOperations")
                                         }
+                                        className="rounded-full"
                                     />
                                     <label
                                         htmlFor="designOperations"
@@ -221,6 +225,7 @@ export default function AddStaffModal({
                                         id="inventory"
                                         checked={formData.permissions.inventory}
                                         onCheckedChange={() => handlePermissionChange("inventory")}
+                                        className="rounded-full"
                                     />
                                     <label
                                         htmlFor="inventory"
@@ -234,6 +239,7 @@ export default function AddStaffModal({
                                         id="analytics"
                                         checked={formData.permissions.analytics}
                                         onCheckedChange={() => handlePermissionChange("analytics")}
+                                        className="rounded-full"
                                     />
                                     <label
                                         htmlFor="analytics"
@@ -249,6 +255,7 @@ export default function AddStaffModal({
                                         onCheckedChange={() =>
                                             handlePermissionChange("storeOperations")
                                         }
+                                        className="rounded-full"
                                     />
                                     <label
                                         htmlFor="storeOperations"
@@ -262,6 +269,7 @@ export default function AddStaffModal({
                                         id="wallet"
                                         checked={formData.permissions.wallet}
                                         onCheckedChange={() => handlePermissionChange("wallet")}
+                                        className="rounded-full"
                                     />
                                     <label
                                         htmlFor="wallet"
@@ -275,6 +283,7 @@ export default function AddStaffModal({
                                         id="marketing"
                                         checked={formData.permissions.marketing}
                                         onCheckedChange={() => handlePermissionChange("marketing")}
+                                        className="rounded-full"
                                     />
                                     <label
                                         htmlFor="marketing"
@@ -288,6 +297,7 @@ export default function AddStaffModal({
                                         id="finance"
                                         checked={formData.permissions.finance}
                                         onCheckedChange={() => handlePermissionChange("finance")}
+                                        className="rounded-full"
                                     />
                                     <label
                                         htmlFor="finance"

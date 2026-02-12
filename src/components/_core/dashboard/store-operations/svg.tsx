@@ -15,3 +15,17 @@ export const CheckPark = () => {
 
     )
 }
+
+export const Alarm = () => {
+    return (
+        <svg width="36" height="39" viewBox="0 0 36 39" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.8285 37.8309C26.5073 37.8309 33.5428 30.7954 33.5428 22.1166C33.5428 13.4379 26.5073 6.40234 17.8285 6.40234C9.14978 6.40234 2.11426 13.4379 2.11426 22.1166C2.11426 30.7954 9.14978 37.8309 17.8285 37.8309Z" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M13.5425 0.6875H22.1139" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M17.8286 0.6875V6.40179" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M13.5425 16.4023L17.8282 22.1166H24.9711" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M32.1143 4.97266L34.9714 7.8298" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M3.54269 4.97266L0.685547 7.8298" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+
+    )
+}
