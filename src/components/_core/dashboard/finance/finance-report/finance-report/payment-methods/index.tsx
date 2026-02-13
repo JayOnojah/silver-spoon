@@ -60,11 +60,11 @@ export const PaymentMethodsUsed = () => {
     const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
     return (
-        <div className="bg-white rounded-2xl p-6 w-full mt-6">
+        <div className="bg-white rounded-2xl md:p-6 p-4 w-full mt-6">
             {/* Title */}
             <p className="text-sm font-bold text-[#121926] mb-6">Payment Methods Used</p>
 
-            <div className="flex items-stretch gap-8">
+            <div className="flex flex-col md:flex-row items-stretch gap-8">
 
                 {/* ── Bar Chart ── */}
                 <div className="flex-1 min-w-0">
@@ -116,7 +116,7 @@ export const PaymentMethodsUsed = () => {
                 </div>
 
                 {/* ── Legend Cards ── */}
-                <div className="flex flex-col gap-3 justify-center w-85 shrink-0">
+                <div className="flex flex-col gap-3 justify-center md:w-85 shrink-0">
                     {PAYMENT_DATA.map((item, index) => (
                         <div
                             key={item.name}

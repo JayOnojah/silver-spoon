@@ -1,4 +1,4 @@
-import { FormatCurrency } from "../../../shared/format-currency";
+import { FormatCurrency } from "../../shared/format-currency";
 interface StatsCardProps {
     icon: React.ReactNode;
     value: number;

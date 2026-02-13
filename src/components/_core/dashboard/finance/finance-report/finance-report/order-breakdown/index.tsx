@@ -113,12 +113,19 @@ export const OrderBreakdown = () => {
     }, [activePeriod]);
 
     return (
-        <div className="bg-white rounded-2xl p-6 w-full h-full">
+        <div className="bg-white rounded-2xl md:p-6 p-4 w-full h-full">
             {/* Header row */}
-            <div className="flex items-start justify-between mb-1">
-                <p className="text-sm text-[#9AA4B2] font-bold">Order Breakdown</p>
+            <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-4">
+                <div className="">
+                    <p className="text-sm text-[#9AA4B2] font-bold">Order Breakdown</p>
+                    {/* Total count */}
+                    <p className="text-[28px] font-black text-[#121926] leading-tight">
+                        {total.toLocaleString()}{" "}
+                        <span className="text-[22px] font-bold">orders</span>
+                    </p>
+                </div>
 
-                {/* Pill toggle */}
+
                 <div className="relative flex items-center border border-[#1a1a1a] rounded-full p-1">
                     {/* Sliding pill */}
                     <span
@@ -133,9 +140,9 @@ export const OrderBreakdown = () => {
                             key={period}
                             ref={(el) => { periodRefs.current[idx] = el; }}
                             onClick={() => setActivePeriod(period)}
-                            className={`relative z-10 px-5 py-2 rounded-full text-sm font-medium transition-colors duration-300 ${activePeriod === period
-                                    ? "text-white"
-                                    : "text-[#9AA4B2] hover:text-[#364152]"
+                            className={`relative z-10 px-5 py-2 w-full rounded-full text-sm font-medium transition-colors duration-300 ${activePeriod === period
+                                ? "text-white"
+                                : "text-[#9AA4B2] hover:text-[#364152]"
                                 }`}
                         >
                             {period}
@@ -143,12 +150,6 @@ export const OrderBreakdown = () => {
                     ))}
                 </div>
             </div>
-
-            {/* Total count */}
-            <p className="text-[28px] font-black text-[#121926] mb-6 leading-tight">
-                {total.toLocaleString()}{" "}
-                <span className="text-[22px] font-bold">orders</span>
-            </p>
 
             {/* Chart */}
             <ResponsiveContainer width="100%" height={320}>

@@ -41,9 +41,9 @@ export const ExpenseBreakdown = () => {
             {/* Title */}
             <p className="text-sm font-bold text-[#121926] mb-6">Expense Breakdown</p>
 
-            <div className="flex items-center gap-8">
+            <div className="flex flex-col md:flex-row md:items-center gap-8">
                 {/* Pie Chart */}
-                <div className="shrink-0 w-55 h-55">
+                <div className="shrink-0 w-55 h-55 mx-auto">
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                             <Pie

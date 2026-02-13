@@ -144,19 +144,19 @@ export const RevenueCostsBreakdown = () => {
     const chartHeight = data.length * 95 + 20;
 
     return (
-        <div className="bg-white rounded-2xl p-6 w-full mt-6">
+        <div className="bg-white rounded-2xl md:p-6 p-4 w-full mt-6">
             {/* Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex flex-col md:flex-row md:items-center gap-4 justify-between mb-6">
                 <p className="text-sm font-bold text-[#121926]">Revenue vs Costs Breakdown</p>
 
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="flex items-center gap-2 border border-[#E3E8EF] rounded-xl px-4 py-2.5 text-sm font-medium text-[#9AA4B2] hover:bg-gray-50 transition-colors focus:outline-none">
+                        <button className="flex items-center justify-between gap-2 border border-[#E3E8EF] rounded-xl px-4 py-2.5 text-sm font-medium text-[#9AA4B2] hover:bg-gray-50 transition-colors focus:outline-none">
                             {period}
                             <ChevronDown className="w-4 h-4 text-[#9AA4B2]" />
                         </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="rounded-xl">
+                    <DropdownMenuContent align="end" className="rounded-xl w-79 md:w-44">
                         {periods.map((p) => (
                             <DropdownMenuItem
                                 key={p}

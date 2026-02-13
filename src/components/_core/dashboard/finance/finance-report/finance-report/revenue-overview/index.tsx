@@ -106,20 +106,23 @@ export const RevenueOverview = () => {
     const data = DATA[selectedType];
 
     return (
-        <div className="bg-white rounded-2xl p-6 w-full">
+        <div className="bg-white rounded-2xl p-4 md:p-6 w-full">
             {/* Header row */}
-            <div className="flex items-start justify-between mb-1">
-                <p className="text-sm text-[#9AA4B2] font-bold">Revenue Overview</p>
-
-                {/* Dropdown */}
+            <div className="flex flex-col md:flex-row justify-between md:items-center gap-4 mb-4">
+                <div className="">
+                    <p className="text-sm text-[#9AA4B2] font-bold">Revenue Overview</p>
+                    <p className="text-[28px] font-black text-[#121926] leading-tight">
+                        {FormatCurrency(300000)}
+                    </p>
+                </div>
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
-                        <button className="flex items-center gap-2 border border-[#E3E8EF] rounded-lg px-4 py-2.5 text-sm font-bold text-[#9AA4B2] hover:bg-gray-50 transition-colors focus:outline-none">
+                        <button className="flex items-center justify-between gap-2 border border-[#E3E8EF] rounded-lg px-4 py-2.5 text-sm font-bold text-[#9AA4B2] hover:bg-gray-50 transition-colors focus:outline-none">
                             {selectedType}
                             <ChevronDown className="w-4 h-4 text-[#9AA4B2]" />
                         </button>
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end" className="w-44 rounded-xl">
+                    <DropdownMenuContent align="end" className="md:w-44 w-76 rounded-xl">
                         {(Object.keys(DATA) as OrderType[]).map((type) => (
                             <DropdownMenuItem
                                 key={type}
@@ -133,11 +136,6 @@ export const RevenueOverview = () => {
                     </DropdownMenuContent>
                 </DropdownMenu>
             </div>
-
-            {/* Total value */}
-            <p className="text-[28px] font-black text-[#121926] mb-4 leading-tight">
-                {FormatCurrency(300000)}
-            </p>
 
             {/* Chart */}
             <ResponsiveContainer width="100%" height={300}>

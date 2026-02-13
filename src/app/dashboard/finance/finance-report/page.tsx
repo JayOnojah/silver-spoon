@@ -11,13 +11,14 @@ import {
 } from "@/components/ui/select"
 import { FinanceReportTabs } from "@/src/components/_core/dashboard/finance/finance-report/tabs";
 import { FinanceReport } from "@/src/components/_core/dashboard/finance/finance-report/finance-report";
+import { Expenses } from "@/src/components/_core/dashboard/finance/finance-report/expenses";
 
 const FinanceReportPage = () => {
     const [activeTab, setActiveTab] = useState('finance-report');
 
     return (
         <>
-            <div className="flex justify-between items-center mb-6">
+            <div className="flex flex-col md:flex-row justify-between md:items-center mb-6 gap-4">
                 <div>
                     <h1 className="text-[#121926] font-black text-2xl pb-2">Finance</h1>
                     <p className="text-[#9AA4B2]">Manage your finances and payments</p>
@@ -37,6 +38,7 @@ const FinanceReportPage = () => {
             </div>
             <FinanceReportTabs activeTab={activeTab} setActiveTab={setActiveTab} />
             {activeTab === 'finance-report' && <FinanceReport />}
+            {activeTab === 'expenses' && <Expenses />}
         </>
     )
 }
