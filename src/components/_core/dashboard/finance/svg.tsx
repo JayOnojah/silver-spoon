@@ -47,3 +47,15 @@ export const Cart = () => {
 
     )
 }
+
+export const CalenderCheck = () => {
+    return (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2.40008 4.11719C1.94542 4.11719 1.50938 4.2978 1.18789 4.61929C0.866403 4.94078 0.685791 5.37682 0.685791 5.83147V21.26C0.685791 21.7147 0.866403 22.1507 1.18789 22.4722C1.50938 22.7937 1.94542 22.9743 2.40008 22.9743H21.2572C21.7119 22.9743 22.1479 22.7937 22.4694 22.4722C22.7909 22.1507 22.9715 21.7147 22.9715 21.26V5.83147C22.9715 5.37682 22.7909 4.94078 22.4694 4.61929C22.1479 4.2978 21.7119 4.11719 21.2572 4.11719H17.8286" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M5.82861 0.6875V7.54464" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M17.8286 0.6875V7.54464" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M5.82861 4.11719H14.4" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M6.68579 15.2623L10.1144 17.8337L16.1144 10.9766" stroke="#F74F25" strokeWidth="1.37143" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+    )
+}

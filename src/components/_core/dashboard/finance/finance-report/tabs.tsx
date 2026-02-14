@@ -14,7 +14,7 @@ interface Tab {
 
 const tabs: Tab[] = [
     { id: 'finance-report', label: 'FInance Report' },
-    { id: 'expenses', label: 'Expences' },
+    { id: 'expenses', label: 'Expenses' },
     { id: 'invoices', label: 'Invoices' },
 ];
 

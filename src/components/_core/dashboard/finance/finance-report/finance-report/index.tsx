@@ -1,4 +1,4 @@
-import { StatsCard } from "./static-card"
+import { StatsCard } from "../static-card"
 import { Cash } from "../../../customer/svg"
 import { CoinStackSm, GraphBarSm, CashBill } from "../../svg"
 import { Cart } from "../../svg"
