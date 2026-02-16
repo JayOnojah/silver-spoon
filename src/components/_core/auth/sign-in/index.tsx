@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState, useTransition } from "react";
-import { accountLogin } from "@/src/actions/account-login";
+import {accountLogin, googleLogin} from "@/src/actions/account-login";
 import { IconMail, IconLock, IconArrowLeft } from "@tabler/icons-react";
 
 const SignInForm = () => {
@@ -132,7 +132,9 @@ const SignInForm = () => {
       {/* Google Login Button */}
       <Button
         variant="outline"
-        className="w-full h-12 text-base font-medium border-[#CDD5DF]">
+        className="w-full h-12 text-base font-medium border-[#CDD5DF]"
+        onClick={async () => googleLogin()}
+      >
         <svg className="size-5 mr-2" viewBox="0 0 24 24">
           <path
             d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -158,7 +160,7 @@ const SignInForm = () => {
       <p className="text-center text-sm text-[#9AA4B2] mt-6">
         Don't have an account?{" "}
         <Link
-          href="/auth/sign-up"
+          href="/sign-up"
           className="text-primary hover:underline font-medium">
           Sign Up
         </Link>
