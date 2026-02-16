@@ -16,11 +16,14 @@ export const StatsCard = ({
 }: StatsCardProps) => {
     return (
         <div className={`bg-white p-4 rounded-2xl ${className ?? ''}`}>
-            <div className="flex justify-between items-center">
+            <div className="flex justify-between items-center ">
                 <div>
                     {icon}
                 </div>
-                <p className={`text-xs ${label === 'Expenditure Made' ? 'text-[#9AA4B2]' : 'text-[#40B773]'}`}>{range}</p>
+                <p className={`text-xs ${label === 'Expenditure Made' ? 
+                    'text-[#9AA4B2]' 
+                    : label === 'Total Outstanding'
+                    ? 'text-[#FF5B4D]' : 'text-[#40B773]'}`}>{range}</p>
             </div>
             <div className="flex flex-col">
                 <span className="text-[20px] font-black my-2 text-[#121926]">{range === null ? value : FormatCurrency(value) }</span>
