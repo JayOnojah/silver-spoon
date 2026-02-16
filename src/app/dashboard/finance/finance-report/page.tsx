@@ -12,6 +12,7 @@ import {
 import { FinanceReportTabs } from "@/src/components/_core/dashboard/finance/finance-report/tabs";
 import { FinanceReport } from "@/src/components/_core/dashboard/finance/finance-report/finance-report";
 import { Expenses } from "@/src/components/_core/dashboard/finance/finance-report/expenses";
+import { Invoices } from "@/src/components/_core/dashboard/finance/finance-report/invoices";
 
 const FinanceReportPage = () => {
     const [activeTab, setActiveTab] = useState('finance-report');
@@ -39,6 +40,7 @@ const FinanceReportPage = () => {
             <FinanceReportTabs activeTab={activeTab} setActiveTab={setActiveTab} />
             {activeTab === 'finance-report' && <FinanceReport />}
             {activeTab === 'expenses' && <Expenses />}
+            {activeTab === 'invoices' && <Invoices />}
         </>
     )
 }

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/src/components/ui/input";
 import { FormatCurrency } from "../../../shared/format-currency";
+import { RecordExpensesModal } from "./record-expenses-modal";
 
 import {
     Table,
@@ -21,7 +22,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Search, UserRound, Eye } from "lucide-react";
+import { Search } from "lucide-react";
 import { Edit, Trash } from "../../../design-operations/svg";
 import { Button } from "@/src/components/ui/button";
 
@@ -109,7 +110,10 @@ export const AllExpenses = () => {
     return (
         <>
             <div className="w-full lg:p-6 lg:bg-white rounded-2xl my-6 font-sans">
-                <h1 className="font-semibold text-[#000000] pb-4">All Expenses (67)</h1>
+                <div className="flex justify-between items-center mb-4">
+                    <h1 className="font-semibold text-[#000000]">All Expenses (67)</h1>
+                    <RecordExpensesModal btnName="New Expenses"/>
+                </div>
                 {/* Search */}
                 <div className="mb-8">
                     <div className="relative">
