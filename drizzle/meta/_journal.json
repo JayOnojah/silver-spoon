@@ -43,6 +43,13 @@
       "when": 1771197670375,
       "tag": "0005_mixed_sunspot",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1771198699794,
+      "tag": "0006_overconfident_riptide",
+      "breakpoints": true
     }
   ]
 }
