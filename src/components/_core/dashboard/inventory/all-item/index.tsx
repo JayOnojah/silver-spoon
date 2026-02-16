@@ -11,7 +11,8 @@ import {
 } from "@/components/ui/select";
 import { cn } from "@/src/lib/utils";
 import { Search, List, LayoutGrid } from "lucide-react";
-import ListItems from "./list/list";
+import ListItems from "./list";
+import GridView from "./grid";
 import Pagination from "../../order/pagination";
 
 export interface InventoryItemRow {
@@ -99,7 +100,7 @@ const COLLECTIONS = [
   "Accessories",
 ];
 
-const AllItems = () => {
+const AllItem = () => {
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState("Newest Item");
   const [collectionFilter, setCollectionFilter] = useState("All Collections");
@@ -131,9 +132,9 @@ const AllItems = () => {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 sm:bg-white sm:p-5 rounded-xl">
       {/* Header: title + sort */}
-      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div className="flex flex-row sm:items-center justify-between gap-4">
         <h2 className="text-lg font-bold text-[#121926]">All Items</h2>
         <div className="flex items-center gap-2">
           <span className="text-sm text-[#6B7280]">Sort by:</span>
@@ -160,12 +161,12 @@ const AllItems = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search by name, Collections..."
-            className="pl-9 h-10 rounded-lg border-[#D0D5DD] bg-white"
+            className="pl-9 h-10 rounded-lg border-[#D0D5DD]"
           />
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center justify-between gap-2">
           <Select value={collectionFilter} onValueChange={setCollectionFilter}>
-            <SelectTrigger className="w-40 h-10 rounded-lg border-[#D0D5DD]">
+            <SelectTrigger className="w-full sm:w-40 h-10 rounded-lg border-[#D0D5DD]">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -176,15 +177,15 @@ const AllItems = () => {
               ))}
             </SelectContent>
           </Select>
-          <div className="flex rounded-lg border border-[#E5E7EB] overflow-hidden">
+          <div className="flex rounded-md sm:rounded-lg border border-primary overflow-hidden">
             <button
               type="button"
               onClick={() => setViewMode("list")}
               className={cn(
-                "p-2.5 border-r border-[#E5E7EB] transition-colors",
+                "w-8 h-8 flex justify-center items-center border-r border-primary transition-colors",
                 viewMode === "list"
-                  ? "bg-primary/10 text-primary"
-                  : "text-[#9AA4B2] hover:bg-[#F9FAFB]",
+                  ? "bg-primary text-white"
+                  : "text-[#9AA4B2] hover:bg-[#F9FAFB] bg-primary/10",
               )}
               aria-label="List view"
             >
@@ -194,9 +195,9 @@ const AllItems = () => {
               type="button"
               onClick={() => setViewMode("grid")}
               className={cn(
-                "p-2.5 transition-colors",
+                "w-8 h-8 flex justify-center items-center transition-colors",
                 viewMode === "grid"
-                  ? "bg-primary/10 text-primary"
+                  ? "bg-primary text-white"
                   : "text-[#9AA4B2] hover:bg-[#F9FAFB]",
               )}
               aria-label="Grid view"
@@ -207,8 +208,21 @@ const AllItems = () => {
         </div>
       </div>
 
-      {/* Table */}
-      <ListItems />
+      {/* List or Grid */}
+      {viewMode === "list" ? (
+        <ListItems
+          items={items}
+          onStatusChange={handleStatusChange}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      ) : (
+        <GridView
+          items={items}
+          onEdit={handleEdit}
+          onDelete={handleDelete}
+        />
+      )}
 
       {/* Pagination */}
       <Pagination
@@ -220,4 +234,4 @@ const AllItems = () => {
   );
 };
 
-export default AllItems;
+export default AllItem;

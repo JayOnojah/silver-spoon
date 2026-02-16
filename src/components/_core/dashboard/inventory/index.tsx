@@ -3,7 +3,8 @@
 import { cn } from "@/src/lib/utils";
 import React from "react";
 import { EmptyState } from "./empty-state";
-import AllItems from "./all-items";
+import AllItems from "./all-item/index";
+import Collections from "./collections";
 
 interface IProps {
   isFilled: boolean;
@@ -48,11 +49,7 @@ const InventoryContent = ({ isFilled, onAddProduct }: IProps) => {
       </div>
 
       {activeTab === "all" && <AllItems />}
-      {activeTab === "collections" && (
-        <div className="bg-white rounded-xl border border-[#E5E7EB]/60 p-12 text-center text-[#6B7280]">
-          Collections view — coming soon
-        </div>
-      )}
+      {activeTab === "collections" && <Collections />}
     </div>
   );
 };
