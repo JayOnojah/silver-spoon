@@ -101,7 +101,7 @@ async function persistRefreshToken(
 async function revokeRefreshToken(refreshToken: string) {
   await db
     .update(mobileUserRefreshTokens)
-    .set({ revoked: "true" })
+    .set({ revoked: true })
     .where(eq(mobileUserRefreshTokens.refreshToken, refreshToken));
 }
 
