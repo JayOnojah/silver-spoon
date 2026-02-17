@@ -16,6 +16,12 @@ export const mobileUserProviderEnum = pgEnum("mobile_user_provider", [
   "apple",
 ]);
 
+export const measurementStatusEnum = pgEnum("measurement_status", [
+  "processing",
+  "completed",
+  "failed",
+]);
+
 export const paymentMethodEnum = pgEnum("payment_method", [
   "card",
   "cash",
