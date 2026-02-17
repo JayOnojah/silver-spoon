@@ -43,6 +43,13 @@
       "when": 1771328334918,
       "tag": "0005_smart_spyke",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1771335820276,
+      "tag": "0006_past_angel",
+      "breakpoints": true
     }
   ]
 }

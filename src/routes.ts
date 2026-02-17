@@ -22,6 +22,7 @@ export const publicPrefixes = [
   "/website",
   "/api/orders",
   "/api/reviews",
+  "/api/mobile",
 ];
 
 /**
