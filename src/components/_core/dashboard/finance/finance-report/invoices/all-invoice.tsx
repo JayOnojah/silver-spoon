@@ -38,7 +38,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Badge } from "@/src/components/ui/badge";
-import { Separator } from "@radix-ui/react-separator";
+import { FileMultiple } from "../../svg";
 
 type PaymentStatus = "Not Paid" | "Partial Payment" | "Paid In Full";
 
@@ -95,6 +95,7 @@ export const AllInvoice = () => {
     const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set());
     const [bulkStatus, setBulkStatus] = useState<string>("");
     const [currentPage, setCurrentPage] = useState(1);
+    const [isEmpty, setIsEmpty] = useState(false);
     const totalPages = 10;
 
     // Filter by tab
@@ -421,9 +422,9 @@ export const AllInvoice = () => {
                                                 title={label}
                                                 className={cn(
                                                     "flex-1 flex items-center justify-center h-12 rounded-xl border text-[#9AA4B2] hover:text-gray-500 transition-colors",
-                                                    
-                                                        
-                                                         "border-[#CDD5DF] hover:border-gray-400"
+
+
+                                                    "border-[#CDD5DF] hover:border-gray-400"
                                                 )}
                                             >
                                                 <Icon className="h-4 w-4" />
@@ -436,6 +437,16 @@ export const AllInvoice = () => {
                     )}
                 </div>
             </div>
+            {/* Empty State */}
+            {isEmpty && (
+                <div className="w-full mt-6 py-30 bg-white flex flex-col justify-center items-center rounded-2xl">
+                    <div className="flex justify-center mb-5">
+                        <FileMultiple />
+                    </div>
+                    <h1 className="text-black mb-2 font-bold text-[18px] text-center">No Invoice Created Yet</h1>
+                    <p className="text-[#9AA4B2] text-sm text-center">All created invoices from an order will be displayed here</p>
+                </div>
+            )}
             {/* Pagination */}
             <div className="grid grid-cols-3 w-full items-center pb-6 mt-6">
                 <p className="text-sm text-[#121926]">Page {currentPage} of {totalPages}</p>
