@@ -1,5 +1,6 @@
 import { Button } from "@/src/components/ui/button";
 import { ShoppingBag, Plus } from "lucide-react";
+import AddProduct from "./add-product";
 
 interface EmptyStateProps {
   onAddProduct?: () => void;
@@ -16,13 +17,7 @@ export function EmptyState({ onAddProduct }: EmptyStateProps) {
         Add your first product to start managing your inventory and selling on
         your storefront.
       </p>
-      <Button
-        onClick={onAddProduct}
-        className="bg-primary text-white hover:bg-primary/90 rounded-xl h-10 px-4 gap-2 font-semibold"
-      >
-        <Plus className="size-4" />
-        New Product
-      </Button>
+      <AddProduct />
     </div>
   );
 }

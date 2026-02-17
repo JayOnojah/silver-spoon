@@ -14,6 +14,7 @@ import { FormatCurrency } from "@/src/components/_core/dashboard/shared/format-c
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 import ListMobile from "./list-mobile";
+import { DeleteSvg, EditSvg } from "../../../order/svg";
 
 export interface InventoryItemRow {
   id: string;
@@ -209,7 +210,7 @@ const ListItems = ({
                       onClick={() => onEdit(row.id)}
                       aria-label="Edit"
                     >
-                      <Pencil className="size-4" />
+                      <EditSvg  />
                     </Button>
                     <Button
                       type="button"
@@ -219,7 +220,7 @@ const ListItems = ({
                       onClick={() => onDelete(row.id)}
                       aria-label="Delete"
                     >
-                      <Trash2 className="size-4" />
+                      <DeleteSvg />
                     </Button>
                   </div>
                 </TableCell>

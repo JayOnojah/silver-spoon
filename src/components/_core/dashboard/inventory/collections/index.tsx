@@ -10,7 +10,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import Pagination from "../../order/pagination";
-import { Search, Plus, ShoppingBag, MoreVertical, } from "lucide-react";
+import CreateCollection from "./create-collection";
+import { Search, Plus, ShoppingBag, MoreVertical } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 export interface CollectionCardItem {
   id: string;
@@ -22,27 +24,42 @@ const DUMMY_COLLECTIONS: CollectionCardItem[] = Array.from(
   { length: 12 },
   (_, i) => ({
     id: `c${i + 1}`,
-    name: i === 2 ? "Collection Name is too long to display in one line" : "Collection Name",
+    name:
+      i === 2
+        ? "Collection Name is too long to display in one line"
+        : "Collection Name",
     productCount: 10,
   }),
 );
 
 const Collections = () => {
   const [search, setSearch] = useState("");
-  const [collections, setCollections] = useState<CollectionCardItem[]>(DUMMY_COLLECTIONS);
+  const [collections, setCollections] =
+    useState<CollectionCardItem[]>(DUMMY_COLLECTIONS);
   const [currentPage, setCurrentPage] = useState(1);
+  const [createCollectionOpen, setCreateCollectionOpen] = useState(false);
   const totalPages = 10;
+  const router = useRouter();
 
-  const handleNewCollection = () => {
-    // TODO: open New Collection modal
+  const handleNewCollection = () => setCreateCollectionOpen(true);
+
+  const handleCreateCollection = (name: string) => {
+    setCollections((prev) => [
+      ...prev,
+      {
+        id: `c-${Date.now()}`,
+        name,
+        productCount: 0,
+      },
+    ]);
   };
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) setCurrentPage(page);
   };
 
-  const handleEdit = (id: string) => {
-    // TODO: open edit collection
+  const handleViewDetails = (id: string) => {
+    router.push(`inventory/collection/${id}`);
   };
 
   const handleDelete = (id: string) => {
@@ -95,7 +112,9 @@ const Collections = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-40">
-                <DropdownMenuItem onClick={() => handleEdit(collection.id)}>
+                <DropdownMenuItem
+                  onClick={() => handleViewDetails(collection.id)}
+                >
                   View Details
                 </DropdownMenuItem>
                 <DropdownMenuItem
@@ -111,9 +130,13 @@ const Collections = () => {
               {collection.name}
             </p>
             <div className="flex items-center gap-2 mt-2 text-[#9AA4B2]">
-              <ShoppingBag className="size-4 text-primary shrink-0" strokeWidth={2} />
+              <ShoppingBag
+                className="size-4 text-primary shrink-0"
+                strokeWidth={2}
+              />
               <span className="text-sm">
-                {collection.productCount} Product{collection.productCount !== 1 ? "s" : ""}
+                {collection.productCount} Product
+                {collection.productCount !== 1 ? "s" : ""}
               </span>
             </div>
           </div>
@@ -124,6 +147,12 @@ const Collections = () => {
         currentPage={currentPage}
         totalPages={totalPages}
         handlePageChange={handlePageChange}
+      />
+
+      <CreateCollection
+        open={createCollectionOpen}
+        onOpenChange={setCreateCollectionOpen}
+        onCreate={handleCreateCollection}
       />
     </div>
   );

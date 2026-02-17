@@ -1,5 +1,6 @@
 import { Button } from "@/src/components/ui/button";
-import { Eye, Plus } from "lucide-react";
+import { Eye } from "lucide-react";
+import AddProduct from "./add-product";
 
 const Header = () => {
   return (
@@ -14,13 +15,7 @@ const Header = () => {
           <Eye className="size-4" />
           View Storefront
         </Button>
-        <Button
-          type="button"
-          className="bg-primary text-white hover:bg-primary/90 rounded-xl h-10 px-4 gap-2"
-        >
-          <Plus className="size-4" />
-          New Product
-        </Button>
+        <AddProduct />
       </div>
     </div>
   );
