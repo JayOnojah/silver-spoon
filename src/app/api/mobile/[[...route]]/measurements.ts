@@ -1,14 +1,15 @@
-import { Hono } from "hono";
-import { db } from "@/src/db/drizzle";
-import { eq, and, desc, ilike, count } from "drizzle-orm";
-import { createId } from "@paralleldrive/cuid2";
-import { HTTPException } from "hono/http-exception";
-import { requireAuth } from "@/src/middleware/require-auth";
 import {
   mobileUserMeasurements,
   mobileUserMeasurementShares,
 } from "@/src/db/schemas/mobile-user-measurements";
+
+import { Hono } from "hono";
+import { db } from "@/src/db/drizzle";
+import { createId } from "@paralleldrive/cuid2";
+import { HTTPException } from "hono/http-exception";
 import { businesses } from "@/src/db/schemas/businesses";
+import { eq, and, desc, ilike, count } from "drizzle-orm";
+import { requireAuth } from "@/src/middleware/require-auth";
 
 /* -----------------------------------
    Type-safe JWT Payload
@@ -44,7 +45,16 @@ app.post("/", async (c) => {
 
   const body = await c.req.json();
 
-  const { title, height, waist, unit, frontImageUrl, frontImageKey, sideImageUrl, sideImageKey } = body;
+  const {
+    title,
+    height,
+    waist,
+    unit,
+    frontImageUrl,
+    frontImageKey,
+    sideImageUrl,
+    sideImageKey,
+  } = body;
 
   if (!title || !height) {
     throw new HTTPException(400, {
@@ -113,7 +123,10 @@ app.get("/", async (c) => {
 
   if (status) {
     conditions.push(
-      eq(mobileUserMeasurements.status, status as "processing" | "completed" | "failed"),
+      eq(
+        mobileUserMeasurements.status,
+        status as "processing" | "completed" | "failed",
+      ),
     );
   }
 
