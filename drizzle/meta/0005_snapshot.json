@@ -1,5 +1,5 @@
 {
-  "id": "9c2a2297-bc2e-4c39-b889-42626a4897dc",
+  "id": "5acee07c-2200-4ed5-94a6-3d4a8b301711",
   "prevId": "22d8874a-90b6-429b-9e4a-f5fc2659745e",
   "version": "7",
   "dialect": "postgresql",
@@ -1694,6 +1694,14 @@
         "tailor",
         "cashier",
         "apprentice"
+      ]
+    },
+    "public.mobile_user_provider": {
+      "name": "mobile_user_provider",
+      "schema": "public",
+      "values": [
+        "google",
+        "apple"
       ]
     },
     "public.order_source": {

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Input } from "@/src/components/ui/input";
 import { FormatCurrency } from "../../../shared/format-currency";
+import { RecordExpensesModal } from "./record-expenses-modal";
+import { GraphBarSm } from "../../svg";
 
 import {
     Table,
@@ -21,7 +23,7 @@ import {
     PaginationNext,
     PaginationPrevious,
 } from "@/components/ui/pagination"
-import { Search, UserRound, Eye } from "lucide-react";
+import { Search } from "lucide-react";
 import { Edit, Trash } from "../../../design-operations/svg";
 import { Button } from "@/src/components/ui/button";
 
@@ -103,13 +105,17 @@ const allExpenses: AllExpenses[] = [
 
 export const AllExpenses = () => {
     const router = useRouter();
+    const [isEmpty, setIsEmpty] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const totalPages = 10;
 
     return (
         <>
             <div className="w-full lg:p-6 lg:bg-white rounded-2xl my-6 font-sans">
-                <h1 className="font-semibold text-[#000000] pb-4">All Expenses (67)</h1>
+                <div className="flex flex-col md:flex-row justify-between gap-4 md:items-center mb-4">
+                    <h1 className="font-semibold text-[#000000]">All Expenses (67)</h1>
+                    <RecordExpensesModal btnName="New Expenses" />
+                </div>
                 {/* Search */}
                 <div className="mb-8">
                     <div className="relative">
@@ -217,6 +223,17 @@ export const AllExpenses = () => {
                 </div>
 
             </div>
+            {/* Empty State */}
+            {isEmpty && (
+                <div className="w-full mt-6 py-30 bg-white flex flex-col justify-center items-center rounded-2xl">
+                    <div className="flex justify-center mb-5">
+                        <GraphBarSm />
+                    </div>
+                    <h1 className="text-black mb-2 font-bold text-[18px] text-center">No expenses recorded yet</h1>
+                    <p className="text-[#9AA4B2] text-sm text-center mb-8">Track your business expenses to see a breakdown here.</p>
+                    <RecordExpensesModal btnName="Record Expenses" />
+                </div>
+            )}
             {/* Pagination */}
             <div className="grid grid-cols-3 w-full items-center pb-6">
                 <p className="text-sm text-[#121926]">Page {currentPage} of {totalPages}</p>
