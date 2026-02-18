@@ -1,8 +1,9 @@
 "use server";
 
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import { db } from "@/src/db/drizzle";
 import { users } from "@/src/db/schemas/users";
+import { User } from "@/src/resources/user";
 
 export const getUserByEmail = async (email: string) => {
   if (!email) return null;
@@ -118,6 +119,27 @@ export const getUserByIdWithPassword = async (id: string) => {
     };
   } catch (error) {
     console.error("Error fetching user by id with password:", error);
+    return null;
+  }
+};
+
+export const getUserByProvider = async (provider: string, providerId: string) => {
+  if (!provider || !providerId) return null;
+
+  try {
+    const [user] = await db.select().from(users)
+      .where(
+        and(
+          eq(users.provider, "google"),
+          eq(users.providerId, providerId),
+        )
+      );
+
+    if (!user) return null;
+
+    return User.parse(user);
+  } catch (error) {
+    console.error("Error fetching user by provider ID:", error);
     return null;
   }
 };

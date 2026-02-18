@@ -4,8 +4,9 @@ import { db } from "@/src/db/drizzle";
 import authConfig from "@/auth.config";
 import { users } from "@/src/db/schemas/users";
 import type { DefaultSession } from "next-auth";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
 import { getUserByIdWithPassword } from "@/src/data/user";
+import {createId} from "@paralleldrive/cuid2";
+import {createAccountGoogle} from "@/src/actions/create-account-google";
 declare module "next-auth" {
   interface Session {
     user: {
@@ -43,7 +44,32 @@ export const {
     },
   },
   callbacks: {
-    async signIn({ user }) {
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "google" && user.email && profile) {
+        if (!profile?.email || !profile?.sub) {
+          return false;
+        }
+
+        const payload = {
+          id: createId(),
+          firstName: profile.given_name,
+          lastName: profile.family_name,
+          email: profile.email,
+          provider: "google",
+          providerId: profile.sub,
+          avatar: profile.picture,
+          platformRole: "owner",
+        }
+
+        const result = await createAccountGoogle(payload);
+
+        if (result?.error) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+
       // If user.id is missing, reject
       if (!user?.id) return false;
 
@@ -107,7 +133,6 @@ export const {
     },
   },
 
-  adapter: DrizzleAdapter(db),
   session: { strategy: "jwt" },
   ...authConfig,
 });
