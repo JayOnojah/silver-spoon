@@ -50,6 +50,13 @@
       "when": 1771335820276,
       "tag": "0006_past_angel",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1771458211793,
+      "tag": "0007_famous_guardsmen",
+      "breakpoints": true
     }
   ]
 }
