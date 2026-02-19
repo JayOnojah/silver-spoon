@@ -31,7 +31,8 @@ export const changePassword = async (
 
     // Fetch user
     const existingUser = await getUserByEmailWithPassword(authUser.email);
-    if (!existingUser) return { error: "User does not exist." };
+    if (!existingUser || !existingUser.password)
+      return { error: "User does not exist." };
 
     // Validate old password
     const isOldPasswordCorrect = await bcrypt.compare(
