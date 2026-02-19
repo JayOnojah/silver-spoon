@@ -63,3 +63,28 @@ export const SignUpSchema = z.object({
     message: "You must agree to the terms and conditions",
   }),
 });
+
+export const GoogleOAuthSignUpSchema = z.object({
+  firstName: z.string().min(2).max(100).trim().min(2, {
+    message: "The first name field is required",
+  }),
+  lastName: z.string().min(2).max(100).trim().min(2, {
+    message: "The last name field is required",
+  }),
+  email: z.string().email({
+    message: "The email address field is required",
+  }),
+  phone: z.string().min(10).optional().or(z.literal("")),
+  provider: z.string().min(2, {
+    message: "A minimum of 6 characters is required",
+  }),
+  providerId: z.string().min(2, {
+    message: "A minimum of 6 characters is required",
+  }),
+  avatar: z
+    .string()
+    .min(2, {
+      message: "A minimum of 6 characters is required",
+    })
+    .nullable(),
+});

@@ -8,6 +8,13 @@
       "when": 1771509099397,
       "tag": "0000_chubby_ink",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1771514223688,
+      "tag": "0001_heavy_wonder_man",
+      "breakpoints": true
     }
   ]
 }

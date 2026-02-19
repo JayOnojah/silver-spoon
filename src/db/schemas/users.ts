@@ -1,5 +1,5 @@
 import { timestamps } from "../utils";
-import { userPlatformRoleEnum } from "../enums";
+import { userPlatformRoleEnum, UserProviderEnum } from "../enums";
 import { createInsertSchema } from "drizzle-zod";
 import { pgTable, text, boolean, timestamp } from "drizzle-orm/pg-core";
 
@@ -13,6 +13,8 @@ export const users = pgTable("users", {
   phoneVerified: timestamp("phone_verified", { mode: "date" }),
   password: text("password"),
   avatar: text("avatar"),
+  provider: UserProviderEnum("provider"),
+  providerId: text("provider_id").unique(),
   platformRole: userPlatformRoleEnum("role").notNull().default("owner"),
   defaultBusinessId: text("default_business_id"),
   defaultBusinessType: text("default_business_type"),

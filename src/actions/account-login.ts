@@ -74,3 +74,7 @@ export async function accountLogin(
     throw error;
   }
 }
+
+export async function googleLogin() {
+  await signIn("google");
+}
