@@ -13,7 +13,7 @@ import { FashionDesigners } from "@/components/_core/landing-pages/home/fashion-
 import { AcademicResource } from "@/components/_core/landing-pages/home/academic-resource";
 
 export const metadata: Metadata = {
-  title: "Silver Spoon: Fashion Designers & Cobblers Business Tool",
+  title: "Silver Spoon: Fashion Designers & Cobblers Business Tool.",
   description:
     "All-in-one tool to manage your fashion designers or cobblers business. Take measurements, digital catalogue, mood boards, invoicing, website, and more.",
 };
