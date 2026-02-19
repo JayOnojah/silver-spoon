@@ -123,16 +123,18 @@ export const getUserByIdWithPassword = async (id: string) => {
   }
 };
 
-export const getUserByProvider = async (provider: string, providerId: string) => {
+export const getUserByProvider = async (
+  provider: string,
+  providerId: string,
+) => {
   if (!provider || !providerId) return null;
 
   try {
-    const [user] = await db.select().from(users)
+    const [user] = await db
+      .select()
+      .from(users)
       .where(
-        and(
-          eq(users.provider, "google"),
-          eq(users.providerId, providerId),
-        )
+        and(eq(users.provider, "google"), eq(users.providerId, providerId)),
       );
 
     if (!user) return null;

@@ -74,15 +74,17 @@ export const GoogleOAuthSignUpSchema = z.object({
   email: z.string().email({
     message: "The email address field is required",
   }),
-  phone: z.string().min(10).optional()
-    .or(z.literal("")),
+  phone: z.string().min(10).optional().or(z.literal("")),
   provider: z.string().min(2, {
     message: "A minimum of 6 characters is required",
   }),
   providerId: z.string().min(2, {
     message: "A minimum of 6 characters is required",
   }),
-  avatar: z.string().min(2, {
-    message: "A minimum of 6 characters is required",
-  }).nullable(),
+  avatar: z
+    .string()
+    .min(2, {
+      message: "A minimum of 6 characters is required",
+    })
+    .nullable(),
 });

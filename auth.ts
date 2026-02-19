@@ -1,12 +1,13 @@
-import NextAuth from "next-auth";
+import { createId } from "@paralleldrive/cuid2";
 import { eq } from "drizzle-orm";
-import { db } from "@/src/db/drizzle";
-import authConfig from "@/auth.config";
-import { users } from "@/src/db/schemas/users";
 import type { DefaultSession } from "next-auth";
+import NextAuth from "next-auth";
+import authConfig from "@/auth.config";
+import { createAccountGoogle } from "@/src/actions/create-account-google";
 import { getUserByIdWithPassword } from "@/src/data/user";
-import {createId} from "@paralleldrive/cuid2";
-import {createAccountGoogle} from "@/src/actions/create-account-google";
+import { db } from "@/src/db/drizzle";
+import { users } from "@/src/db/schemas/users";
+
 declare module "next-auth" {
   interface Session {
     user: {
@@ -59,7 +60,7 @@ export const {
           providerId: profile.sub,
           avatar: profile.picture,
           platformRole: "owner",
-        }
+        };
 
         const result = await createAccountGoogle(payload);
 

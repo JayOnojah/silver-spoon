@@ -1,9 +1,9 @@
 "use server";
 
-import { db } from "@/src/db/drizzle";
-import { users } from "@/src/db/schemas/users";
 import { createId } from "@paralleldrive/cuid2";
 import { getUserByProvider } from "@/src/data/user";
+import { db } from "@/src/db/drizzle";
+import { users } from "@/src/db/schemas/users";
 import { GoogleOAuthSignUpSchema } from "@/src/schemas/user";
 
 export const createAccountGoogle = async (values: {
@@ -12,9 +12,9 @@ export const createAccountGoogle = async (values: {
   provider: string;
   providerId: string;
   id: string;
-  avatar: any;
+  avatar: string | null;
   platformRole: string;
-  email: string
+  email: string;
 }) => {
   const validatedFields = GoogleOAuthSignUpSchema.safeParse(values);
 
@@ -22,13 +22,8 @@ export const createAccountGoogle = async (values: {
     return { error: "Invalid sign-up data. Please check your inputs." };
   }
 
-  const {
-    firstName,
-    lastName,
-    email,
-    providerId,
-    avatar,
-  } = validatedFields.data;
+  const { firstName, lastName, email, providerId, avatar } =
+    validatedFields.data;
 
   const existingUser = await getUserByProvider("google", providerId);
   if (existingUser) {
