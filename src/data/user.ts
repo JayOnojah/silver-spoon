@@ -2,8 +2,8 @@
 
 import { and, eq } from "drizzle-orm";
 import { db } from "@/src/db/drizzle";
-import { users } from "@/src/db/schemas/users";
 import { User } from "@/src/resources/user";
+import { users } from "@/src/db/schemas/users";
 
 export const getUserByEmail = async (email: string) => {
   if (!email) return null;

@@ -1,6 +1,6 @@
 import { timestamps } from "../utils";
-import { userPlatformRoleEnum, UserProviderEnum } from "../enums";
 import { createInsertSchema } from "drizzle-zod";
+import { userPlatformRoleEnum, UserProviderEnum } from "../enums";
 import { pgTable, text, boolean, timestamp } from "drizzle-orm/pg-core";
 
 export const users = pgTable("users", {
